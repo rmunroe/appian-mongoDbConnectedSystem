@@ -1,6 +1,6 @@
-package com.appiancorp.solutionsconsulting.cs.mongodb.Operations;
+package com.appiancorp.solutionsconsulting.cs.mongodb.operations;
 
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.InvalidJsonException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import com.mongodb.client.model.Collation;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;

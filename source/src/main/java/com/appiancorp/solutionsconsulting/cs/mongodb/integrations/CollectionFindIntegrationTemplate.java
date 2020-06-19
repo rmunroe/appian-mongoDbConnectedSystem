@@ -6,10 +6,10 @@ import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.InvalidJsonException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionFindOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionFindOperation;
 import com.mongodb.MongoExecutionTimeoutException;
 import com.mongodb.MongoQueryException;
 

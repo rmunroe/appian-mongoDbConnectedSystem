@@ -1,11 +1,11 @@
 package com.appiancorp.solutionsconsulting.cs.mongodb;
 
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionAggregateOperation;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionCountOperation;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionFindOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionAggregateOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionCountOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionFindOperation;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.*;

@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions;
+package com.appiancorp.solutionsconsulting.cs.mongodb.exceptions;
 
 public class MissingCollectionException extends Exception {
     public MissingCollectionException(String collectionName) {

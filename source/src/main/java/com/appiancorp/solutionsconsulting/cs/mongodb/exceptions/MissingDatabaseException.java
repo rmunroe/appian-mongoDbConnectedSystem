@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions;
+package com.appiancorp.solutionsconsulting.cs.mongodb.exceptions;
 
 public class MissingDatabaseException extends Exception {
     public MissingDatabaseException(String databaseName) {

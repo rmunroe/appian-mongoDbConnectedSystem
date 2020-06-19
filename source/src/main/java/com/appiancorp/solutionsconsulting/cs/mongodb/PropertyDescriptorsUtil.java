@@ -3,7 +3,7 @@ package com.appiancorp.solutionsconsulting.cs.mongodb;
 import com.appian.connectedsystems.simplified.sdk.SimpleIntegrationTemplate;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.configuration.*;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

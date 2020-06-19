@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.cs.mongodb.Operations;
+package com.appiancorp.solutionsconsulting.cs.mongodb.operations;
 
 import java.util.Map;
 

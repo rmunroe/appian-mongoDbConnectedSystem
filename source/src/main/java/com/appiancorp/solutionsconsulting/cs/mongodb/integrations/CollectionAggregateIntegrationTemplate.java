@@ -1,23 +1,19 @@
 package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 
-import com.appian.connectedsystems.simplified.sdk.SimpleIntegrationTemplate;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
-import com.appian.connectedsystems.templateframework.sdk.TemplateId;
 import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
-import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 import com.appiancorp.solutionsconsulting.cs.mongodb.ConnectedSystemUtil;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.InvalidJsonException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.IntegrationUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbUtility;
-import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionAggregateOperation;
 import com.appiancorp.solutionsconsulting.cs.mongodb.PropertyDescriptorsUtil;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionAggregateOperation;
 import com.mongodb.MongoCommandException;
 import com.mongodb.MongoExecutionTimeoutException;
 import com.mongodb.MongoQueryException;

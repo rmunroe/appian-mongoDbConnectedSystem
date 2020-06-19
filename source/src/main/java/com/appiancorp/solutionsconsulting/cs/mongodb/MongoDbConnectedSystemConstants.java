@@ -50,4 +50,7 @@ public class MongoDbConnectedSystemConstants {
     public final static String MAX_TIME = "MAX_TIME";
 
     public final static String AGGREGATE_PIPELINE_JSON = "AGGREGATE_PIPELINE_JSON";
+
+    public final static String INSERT_MANY_JSON = "INSERT_MANY_JSON";
+    public final static String INSERT_ONE_JSON = "INSERT_ONE_JSON";
 }

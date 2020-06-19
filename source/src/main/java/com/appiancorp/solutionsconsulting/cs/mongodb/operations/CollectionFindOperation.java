@@ -8,7 +8,7 @@ import org.bson.Document;
 import java.util.Map;
 
 
-public class CollectionFindOperation extends CollectionOperation {
+public class CollectionFindOperation extends CollectionReadOperation {
     private String outputType;
     private String filterJson;
     private Document filterDocument;

@@ -25,11 +25,19 @@
         <integration-template key="CollectionCountIntegrationTemplate" name="CollectionCountIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CollectionCountIntegrationTemplate"/>
 
-        <integration-template key="ReadCollectionAggregateIntegrationTemplate" name="ReadCollectionAggregateIntegrationTemplate"
+        <integration-template key="ReadCollectionAggregateIntegrationTemplate"
+                              name="ReadCollectionAggregateIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadCollectionAggregateIntegrationTemplate"/>
 
-        <integration-template key="WriteCollectionAggregateIntegrationTemplate" name="WriteCollectionAggregateIntegrationTemplate"
+        <integration-template key="WriteCollectionAggregateIntegrationTemplate"
+                              name="WriteCollectionAggregateIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteCollectionAggregateIntegrationTemplate"/>
+
+        <integration-template key="InsertManyIntegrationTemplate" name="InsertManyIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertManyIntegrationTemplate"/>
+
+        <integration-template key="InsertOneIntegrationTemplate" name="InsertOneIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertOneIntegrationTemplate"/>
 
     </connected-system-template>
 </appian-plugin>

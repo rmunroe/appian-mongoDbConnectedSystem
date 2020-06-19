@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class CollectionAggregateOperation extends CollectionOperation {
+public class CollectionAggregateOperation extends CollectionReadOperation {
     private String outputType;
     private String stagesJson;
     private List<Document> stagesDocuments;

@@ -8,7 +8,7 @@ import org.bson.Document;
 import java.util.Map;
 
 
-public class CollectionCountOperation extends CollectionOperation {
+public class CollectionCountOperation extends CollectionReadOperation {
     private String filterJson;
     private Document filterDocument;
     private Collation collation;

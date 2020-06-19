@@ -3,17 +3,17 @@ package com.appiancorp.solutionsconsulting.cs.mongodb;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionAggregateOperation;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionCountOperation;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionFindOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.*;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.*;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -79,7 +79,7 @@ public class MongoDbUtility {
         List<Map<String, Object>> results = new ArrayList<>();
 
         for (Document doc : database.listCollections()) {
-            results.add(prepDocumentForOutput(doc, false, uuidAsString));
+            results.add(MongoDocumentUtil.prepDocumentForOutput(doc, false, uuidAsString));
         }
 
         return results;
@@ -101,7 +101,7 @@ public class MongoDbUtility {
         List<Map<String, Object>> results = new ArrayList<>();
 
         for (Document doc : execFind(op)) {
-            results.add(prepDocumentForOutput(doc, true, false));
+            results.add(MongoDocumentUtil.prepDocumentForOutput(doc, true, false));
         }
 
         return results;
@@ -195,28 +195,28 @@ public class MongoDbUtility {
     }
 
 
-    /**
-     * Cleans up any oddities in the Document, such as better handling of ObjectIds and UUIDs
-     *
-     * @param document A org.bson.Document
-     * @return A cleaned HashMap
-     */
-    public Document prepDocumentForOutput(Document document, Boolean objectIdAsString, Boolean uuidAsString) {
-        for (String key : document.keySet()) {
-            Object val = document.get(key);
+    public List<Document> insertMany(InsertManyOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-            if (val instanceof Document) {
-                document.put(key, prepDocumentForOutput((Document) val, objectIdAsString, uuidAsString)); // recurse
+        List<Document> documents = op.getDocuments();
+        collection.insertMany(documents);
 
-            } else if (objectIdAsString != null && objectIdAsString && val instanceof ObjectId) {
-                document.put(key, val.toString());
+        List<Document> updated = new ArrayList<>();
+        documents.forEach(doc -> updated.add(MongoDocumentUtil.prepDocumentForOutput(doc, true, true)));
 
-            } else if (uuidAsString != null && uuidAsString && val instanceof UUID) {
-                document.put(key, val.toString());
-            }
-        }
+        return updated;
+    }
 
-        return document;
+
+    public Document insertOne(InsertOneOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        Document document = op.getDocument();
+        collection.insertOne(document);
+
+        return MongoDocumentUtil.prepDocumentForOutput(document, true, true);
     }
 
 

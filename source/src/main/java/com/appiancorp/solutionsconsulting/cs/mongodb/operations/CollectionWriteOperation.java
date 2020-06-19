@@ -4,27 +4,22 @@ import java.util.Map;
 
 
 /**
- * Data object class for operations on Collections
+ * Data object class for write operations on Collections
  */
-public class CollectionOperation extends BaseOperation {
+public class CollectionWriteOperation extends BaseOperation {
     private String databaseName;
     private Boolean validateDatabase;
     private String collectionName;
     private Boolean validateCollection;
-    private String readPreference;
-    private String readConcern;
 
-
-    public CollectionOperation(String databaseName, Boolean validateDatabase,
-                               String collectionName, Boolean validateCollection,
-                               String readPreference, String readConcern
+    public CollectionWriteOperation(
+            String databaseName, Boolean validateDatabase,
+            String collectionName, Boolean validateCollection
     ) {
         setDatabaseName(databaseName);
         setValidateDatabase(validateDatabase);
         setCollectionName(collectionName);
         setValidateCollection(validateCollection);
-        setReadPreference(readPreference);
-        setReadConcern(readConcern);
     }
 
     @Override
@@ -35,8 +30,6 @@ public class CollectionOperation extends BaseOperation {
         diagnostic.put("Validate Database", getValidateDatabase());
         diagnostic.put("Collection", getCollectionName());
         diagnostic.put("Validate Collection", getValidateDatabase());
-        diagnostic.put("Read Preference", getReadPreference());
-        diagnostic.put("Read Concern", getReadConcern());
 
         return diagnostic;
     }
@@ -71,21 +64,5 @@ public class CollectionOperation extends BaseOperation {
 
     public void setValidateCollection(Boolean validateCollection) {
         this.validateCollection = validateCollection;
-    }
-
-    public String getReadPreference() {
-        return readPreference;
-    }
-
-    public void setReadPreference(String readPreference) {
-        this.readPreference = readPreference;
-    }
-
-    public String getReadConcern() {
-        return readConcern;
-    }
-
-    public void setReadConcern(String readConcern) {
-        this.readConcern = readConcern;
     }
 }

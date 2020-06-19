@@ -21,9 +21,6 @@ import com.appiancorp.solutionsconsulting.cs.mongodb.PropertyDescriptorsUtil;
 import com.mongodb.MongoExecutionTimeoutException;
 import com.mongodb.MongoQueryException;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,8 +103,8 @@ public class ExportCollectionFindIntegrationTemplate extends SimpleIntegrationTe
         output.put("collection", findOperation.getCollectionName());
 
         try {
-            List<String> jsons = mongoDbUtility.findJson(findOperation);
-            Document document = integrationUtil.writeJsonsToDocument(jsons);
+            List<String> jsonList = mongoDbUtility.findJson(findOperation);
+            Document document = integrationUtil.writeJsonListToDocument(jsonList);
             output.put("jsonDocument", document);
         } catch (MongoExecutionTimeoutException ex) {
             return csUtil.buildApiExceptionError(

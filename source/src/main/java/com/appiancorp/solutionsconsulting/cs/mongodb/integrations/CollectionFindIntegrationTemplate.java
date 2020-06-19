@@ -115,12 +115,12 @@ public class CollectionFindIntegrationTemplate extends SimpleIntegrationTemplate
                 String fileName = integrationConfiguration.getValue(OUTPUT_FILE_NAME);
                 String charset = integrationConfiguration.getValue(OUTPUT_TYPE_JSON_FILE_CHARSET);
 
-                List<String> jsons = mongoDbUtility.findJson(findOperation);
+                List<String> jsonList = mongoDbUtility.findJson(findOperation);
                 String outputText;
                 if (asArray) {
-                    outputText = "[" + String.join(",", jsons) + "]";
+                    outputText = "[" + String.join(",", jsonList) + "]";
                 } else {
-                    outputText = String.join("\n", jsons);
+                    outputText = String.join("\n", jsonList);
                 }
 
                 InputStream targetStream = new ByteArrayInputStream(outputText.getBytes(Charset.forName(charset)));

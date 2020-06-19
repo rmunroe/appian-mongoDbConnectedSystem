@@ -18,18 +18,18 @@ public class MongoDbConnectedSystemConstants {
     public final static String COLLECTION_EXISTS = "COLLECTION_EXISTS";
 
     public final static String READ_PREFERENCE = "READ_PREFERENCE";
-    public final static String READ_PREFERENCE_PRIMARY = "PRIMARY";
-    public final static String READ_PREFERENCE_PRIMARYPREFERRED = "PRIMARYPREFERRED";
-    public final static String READ_PREFERENCE_SECONDARY = "SECONDARY";
-    public final static String READ_PREFERENCE_SECONDARYPREFERRED = "SECONDARYPREFERRED";
-    public final static String READ_PREFERENCE_NEAREST = "NEAREST";
+    public final static String READ_PREFERENCE_PRIMARY = "READ_PREFERENCE_PRIMARY";
+    public final static String READ_PREFERENCE_PRIMARY_PREFERRED = "READ_PREFERENCE_PRIMARY_PREFERRED";
+    public final static String READ_PREFERENCE_SECONDARY = "READ_PREFERENCE_SECONDARY";
+    public final static String READ_PREFERENCE_SECONDARY_PREFERRED = "READ_PREFERENCE_SECONDARY_PREFERRED";
+    public final static String READ_PREFERENCE_NEAREST = "READ_PREFERENCE_NEAREST";
 
     public final static String READ_CONCERN = "READ_CONCERN";
-    public final static String READ_CONCERN_LOCAL = "LOCAL";
-    public final static String READ_CONCERN_AVAILABLE = "AVAILABLE";
-    public final static String READ_CONCERN_MAJORITY = "MAJORITY";
-    public final static String READ_CONCERN_LINEARIZABLE = "LINEARIZABLE";
-    public final static String READ_CONCERN_SNAPSHOT = "SNAPSHOT";
+    public final static String READ_CONCERN_LOCAL = "READ_CONCERN_LOCAL";
+    public final static String READ_CONCERN_AVAILABLE = "READ_CONCERN_AVAILABLE";
+    public final static String READ_CONCERN_MAJORITY = "READ_CONCERN_MAJORITY";
+    public final static String READ_CONCERN_LINEARIZABLE = "READ_CONCERN_LINEARIZABLE";
+    public final static String READ_CONCERN_SNAPSHOT = "READ_CONCERN_SNAPSHOT";
 
     public final static String COLLATION = "COLLATION";
     public final static String COLLATION_LOCALE = "COLLATION_LOCALE";
@@ -49,8 +49,5 @@ public class MongoDbConnectedSystemConstants {
     public final static String RECORD_ID = "RECORD_ID";
     public final static String MAX_TIME = "MAX_TIME";
 
-    public final static String AGGREGATE_PIPELINE_LIST = "AGGREGATE_PIPELINE_LIST";
     public final static String AGGREGATE_PIPELINE_JSON = "AGGREGATE_PIPELINE_JSON";
-
-
 }

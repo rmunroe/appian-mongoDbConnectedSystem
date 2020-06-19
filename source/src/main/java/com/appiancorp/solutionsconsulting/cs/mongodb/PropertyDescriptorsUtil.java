@@ -172,9 +172,9 @@ public class PropertyDescriptorsUtil {
                 .label("Read Preference")
                 .choices(
                         Choice.builder().name("Primary").value(READ_PREFERENCE_PRIMARY).build(),
-                        Choice.builder().name("Primary Preferred").value(READ_PREFERENCE_PRIMARYPREFERRED).build(),
+                        Choice.builder().name("Primary Preferred").value(READ_PREFERENCE_PRIMARY_PREFERRED).build(),
                         Choice.builder().name("Secondary").value(READ_PREFERENCE_SECONDARY).build(),
-                        Choice.builder().name("Secondary Preferred").value(READ_PREFERENCE_SECONDARYPREFERRED).build(),
+                        Choice.builder().name("Secondary Preferred").value(READ_PREFERENCE_SECONDARY_PREFERRED).build(),
                         Choice.builder().name("Nearest").value(READ_PREFERENCE_NEAREST).build()
                 )
                 .description("Read preference describes how MongoDB clients route read operations to the members of a replica set")

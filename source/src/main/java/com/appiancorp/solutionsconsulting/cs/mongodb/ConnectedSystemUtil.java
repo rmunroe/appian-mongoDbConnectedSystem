@@ -7,12 +7,14 @@ import com.appian.connectedsystems.templateframework.sdk.diagnostics.Integration
 import java.util.HashMap;
 import java.util.Map;
 
+
+@SuppressWarnings("unused")
 public class ConnectedSystemUtil {
     private Long startTime;
     private Long endTime;
-    private HashMap<String, Object> requestDiagnostics;
-    private HashMap<String, Object> responseDiagnostics;
-    private HashMap<String, Object> response;
+    private final HashMap<String, Object> requestDiagnostics;
+    private final HashMap<String, Object> responseDiagnostics;
+    private final HashMap<String, Object> response;
 
     public ConnectedSystemUtil(String method) {
         requestDiagnostics = new HashMap<>();

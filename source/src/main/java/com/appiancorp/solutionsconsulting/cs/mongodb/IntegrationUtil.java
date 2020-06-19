@@ -54,7 +54,7 @@ public class IntegrationUtil {
         }
     }
 
-    public Document writeJsonsToDocument(List<String> jsons) {
+    public Document writeJsonListToDocument(List<String> jsonList) {
         Boolean asArray = integrationConfiguration.getValue(OUTPUT_TYPE_JSON_FILE_ARRAY);
         Long folderId = integrationConfiguration.getValue(OUTPUT_FOLDER_ID);
         String fileName = integrationConfiguration.getValue(OUTPUT_FILE_NAME);
@@ -62,9 +62,9 @@ public class IntegrationUtil {
 
         String outputText;
         if (asArray) {
-            outputText = "[" + String.join(",", jsons) + "]";
+            outputText = "[" + String.join(",", jsonList) + "]";
         } else {
-            outputText = String.join("\n", jsons);
+            outputText = String.join("\n", jsonList);
         }
 
         InputStream targetStream = new ByteArrayInputStream(outputText.getBytes(Charset.forName(charset)));

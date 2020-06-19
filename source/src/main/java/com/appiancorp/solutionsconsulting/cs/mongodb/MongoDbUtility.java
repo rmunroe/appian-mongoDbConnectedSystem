@@ -6,7 +6,6 @@ import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseE
 import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionAggregateOperation;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionCountOperation;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionFindOperation;
-import com.mongodb.Block;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.*;
@@ -225,11 +224,11 @@ public class MongoDbUtility {
         switch (readPreference) {
             case READ_PREFERENCE_PRIMARY:
                 return ReadPreference.primary();
-            case READ_PREFERENCE_PRIMARYPREFERRED:
+            case READ_PREFERENCE_PRIMARY_PREFERRED:
                 return ReadPreference.primaryPreferred();
             case READ_PREFERENCE_SECONDARY:
                 return ReadPreference.secondary();
-            case READ_PREFERENCE_SECONDARYPREFERRED:
+            case READ_PREFERENCE_SECONDARY_PREFERRED:
                 return ReadPreference.secondaryPreferred();
             case READ_PREFERENCE_NEAREST:
                 return ReadPreference.nearest();

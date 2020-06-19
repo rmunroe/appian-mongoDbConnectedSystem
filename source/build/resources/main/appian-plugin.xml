@@ -1,7 +1,7 @@
 <appian-plugin name="MongoDB Connected System" key="com.appiancorp.solutionsconsulting.cs.mongodb">
 
     <plugin-info>
-        <description>My Corp Connected System - Hello World</description>
+        <description>MongoDB Connected System for Appian</description>
         <vendor name="Appian Solutions Consulting" url="http://www.appian.com"/>
         <version>1.0.0.0</version>
         <application-version min="19.4.0.0"/>

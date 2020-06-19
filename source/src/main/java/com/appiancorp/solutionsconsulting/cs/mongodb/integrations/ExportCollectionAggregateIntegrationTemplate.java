@@ -105,8 +105,8 @@ public class ExportCollectionAggregateIntegrationTemplate extends SimpleIntegrat
         output.put("collection", aggregateOperation.getCollectionName());
 
         try {
-            List<String> jsons = mongoDbUtility.aggregateJson(aggregateOperation);
-            Document document = integrationUtil.writeJsonsToDocument(jsons);
+            List<String> jsonList = mongoDbUtility.aggregateJson(aggregateOperation);
+            Document document = integrationUtil.writeJsonListToDocument(jsonList);
             output.put("jsonDocument", document);
         } catch (MongoExecutionTimeoutException e) {
             return csUtil.buildApiExceptionError(

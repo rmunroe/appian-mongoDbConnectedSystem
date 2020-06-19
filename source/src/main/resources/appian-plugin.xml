@@ -16,20 +16,20 @@
         <integration-template key="ListCollectionsIntegrationTemplate" name="ListCollectionsIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ListCollectionsIntegrationTemplate"/>
 
-        <integration-template key="CollectionFindIntegrationTemplate" name="CollectionFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CollectionFindIntegrationTemplate"/>
+        <integration-template key="ReadCollectionFindIntegrationTemplate" name="ReadCollectionFindIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadCollectionFindIntegrationTemplate"/>
 
-        <integration-template key="ExportCollectionFindIntegrationTemplate" name="ExportCollectionFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ExportCollectionFindIntegrationTemplate"/>
+        <integration-template key="WriteCollectionFindIntegrationTemplate" name="WriteCollectionFindIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteCollectionFindIntegrationTemplate"/>
 
         <integration-template key="CollectionCountIntegrationTemplate" name="CollectionCountIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CollectionCountIntegrationTemplate"/>
 
-        <integration-template key="CollectionAggregateIntegrationTemplate" name="CollectionAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CollectionAggregateIntegrationTemplate"/>
+        <integration-template key="ReadCollectionAggregateIntegrationTemplate" name="ReadCollectionAggregateIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadCollectionAggregateIntegrationTemplate"/>
 
-        <integration-template key="ExportCollectionAggregateIntegrationTemplate" name="ExportCollectionAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ExportCollectionAggregateIntegrationTemplate"/>
+        <integration-template key="WriteCollectionAggregateIntegrationTemplate" name="WriteCollectionAggregateIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteCollectionAggregateIntegrationTemplate"/>
 
     </connected-system-template>
 </appian-plugin>

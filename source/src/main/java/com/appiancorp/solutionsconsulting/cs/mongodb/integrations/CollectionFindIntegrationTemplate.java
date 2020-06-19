@@ -1,30 +1,18 @@
 package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 
-import com.appian.connectedsystems.simplified.sdk.SimpleIntegrationTemplate;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
-import com.appian.connectedsystems.templateframework.sdk.TemplateId;
 import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
-import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
-import com.appiancorp.solutionsconsulting.cs.mongodb.ConnectedSystemUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.InvalidJsonException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.IntegrationUtil;
-import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbUtility;
 import com.appiancorp.solutionsconsulting.cs.mongodb.Operations.CollectionFindOperation;
-import com.appiancorp.solutionsconsulting.cs.mongodb.PropertyDescriptorsUtil;
 import com.mongodb.MongoExecutionTimeoutException;
 import com.mongodb.MongoQueryException;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +20,7 @@ import java.util.Map;
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
 
-@TemplateId(name = "CollectionFindIntegrationTemplate")
-@IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class CollectionFindIntegrationTemplate extends SimpleIntegrationTemplate {
+public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplate {
 
     @Override
     protected SimpleConfiguration getConfiguration(
@@ -43,11 +29,13 @@ public class CollectionFindIntegrationTemplate extends SimpleIntegrationTemplate
             PropertyPath propertyPath,
             ExecutionContext executionContext) {
 
-        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
-        List<PropertyDescriptor<?>> propertyDescriptors = new ArrayList<>();
-        PropertyDescriptorsUtil propertyDescriptorsUtil = new PropertyDescriptorsUtil(this, integrationConfiguration, mongoDbUtility, propertyDescriptors);
+        this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
 
-        propertyDescriptorsUtil.buildOutputTypeProperty();
+        if (this.isWriteOperation())
+            propertyDescriptorsUtil.buildFileOutputProperty(); // Show file output settings
+        else
+            propertyDescriptorsUtil.buildOutputTypeProperty(); // Show Dictionary / JSON list
+
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
@@ -59,15 +47,14 @@ public class CollectionFindIntegrationTemplate extends SimpleIntegrationTemplate
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
+
     @Override
     protected IntegrationResponse execute(
             SimpleConfiguration integrationConfiguration,
             SimpleConfiguration connectedSystemConfiguration,
             ExecutionContext executionContext) {
 
-        ConnectedSystemUtil csUtil = new ConnectedSystemUtil("MongoCollection.find()");
-        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
-        IntegrationUtil integrationUtil = new IntegrationUtil(integrationConfiguration, executionContext);
+        this.setupExecute("MongoCollection.find()", integrationConfiguration, connectedSystemConfiguration, executionContext);
 
         CollectionFindOperation findOperation;
         try {
@@ -107,32 +94,19 @@ public class CollectionFindIntegrationTemplate extends SimpleIntegrationTemplate
         output.put("collection", findOperation.getCollectionName());
 
         try {
-            if (findOperation.getOutputType() != null && findOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
-                output.put("documents", mongoDbUtility.findJson(findOperation));
-            } else if (findOperation.getOutputType() != null && findOperation.getOutputType().equals(OUTPUT_TYPE_JSON_FILE)) {
-                Boolean asArray = integrationConfiguration.getValue(OUTPUT_TYPE_JSON_FILE_ARRAY);
-                Long folderId = integrationConfiguration.getValue(OUTPUT_FOLDER_ID);
-                String fileName = integrationConfiguration.getValue(OUTPUT_FILE_NAME);
-                String charset = integrationConfiguration.getValue(OUTPUT_TYPE_JSON_FILE_CHARSET);
-
+            if (this.isWriteOperation()) {
+                // Export to JSON file
                 List<String> jsonList = mongoDbUtility.findJson(findOperation);
-                String outputText;
-                if (asArray) {
-                    outputText = "[" + String.join(",", jsonList) + "]";
-                } else {
-                    outputText = String.join("\n", jsonList);
-                }
-
-                InputStream targetStream = new ByteArrayInputStream(outputText.getBytes(Charset.forName(charset)));
-
-                Document document = executionContext.getDocumentDownloadService()
-                        .downloadDocument(targetStream, folderId, fileName);
-
+                Document document = integrationUtil.writeJsonListToDocument(jsonList);
                 output.put("jsonDocument", document);
+
+            } else if (findOperation.getOutputType() != null && findOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
+                output.put("documents", mongoDbUtility.findJson(findOperation));
 
             } else {
                 output.put("documents", mongoDbUtility.find(findOperation));
             }
+
         } catch (MongoExecutionTimeoutException ex) {
             return csUtil.buildApiExceptionError(
                     "Max Processing Time Exceeded",

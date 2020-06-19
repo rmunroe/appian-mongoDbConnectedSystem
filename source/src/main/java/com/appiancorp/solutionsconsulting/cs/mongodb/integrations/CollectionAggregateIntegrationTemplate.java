@@ -5,6 +5,7 @@ import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfigurat
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.TemplateId;
+import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
@@ -28,9 +29,8 @@ import java.util.Map;
 
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
-@TemplateId(name = "CollectionAggregateIntegrationTemplate")
-@IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class CollectionAggregateIntegrationTemplate extends SimpleIntegrationTemplate {
+
+public class CollectionAggregateIntegrationTemplate extends MongoDbIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -42,7 +42,11 @@ public class CollectionAggregateIntegrationTemplate extends SimpleIntegrationTem
         List<PropertyDescriptor<?>> propertyDescriptors = new ArrayList<>();
         PropertyDescriptorsUtil propertyDescriptorsUtil = new PropertyDescriptorsUtil(this, integrationConfiguration, mongoDbUtility, propertyDescriptors);
 
-        propertyDescriptorsUtil.buildOutputTypeProperty();
+        if (this.isWriteOperation())
+            propertyDescriptorsUtil.buildFileOutputProperty(); // Show file output settings
+        else
+            propertyDescriptorsUtil.buildOutputTypeProperty(); // Show Dictionary / JSON list
+
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
@@ -104,8 +108,15 @@ public class CollectionAggregateIntegrationTemplate extends SimpleIntegrationTem
         output.put("collection", aggregateOperation.getCollectionName());
 
         try {
-            if (aggregateOperation.getOutputType() != null && aggregateOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
+            if (this.isWriteOperation()) {
+                // Export to JSON file
+                List<String> jsonList = mongoDbUtility.aggregateJson(aggregateOperation);
+                Document document = integrationUtil.writeJsonListToDocument(jsonList);
+                output.put("jsonDocument", document);
+
+            } else if (aggregateOperation.getOutputType() != null && aggregateOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
                 output.put("documents", mongoDbUtility.aggregateJson(aggregateOperation));
+
             } else {
                 output.put("documents", mongoDbUtility.aggregate(aggregateOperation));
             }

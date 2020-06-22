@@ -243,22 +243,22 @@ public class PropertyDescriptorsUtil {
     }
 
 
-    public void buildFilterJsonProperty() {
+    public void buildFilterJsonProperty(Boolean required) {
         propertyDescriptors.add(TextPropertyDescriptor.builder()
                 .key(FILTER_JSON)
                 .label("Filter JSON")
                 .description("A JSON string representing a MongoDB query filter Document")
-                .instructionText("WARNING: leaving Filter JSON blank will match ALL Documents in the Collection")
+                .instructionText(required ? null : "WARNING: leaving Filter JSON blank will match ALL Documents in the Collection")
                 .isExpressionable(true)
                 .displayHint(DisplayHint.EXPRESSION)
-                .isRequired(true)
+                .isRequired(required)
                 .build()
         );
     }
 
 
     public void buildCollectionFindProperties() {
-        buildFilterJsonProperty();
+        buildFilterJsonProperty(false);
 
         propertyDescriptors.add(TextPropertyDescriptor.builder()
                 .key(SORT_JSON)

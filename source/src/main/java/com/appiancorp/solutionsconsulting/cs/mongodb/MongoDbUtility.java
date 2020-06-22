@@ -225,17 +225,7 @@ public class MongoDbUtility {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-        Document filterDoc = op.getFilterDoc();
-        Document updateDoc = op.getUpdateDoc();
-
-        UpdateResult updateResult = collection.updateOne(filterDoc, updateDoc);
-
-        Document result = new Document();
-        result.put("matchedCount", updateResult.getMatchedCount());
-        result.put("modifiedCount", updateResult.getModifiedCount());
-        result.put("upsertedId", updateResult.getUpsertedId());
-
-        return result;
+        return getDocumentFromUpdateResult(collection.updateOne(op.getFilterDoc(), op.getUpdateDoc()));
     }
 
 
@@ -243,16 +233,23 @@ public class MongoDbUtility {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-        Document filterDoc = op.getFilterDoc();
-        Document updateDoc = op.getUpdateDoc();
+        return getDocumentFromUpdateResult(collection.updateMany(op.getFilterDoc(), op.getUpdateDoc()));
+    }
 
-        UpdateResult updateResult = collection.updateMany(filterDoc, updateDoc);
 
+    public Document replaceOne(ReplaceOneOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        return getDocumentFromUpdateResult(collection.replaceOne(op.getFilterDocument(), op.getReplacementDocument()));
+    }
+
+
+    private Document getDocumentFromUpdateResult(UpdateResult updateResult) {
         Document result = new Document();
         result.put("matchedCount", updateResult.getMatchedCount());
         result.put("modifiedCount", updateResult.getModifiedCount());
         result.put("upsertedId", updateResult.getUpsertedId());
-
         return result;
     }
 

@@ -64,4 +64,7 @@ public class MongoDbConnectedSystemConstants {
 
     public final static String UPDATE_JSON = "UPDATE_JSON";
 
+    public final static String REPLACE_ONE_JSON = "REPLACE_ONE_JSON";
+
+
 }

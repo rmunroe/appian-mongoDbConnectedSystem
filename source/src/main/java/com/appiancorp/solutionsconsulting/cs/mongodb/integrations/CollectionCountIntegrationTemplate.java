@@ -46,7 +46,7 @@ public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplat
         propertyDescriptorsUtil.buildCollectionsProperty();
 
         if (integrationConfiguration.getValue(COLLECTION) != null) {
-            propertyDescriptorsUtil.buildFilterJsonProperty();
+            propertyDescriptorsUtil.buildFilterJsonProperty(false);
 
             propertyDescriptorsUtil.buildCollationsProperty();
 

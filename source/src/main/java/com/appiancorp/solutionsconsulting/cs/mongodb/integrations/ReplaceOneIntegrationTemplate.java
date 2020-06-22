@@ -3,6 +3,7 @@ package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
+import com.appian.connectedsystems.templateframework.sdk.TemplateId;
 import com.appian.connectedsystems.templateframework.sdk.configuration.DisplayHint;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
@@ -12,7 +13,7 @@ import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTem
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.UpdateOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.ReplaceOneOperation;
 import com.mongodb.MongoException;
 import com.mongodb.MongoExecutionTimeoutException;
 
@@ -21,9 +22,10 @@ import java.util.Map;
 
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
-
+@TemplateId(name = "ReplaceOneIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
-public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
+public class ReplaceOneIntegrationTemplate extends MongoDbIntegrationTemplate {
+
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -37,13 +39,13 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
-        if (integrationConfiguration.getValue(COLLECTION) != null) {
-            propertyDescriptorsUtil.buildFilterJsonProperty(true);
+        propertyDescriptorsUtil.buildFilterJsonProperty(true);
 
+        if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptors.add(TextPropertyDescriptor.builder()
-                    .key(UPDATE_JSON)
-                    .label("Update Instructions JSON")
-                    .description("A JSON string representing how the MongoDB Document should be updated")
+                    .key(REPLACE_ONE_JSON)
+                    .label("Replacement Mongo Document JSON")
+                    .description("A JSON string representing a Document to replace the existing Document")
                     .isExpressionable(true)
                     .displayHint(DisplayHint.EXPRESSION)
                     .isRequired(true)
@@ -63,17 +65,11 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
             SimpleConfiguration connectedSystemConfiguration,
             ExecutionContext executionContext
     ) {
-        String apiMethodName;
-        if (this.isUpsertOne())
-            apiMethodName = "MongoCollection.updateOne()";
-        else
-            apiMethodName = "MongoCollection.updateMany()";
+        this.setupExecute("MongoCollection.replaceOne()", integrationConfiguration, connectedSystemConfiguration, executionContext);
 
-        this.setupExecute(apiMethodName, integrationConfiguration, connectedSystemConfiguration, executionContext);
-
-        UpdateOperation updateOperation;
+        ReplaceOneOperation replaceOneOperation;
         try {
-            updateOperation = new UpdateOperation(
+            replaceOneOperation = new ReplaceOneOperation(
                     integrationConfiguration.getValue(DATABASE),
                     integrationConfiguration.getValue(DATABASE_EXISTS),
                     integrationConfiguration.getValue(COLLECTION),
@@ -81,7 +77,7 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
 
                     integrationConfiguration.getValue(OUTPUT_TYPE),
                     integrationConfiguration.getValue(FILTER_JSON),
-                    integrationConfiguration.getValue(UPDATE_JSON),
+                    integrationConfiguration.getValue(REPLACE_ONE_JSON),
 
                     integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
             );
@@ -91,20 +87,17 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
                     "Invalid JSON string: \"" + e.jsonString + "\"");
         }
 
-        csUtil.addAllRequestDiagnostic(updateOperation.getRequestDiagnostic());
+        csUtil.addAllRequestDiagnostic(replaceOneOperation.getRequestDiagnostic());
 
         Map<String, Object> output = new HashMap<>();
 
         csUtil.startTiming();
 
-        output.put("database", updateOperation.getDatabaseName());
-        output.put("collection", updateOperation.getCollectionName());
+        output.put("database", replaceOneOperation.getDatabaseName());
+        output.put("collection", replaceOneOperation.getCollectionName());
 
         try {
-            if (this.isUpsertOne())
-                output.put("updateResult", mongoDbUtility.updateOne(updateOperation));
-            else
-                output.put("updateResult", mongoDbUtility.updateMany(updateOperation));
+            output.put("updateResult", mongoDbUtility.replaceOne(replaceOneOperation));
 
         } catch (MongoExecutionTimeoutException ex) {
             return csUtil.buildApiExceptionError(

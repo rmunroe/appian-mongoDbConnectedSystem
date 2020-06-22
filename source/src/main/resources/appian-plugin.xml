@@ -39,6 +39,9 @@
         <integration-template key="InsertOneIntegrationTemplate" name="InsertOneIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertOneIntegrationTemplate"/>
 
+        <integration-template key="UpdateManyIntegrationTemplate" name="UpdateManyIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.UpdateManyIntegrationTemplate"/>
+
         <integration-template key="UpdateOneIntegrationTemplate" name="UpdateOneIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.UpdateOneIntegrationTemplate"/>
 

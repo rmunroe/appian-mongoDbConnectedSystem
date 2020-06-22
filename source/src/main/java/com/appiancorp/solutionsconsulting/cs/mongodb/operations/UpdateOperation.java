@@ -6,7 +6,7 @@ import org.bson.Document;
 
 import java.util.Map;
 
-public class UpdateOneOperation extends CollectionWriteOperation {
+public class UpdateOperation extends CollectionWriteOperation {
     private String outputType;
     private String filterJson;
     private String updateJson;
@@ -14,7 +14,7 @@ public class UpdateOneOperation extends CollectionWriteOperation {
     private Document filterDoc;
     private Document updateDoc;
 
-    public UpdateOneOperation(
+    public UpdateOperation(
             String databaseName, Boolean validateDatabase,
             String collectionName, Boolean validateCollection,
             String outputType, String filterJson, String updateJson, Boolean skipDateTimeConversion
@@ -27,12 +27,12 @@ public class UpdateOneOperation extends CollectionWriteOperation {
         setSkipDateTimeConversion(skipDateTimeConversion);
 
         try {
-            setFilterDoc(MongoDocumentUtil.prepDocumentForInsert(Document.parse(filterJson), getSkipDateTimeConversion()));
-            setUpdateDoc(MongoDocumentUtil.prepDocumentForInsert(Document.parse(updateJson), getSkipDateTimeConversion()));
+            setFilterDoc(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getFilterJson()), getSkipDateTimeConversion()));
+            setUpdateDoc(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getUpdateJson()), getSkipDateTimeConversion()));
         } catch (Exception ex) {
             throw new InvalidJsonException(
-                    "Insert One JSON: Invalid JSON provided.",
-                    filterJson);
+                    "Update JSON: Invalid JSON provided.",
+                    getFilterJson());
         }
     }
 
@@ -42,7 +42,9 @@ public class UpdateOneOperation extends CollectionWriteOperation {
         Map<String, Object> diagnostic = super.getRequestDiagnostic();
 
         diagnostic.put("Output Type", getOutputType());
-        diagnostic.put("Insert One JSON", getFilterJson());
+        diagnostic.put("Filter JSON", getFilterJson());
+        diagnostic.put("Update JSON", getUpdateJson());
+        diagnostic.put("Skip Date Time Conversion", getSkipDateTimeConversion());
 
         return diagnostic;
     }

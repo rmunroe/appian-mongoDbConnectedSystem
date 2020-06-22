@@ -221,7 +221,7 @@ public class MongoDbUtility {
     }
 
 
-    public Document updateOne(UpdateOneOperation op) throws MissingDatabaseException, MissingCollectionException {
+    public Document updateOne(UpdateOperation op) throws MissingDatabaseException, MissingCollectionException {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
@@ -229,6 +229,24 @@ public class MongoDbUtility {
         Document updateDoc = op.getUpdateDoc();
 
         UpdateResult updateResult = collection.updateOne(filterDoc, updateDoc);
+
+        Document result = new Document();
+        result.put("matchedCount", updateResult.getMatchedCount());
+        result.put("modifiedCount", updateResult.getModifiedCount());
+        result.put("upsertedId", updateResult.getUpsertedId());
+
+        return result;
+    }
+
+
+    public Document updateMany(UpdateOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        Document filterDoc = op.getFilterDoc();
+        Document updateDoc = op.getUpdateDoc();
+
+        UpdateResult updateResult = collection.updateMany(filterDoc, updateDoc);
 
         Document result = new Document();
         result.put("matchedCount", updateResult.getMatchedCount());

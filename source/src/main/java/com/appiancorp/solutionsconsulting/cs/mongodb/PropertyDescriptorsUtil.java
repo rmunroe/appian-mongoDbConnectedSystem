@@ -248,7 +248,7 @@ public class PropertyDescriptorsUtil {
                 .key(FILTER_JSON)
                 .label("Filter JSON")
                 .description("A JSON string representing a MongoDB query filter Document")
-                .instructionText("WARNING: leaving Query Filter JSON blank will match ALL Documents in the Collection")
+                .instructionText("WARNING: leaving Filter JSON blank will match ALL Documents in the Collection")
                 .isExpressionable(true)
                 .displayHint(DisplayHint.EXPRESSION)
                 .isRequired(true)

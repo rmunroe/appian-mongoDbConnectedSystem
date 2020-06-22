@@ -1,85 +1,89 @@
 package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 
-import com.appian.connectedsystems.simplified.sdk.SimpleIntegrationTemplate;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
-import com.appian.connectedsystems.templateframework.sdk.TemplateId;
+import com.appian.connectedsystems.templateframework.sdk.configuration.DisplayHint;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
+import com.appian.connectedsystems.templateframework.sdk.configuration.TextPropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
-import com.appiancorp.solutionsconsulting.cs.mongodb.ConnectedSystemUtil;
-import com.appiancorp.solutionsconsulting.cs.mongodb.IntegrationUtil;
-import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbUtility;
-import com.appiancorp.solutionsconsulting.cs.mongodb.PropertyDescriptorsUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionCountOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.UpdateOperation;
+import com.mongodb.MongoException;
 import com.mongodb.MongoExecutionTimeoutException;
-import com.mongodb.MongoQueryException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
 
-@TemplateId(name = "CollectionCountIntegrationTemplate")
-@IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplate {
+@IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
+public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
             SimpleConfiguration connectedSystemConfiguration,
             PropertyPath propertyPath,
-            ExecutionContext executionContext) {
+            ExecutionContext executionContext
+    ) {
+        this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
 
-        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
-        List<PropertyDescriptor<?>> propertyDescriptors = new ArrayList<>();
-        PropertyDescriptorsUtil propertyDescriptorsUtil = new PropertyDescriptorsUtil(this, integrationConfiguration, mongoDbUtility, propertyDescriptors);
-
+        propertyDescriptorsUtil.buildOutputTypeProperty();
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
         if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptorsUtil.buildFilterJsonProperty();
 
-            propertyDescriptorsUtil.buildCollationsProperty();
+            propertyDescriptors.add(TextPropertyDescriptor.builder()
+                    .key(UPDATE_JSON)
+                    .label("Update Instructions JSON")
+                    .description("A JSON string representing how the MongoDB Document should be updated")
+                    .isExpressionable(true)
+                    .displayHint(DisplayHint.EXPRESSION)
+                    .isRequired(true)
+                    .build()
+            );
 
-            propertyDescriptorsUtil.buildReadPreferenceProperty();
-            propertyDescriptorsUtil.buildReadConcernProperty();
+            propertyDescriptorsUtil.buildInsertOptionsProperties();
         }
 
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
+
     @Override
     protected IntegrationResponse execute(
             SimpleConfiguration integrationConfiguration,
             SimpleConfiguration connectedSystemConfiguration,
-            ExecutionContext executionContext) {
+            ExecutionContext executionContext
+    ) {
+        String apiMethodName;
+        if (this.isUpsertOne())
+            apiMethodName = "MongoCollection.updateOne()";
+        else
+            apiMethodName = "MongoCollection.updateMany()";
 
-        ConnectedSystemUtil csUtil = new ConnectedSystemUtil("MongoCollection.count()");
-        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
-        IntegrationUtil integrationUtil = new IntegrationUtil(integrationConfiguration, executionContext);
+        this.setupExecute(apiMethodName, integrationConfiguration, connectedSystemConfiguration, executionContext);
 
-        CollectionCountOperation op;
+        UpdateOperation updateOperation;
         try {
-            op = new CollectionCountOperation(
+            updateOperation = new UpdateOperation(
                     integrationConfiguration.getValue(DATABASE),
                     integrationConfiguration.getValue(DATABASE_EXISTS),
                     integrationConfiguration.getValue(COLLECTION),
                     integrationConfiguration.getValue(COLLECTION_EXISTS),
-                    integrationConfiguration.getValue(READ_PREFERENCE),
-                    integrationConfiguration.getValue(READ_CONCERN),
 
+                    integrationConfiguration.getValue(OUTPUT_TYPE),
                     integrationConfiguration.getValue(FILTER_JSON),
+                    integrationConfiguration.getValue(UPDATE_JSON),
 
-                    integrationUtil.buildCollation()
+                    integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
             );
         } catch (InvalidJsonException e) {
             return csUtil.buildApiExceptionError(
@@ -87,25 +91,25 @@ public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplat
                     "Invalid JSON string: \"" + e.jsonString + "\"");
         }
 
-        csUtil.addAllRequestDiagnostic(op.getRequestDiagnostic());
+        csUtil.addAllRequestDiagnostic(updateOperation.getRequestDiagnostic());
 
         Map<String, Object> output = new HashMap<>();
 
         csUtil.startTiming();
 
-        output.put("database", op.getDatabaseName());
-        output.put("collection", op.getCollectionName());
+        output.put("database", updateOperation.getDatabaseName());
+        output.put("collection", updateOperation.getCollectionName());
 
         try {
-            output.put("count", mongoDbUtility.count(op));
-        } catch (MongoExecutionTimeoutException e) {
+            if (this.isUpsertOne())
+                output.put("updateResult", mongoDbUtility.updateOne(updateOperation));
+            else
+                output.put("updateResult", mongoDbUtility.updateMany(updateOperation));
+
+        } catch (MongoExecutionTimeoutException ex) {
             return csUtil.buildApiExceptionError(
                     "Max Processing Time Exceeded",
-                    e.getMessage());
-        } catch (MongoQueryException e) {
-            return csUtil.buildApiExceptionError(
-                    "Query Exception",
-                    e.getMessage());
+                    ex.getMessage());
         } catch (MissingCollectionException e) {
             return csUtil.buildApiExceptionError(
                     "Missing Collection Exception",
@@ -113,6 +117,18 @@ public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplat
         } catch (MissingDatabaseException e) {
             return csUtil.buildApiExceptionError(
                     "Missing Database Exception",
+                    e.getMessage());
+        } catch (UnsupportedOperationException e) {
+            return csUtil.buildApiExceptionError(
+                    "Unsupported Operation Exception",
+                    e.getMessage());
+        } catch (MongoException e) {
+            return csUtil.buildApiExceptionError(
+                    "Mongo Exception",
+                    e.getMessage());
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(
+                    "Exception",
                     e.getMessage());
         }
 

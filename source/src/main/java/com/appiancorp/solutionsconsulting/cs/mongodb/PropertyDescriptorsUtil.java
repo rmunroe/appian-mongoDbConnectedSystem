@@ -101,6 +101,25 @@ public class PropertyDescriptorsUtil {
     }
 
 
+    public void buildFileInputProperty() {
+        propertyDescriptors.add(DocumentPropertyDescriptor.builder()
+                .key(INSERT_FILE_ID)
+                .label("Source JSON File")
+                .description("The Appian Document containing the JSON array to be inserted")
+                .isRequired(true)
+                .isExpressionable(true)
+                .build()
+        );
+        propertyDescriptors.add(BooleanPropertyDescriptor.builder()
+                .key(INSERT_FILE_IS_ARRAY)
+                .label("JSON file represents a single array")
+                .instructionText("Check this if the contents of the JSON file are a single JSON array such as: [{...},{...}]. Leave unchecked if there is one JSON object per line in the JSON file.")
+                .isExpressionable(true)
+                .build()
+        );
+    }
+
+
     public void buildDatabaseProperty() {
         // Create list of Database choices for the drop down
         List<Map<String, Object>> databases = mongoDbUtility.listDatabases();

@@ -4,7 +4,6 @@ public class MongoDbConnectedSystemConstants {
     public final static String OUTPUT_TYPE = "OUTPUT_TYPE";
     public final static String OUTPUT_TYPE_DICTIONARY = "Dictionary";
     public final static String OUTPUT_TYPE_JSON_ARRAY = "List of JSON Strings";
-    public final static String OUTPUT_TYPE_JSON_FILE = "JSON File (Document)";
 
     public final static String OUTPUT_TYPE_JSON_FILE_ARRAY = "OUTPUT_TYPE_JSON_FILE_ARRAY";
     public final static String OUTPUT_TYPE_JSON_FILE_CHARSET = "OUTPUT_TYPE_JSON_FILE_CHARSET";
@@ -50,6 +49,13 @@ public class MongoDbConnectedSystemConstants {
     public final static String MAX_TIME = "MAX_TIME";
 
     public final static String AGGREGATE_PIPELINE_JSON = "AGGREGATE_PIPELINE_JSON";
+
+    public final static String INSERT_SOURCE = "INSERT_SOURCE";
+    public final static String INSERT_SOURCE_JSON = "JSON String";
+    public final static String INSERT_SOURCE_DOCUMENT = "JSON from Appian Document";
+
+    public final static String INSERT_FILE_ID = "INSERT_FILE_ID";
+    public final static String INSERT_FILE_IS_ARRAY = "INSERT_FILE_IS_ARRAY";
 
     public final static String INSERT_MANY_JSON = "INSERT_MANY_JSON";
     public final static String INSERT_ONE_JSON = "INSERT_ONE_JSON";

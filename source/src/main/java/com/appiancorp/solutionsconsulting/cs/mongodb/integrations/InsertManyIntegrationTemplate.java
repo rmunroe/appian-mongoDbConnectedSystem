@@ -4,10 +4,7 @@ import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfigurat
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.TemplateId;
-import com.appian.connectedsystems.templateframework.sdk.configuration.DisplayHint;
-import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
-import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appian.connectedsystems.templateframework.sdk.configuration.TextPropertyDescriptor;
+import com.appian.connectedsystems.templateframework.sdk.configuration.*;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
@@ -16,6 +13,7 @@ import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseE
 import com.appiancorp.solutionsconsulting.cs.mongodb.operations.InsertManyOperation;
 import com.mongodb.MongoException;
 import com.mongodb.MongoExecutionTimeoutException;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,19 +33,46 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
     ) {
         this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
 
+        // Set defaults
+        String insertSource = integrationConfiguration.getValue(INSERT_SOURCE);
+        if (insertSource == null || StringUtils.isEmpty(insertSource)) {
+            insertSource = INSERT_SOURCE_JSON;
+            integrationConfiguration.setValue(INSERT_SOURCE, insertSource);
+        }
+        if (integrationConfiguration.getValue(INSERT_FILE_IS_ARRAY) == null) {
+            integrationConfiguration.setValue(INSERT_FILE_IS_ARRAY, true);
+        }
+
         propertyDescriptorsUtil.buildOutputTypeProperty();
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
         propertyDescriptors.add(TextPropertyDescriptor.builder()
-                .key(INSERT_MANY_JSON)
-                .label("Insert Many JSON Array")
-                .description("A JSON string representing an array of Documents to be inserted in the form of: [{...},{...}].")
+                .key(INSERT_SOURCE)
+                .label("JSON Source")
+                .instructionText("Whether to insert a JSON string representing an array of MongoDB Documents, or import from an Appian Document")
+                .choices(
+                        Choice.builder().name(INSERT_SOURCE_JSON).value(INSERT_SOURCE_JSON).build(),
+                        Choice.builder().name(INSERT_SOURCE_DOCUMENT).value(INSERT_SOURCE_DOCUMENT).build()
+                )
+                .refresh(RefreshPolicy.ALWAYS)
                 .isExpressionable(true)
-                .displayHint(DisplayHint.EXPRESSION)
                 .isRequired(true)
                 .build()
         );
+
+        if (insertSource.equals(INSERT_SOURCE_JSON))
+            propertyDescriptors.add(TextPropertyDescriptor.builder()
+                    .key(INSERT_MANY_JSON)
+                    .label("Insert Many JSON Array")
+                    .description("A JSON string representing an array of Documents to be inserted in the form of: [{...},{...}].")
+                    .isExpressionable(true)
+                    .displayHint(DisplayHint.EXPRESSION)
+                    .isRequired(true)
+                    .build()
+            );
+        else
+            propertyDescriptorsUtil.buildFileInputProperty();
 
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
@@ -70,6 +95,9 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
                     integrationConfiguration.getValue(COLLECTION_EXISTS),
 
                     integrationConfiguration.getValue(OUTPUT_TYPE),
+                    integrationConfiguration.getValue(INSERT_SOURCE),
+                    integrationConfiguration.getValue(INSERT_FILE_ID),
+                    integrationConfiguration.getValue(INSERT_FILE_IS_ARRAY),
                     integrationConfiguration.getValue(INSERT_MANY_JSON)
             );
         } catch (InvalidJsonException e) {

@@ -46,8 +46,7 @@ public class CollectionAggregateIntegrationTemplate extends MongoDbIntegrationTe
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
-        Object collectionName = integrationConfiguration.getValue(COLLECTION);
-        if (collectionName != null) {
+        if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptorsUtil.buildCollectionAggregateProperties();
 
             propertyDescriptorsUtil.buildCollationsProperty();

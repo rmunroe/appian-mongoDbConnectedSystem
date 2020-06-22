@@ -39,17 +39,19 @@ public class InsertOneIntegrationTemplate extends MongoDbIntegrationTemplate {
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
-        propertyDescriptors.add(TextPropertyDescriptor.builder()
-                .key(INSERT_ONE_JSON)
-                .label("Insert One JSON")
-                .description("A JSON string representing a Document to be inserted")
-                .isExpressionable(true)
-                .displayHint(DisplayHint.EXPRESSION)
-                .isRequired(true)
-                .build()
-        );
+        if (integrationConfiguration.getValue(COLLECTION) != null) {
+            propertyDescriptors.add(TextPropertyDescriptor.builder()
+                    .key(INSERT_ONE_JSON)
+                    .label("Insert One JSON")
+                    .description("A JSON string representing a Document to be inserted")
+                    .isExpressionable(true)
+                    .displayHint(DisplayHint.EXPRESSION)
+                    .isRequired(true)
+                    .build()
+            );
 
-        propertyDescriptorsUtil.buildInsertOptionsProperties();
+            propertyDescriptorsUtil.buildInsertOptionsProperties();
+        }
 
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }

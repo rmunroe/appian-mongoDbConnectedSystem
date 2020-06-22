@@ -43,8 +43,7 @@ public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplat
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
-        Object collectionName = integrationConfiguration.getValue(COLLECTION);
-        if (collectionName != null) {
+        if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptors.add(textProperty(MongoDbConnectedSystemConstants.FILTER_JSON)
                     .label("Query Filter JSON")
                     .description("A JSON string representing a Collection.Count() filter Document")

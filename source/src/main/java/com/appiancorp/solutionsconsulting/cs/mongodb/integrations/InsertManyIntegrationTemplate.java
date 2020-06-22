@@ -47,34 +47,36 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
         propertyDescriptorsUtil.buildDatabaseProperty();
         propertyDescriptorsUtil.buildCollectionsProperty();
 
-        propertyDescriptors.add(TextPropertyDescriptor.builder()
-                .key(INSERT_SOURCE)
-                .label("JSON Source")
-                .instructionText("Whether to insert a JSON string representing an array of MongoDB Documents, or import from an Appian Document")
-                .choices(
-                        Choice.builder().name(INSERT_SOURCE_JSON).value(INSERT_SOURCE_JSON).build(),
-                        Choice.builder().name(INSERT_SOURCE_DOCUMENT).value(INSERT_SOURCE_DOCUMENT).build()
-                )
-                .refresh(RefreshPolicy.ALWAYS)
-                .isExpressionable(true)
-                .isRequired(true)
-                .build()
-        );
-
-        if (insertSource.equals(INSERT_SOURCE_JSON))
+        if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptors.add(TextPropertyDescriptor.builder()
-                    .key(INSERT_MANY_JSON)
-                    .label("Insert Many JSON Array")
-                    .description("A JSON string representing an array of Documents to be inserted in the form of: [{...},{...}].")
+                    .key(INSERT_SOURCE)
+                    .label("JSON Source")
+                    .instructionText("Whether to insert a JSON string representing an array of MongoDB Documents, or import from an Appian Document")
+                    .choices(
+                            Choice.builder().name(INSERT_SOURCE_JSON).value(INSERT_SOURCE_JSON).build(),
+                            Choice.builder().name(INSERT_SOURCE_DOCUMENT).value(INSERT_SOURCE_DOCUMENT).build()
+                    )
+                    .refresh(RefreshPolicy.ALWAYS)
                     .isExpressionable(true)
-                    .displayHint(DisplayHint.EXPRESSION)
                     .isRequired(true)
                     .build()
             );
-        else
-            propertyDescriptorsUtil.buildFileInputProperty();
 
-        propertyDescriptorsUtil.buildInsertOptionsProperties();
+            if (insertSource.equals(INSERT_SOURCE_JSON))
+                propertyDescriptors.add(TextPropertyDescriptor.builder()
+                        .key(INSERT_MANY_JSON)
+                        .label("Insert Many JSON Array")
+                        .description("A JSON string representing an array of Documents to be inserted in the form of: [{...},{...}].")
+                        .isExpressionable(true)
+                        .displayHint(DisplayHint.EXPRESSION)
+                        .isRequired(true)
+                        .build()
+                );
+            else
+                propertyDescriptorsUtil.buildFileInputProperty();
+
+            propertyDescriptorsUtil.buildInsertOptionsProperties();
+        }
 
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }

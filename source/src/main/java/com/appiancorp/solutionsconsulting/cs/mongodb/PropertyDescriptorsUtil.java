@@ -336,4 +336,21 @@ public class PropertyDescriptorsUtil {
                 .build()
         );
     }
+
+    public void buildInsertOptionsProperties() {
+//        propertyDescriptors.add(TextPropertyDescriptor.builder()
+//                .key("InsertOptions")
+//                .label("Insert Options")
+//                .isReadOnly(true)
+//                .build()
+//        );
+        propertyDescriptors.add(BooleanPropertyDescriptor.builder()
+                .key(INSERT_SKIP_DATETIME_CONVERSION)
+                .label("Skip Automatic Date Time Conversion")
+                .instructionText("By default any String that matches the ISO Date format (such that Appian does when serializing Dates and Date Times to JSON) will be automatically converted to the MongoDB ISODate() datatype. Selecting Yes will skip this conversion and simply store it as a String.")
+                .displayMode(BooleanDisplayMode.RADIO_BUTTON)
+                .isExpressionable(true)
+                .build()
+        );
+    }
 }

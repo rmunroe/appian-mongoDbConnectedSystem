@@ -40,18 +40,18 @@ public class MongoDocumentUtil {
     }
 
 
-    public static Document prepDocumentForInsert(Document document) {
+    public static Document prepDocumentForInsert(Document document, Boolean skipDateTimeConversion) {
         for (String key : document.keySet()) {
             Object val = document.get(key);
 
             if (val instanceof Document) {
-                document.put(key, prepDocumentForInsert((Document) val)); // recurse
+                document.put(key, prepDocumentForInsert((Document) val, skipDateTimeConversion)); // recurse
 
-            } else if (val instanceof String && ((String) val).matches(isoDateTimePattern)) {
+            } else if (!skipDateTimeConversion && val instanceof String && ((String) val).matches(isoDateTimePattern)) {
                 // Value matches an ISO date time. Convert it.
                 document.put(key, Document.parse("{ \"" + key + "\": ISODate(\"" + val + "\") }").get(key));
 
-            } else if (val instanceof String && ((String) val).matches(appianDatePattern)) {
+            } else if (!skipDateTimeConversion && val instanceof String && ((String) val).matches(appianDatePattern)) {
                 // Value matches an ISO date only. Convert it by setting to date with time 0:00 UTC.
                 document.put(key, Document.parse("{ \"" + key + "\": ISODate(\"" + ((String) val).replaceFirst("Z$", "") + "T00:00:00.000Z\") }").get(key));
             }

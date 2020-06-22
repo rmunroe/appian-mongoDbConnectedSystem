@@ -9,20 +9,22 @@ import java.util.Map;
 public class InsertOneOperation extends CollectionWriteOperation {
     private String outputType;
     private String json;
+    private Boolean skipDateTimeConversion;
     private Document document;
 
     public InsertOneOperation(
             String databaseName, Boolean validateDatabase,
             String collectionName, Boolean validateCollection,
-            String outputType, String json
+            String outputType, String json, Boolean skipDateTimeConversion
     ) throws InvalidJsonException {
         super(databaseName, validateDatabase, collectionName, validateCollection);
 
         setOutputType(outputType);
         setJson(json);
+        setSkipDateTimeConversion(skipDateTimeConversion);
 
         try {
-            setDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(json)));
+            setDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(json), getSkipDateTimeConversion()));
         } catch (Exception ex) {
             throw new InvalidJsonException(
                     "Insert One JSON: Invalid JSON provided.",
@@ -64,5 +66,13 @@ public class InsertOneOperation extends CollectionWriteOperation {
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public Boolean getSkipDateTimeConversion() {
+        return skipDateTimeConversion;
+    }
+
+    public void setSkipDateTimeConversion(Boolean skipDateTimeConversion) {
+        this.skipDateTimeConversion = skipDateTimeConversion;
     }
 }

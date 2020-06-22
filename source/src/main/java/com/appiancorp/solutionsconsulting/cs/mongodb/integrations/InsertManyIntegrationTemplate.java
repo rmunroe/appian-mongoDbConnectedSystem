@@ -74,6 +74,8 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
         else
             propertyDescriptorsUtil.buildFileInputProperty();
 
+        propertyDescriptorsUtil.buildInsertOptionsProperties();
+
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
@@ -98,7 +100,9 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
                     integrationConfiguration.getValue(INSERT_SOURCE),
                     integrationConfiguration.getValue(INSERT_FILE_ID),
                     integrationConfiguration.getValue(INSERT_FILE_IS_ARRAY),
-                    integrationConfiguration.getValue(INSERT_MANY_JSON)
+                    integrationConfiguration.getValue(INSERT_MANY_JSON),
+
+                    integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
             );
         } catch (InvalidJsonException e) {
             return csUtil.buildApiExceptionError(

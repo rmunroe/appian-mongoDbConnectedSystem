@@ -49,6 +49,8 @@ public class InsertOneIntegrationTemplate extends MongoDbIntegrationTemplate {
                 .build()
         );
 
+        propertyDescriptorsUtil.buildInsertOptionsProperties();
+
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
@@ -70,7 +72,9 @@ public class InsertOneIntegrationTemplate extends MongoDbIntegrationTemplate {
                     integrationConfiguration.getValue(COLLECTION_EXISTS),
 
                     integrationConfiguration.getValue(OUTPUT_TYPE),
-                    integrationConfiguration.getValue(INSERT_ONE_JSON)
+                    integrationConfiguration.getValue(INSERT_ONE_JSON),
+
+                    integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
             );
         } catch (InvalidJsonException e) {
             return csUtil.buildApiExceptionError(

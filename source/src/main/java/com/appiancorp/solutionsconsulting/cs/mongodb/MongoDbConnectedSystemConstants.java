@@ -59,4 +59,7 @@ public class MongoDbConnectedSystemConstants {
 
     public final static String INSERT_MANY_JSON = "INSERT_MANY_JSON";
     public final static String INSERT_ONE_JSON = "INSERT_ONE_JSON";
+
+    public final static String INSERT_SKIP_DATETIME_CONVERSION = "INSERT_SKIP_DATETIME_CONVERSION";
+
 }

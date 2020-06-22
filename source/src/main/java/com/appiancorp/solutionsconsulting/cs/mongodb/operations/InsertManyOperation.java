@@ -1,5 +1,6 @@
 package com.appiancorp.solutionsconsulting.cs.mongodb.operations;
 
+import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDocumentUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import org.bson.Document;
 
@@ -21,6 +22,7 @@ public class InsertManyOperation extends CollectionWriteOperation {
     private com.appian.connectedsystems.templateframework.sdk.configuration.Document sourceFile;
     private Boolean fileIsArray;
     private String jsonArray;
+    private Boolean skipDateTimeConversion;
     private List<Document> documents;
 
     public InsertManyOperation(
@@ -28,7 +30,7 @@ public class InsertManyOperation extends CollectionWriteOperation {
             String collectionName, Boolean validateCollection,
             String outputType, String insertSource,
             com.appian.connectedsystems.templateframework.sdk.configuration.Document sourceFile, Boolean fileIsArray,
-            String sourceJsonArray
+            String sourceJsonArray, Boolean skipDateTimeConversion
     ) throws InvalidJsonException {
         super(databaseName, validateDatabase, collectionName, validateCollection);
 
@@ -55,14 +57,16 @@ public class InsertManyOperation extends CollectionWriteOperation {
 
         setJsonArray(sourceJsonArray);
 
+        setSkipDateTimeConversion(skipDateTimeConversion);
 
         List<Document> documents = new ArrayList<>();
         if (sourceJsonArray.matches("^\\[.*]$")) {
             try {
-
                 @SuppressWarnings("unchecked")
-                List<Document> doc = (List<Document>) Document.parse("{docs:" + sourceJsonArray + "}").get("docs");
-                documents.addAll(doc);
+                List<Document> docs = (List<Document>) Document.parse("{docs:" + sourceJsonArray + "}").get("docs");
+                docs.forEach(doc ->
+                        documents.add(MongoDocumentUtil.prepDocumentForInsert(doc, getSkipDateTimeConversion()))
+                );
             } catch (Exception ex) {
                 throw new InvalidJsonException(
                         "Insert Many JSONs: Invalid JSON provided.",
@@ -134,5 +138,13 @@ public class InsertManyOperation extends CollectionWriteOperation {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    public Boolean getSkipDateTimeConversion() {
+        return skipDateTimeConversion;
+    }
+
+    public void setSkipDateTimeConversion(Boolean skipDateTimeConversion) {
+        this.skipDateTimeConversion = skipDateTimeConversion;
     }
 }

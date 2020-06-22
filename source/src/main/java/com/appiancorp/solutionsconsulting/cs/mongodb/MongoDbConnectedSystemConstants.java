@@ -62,4 +62,6 @@ public class MongoDbConnectedSystemConstants {
 
     public final static String INSERT_SKIP_DATETIME_CONVERSION = "INSERT_SKIP_DATETIME_CONVERSION";
 
+    public final static String UPDATE_ONE_JSON = "UPDATE_ONE_JSON";
+
 }

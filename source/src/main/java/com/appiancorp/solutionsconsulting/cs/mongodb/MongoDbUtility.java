@@ -7,6 +7,7 @@ import com.appiancorp.solutionsconsulting.cs.mongodb.operations.*;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.*;
+import com.mongodb.client.result.UpdateResult;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
 
@@ -217,6 +218,24 @@ public class MongoDbUtility {
         collection.insertOne(document);
 
         return MongoDocumentUtil.prepDocumentForOutput(document, true, true);
+    }
+
+
+    public Document updateOne(UpdateOneOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        Document filterDoc = op.getFilterDoc();
+        Document updateDoc = op.getUpdateDoc();
+
+        UpdateResult updateResult = collection.updateOne(filterDoc, updateDoc);
+
+        Document result = new Document();
+        result.put("matchedCount", updateResult.getMatchedCount());
+        result.put("modifiedCount", updateResult.getModifiedCount());
+        result.put("upsertedId", updateResult.getUpsertedId());
+
+        return result;
     }
 
 

@@ -27,7 +27,9 @@ public class MongoDocumentUtil {
                 document.put(key, prepDocumentForOutput((Document) val, objectIdAsString, uuidAsString)); // recurse
 
             } else if (objectIdAsString != null && objectIdAsString && val instanceof ObjectId) {
-                document.put(key, val.toString());
+                Document oid = new Document();
+                oid.put("$oid", val.toString());
+                document.put(key, oid);
 
             } else if (uuidAsString != null && uuidAsString && val instanceof UUID) {
                 document.put(key, val.toString());

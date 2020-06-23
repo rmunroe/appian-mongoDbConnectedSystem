@@ -3,7 +3,7 @@ package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 import com.appian.connectedsystems.templateframework.sdk.TemplateId;
 
 
-@TemplateId(name = "UpdateOneIntegrationTemplate")
+@TemplateId(name = "DeleteOneIntegrationTemplate")
 @ModifyOne
-public class UpdateOneIntegrationTemplate extends UpdateIntegrationTemplate {
+public class DeleteOneIntegrationTemplate extends DeleteIntegrationTemplate {
 }

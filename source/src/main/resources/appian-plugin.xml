@@ -48,5 +48,11 @@
         <integration-template key="ReplaceOneIntegrationTemplate" name="ReplaceOneIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReplaceOneIntegrationTemplate"/>
 
+        <integration-template key="DeleteManyIntegrationTemplate" name="DeleteManyIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DeleteManyIntegrationTemplate"/>
+
+        <integration-template key="DeleteOneIntegrationTemplate" name="DeleteOneIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DeleteOneIntegrationTemplate"/>
+
     </connected-system-template>
 </appian-plugin>

@@ -7,6 +7,8 @@ import com.appiancorp.solutionsconsulting.cs.mongodb.operations.*;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.*;
+import com.mongodb.client.model.DeleteOptions;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
@@ -225,7 +227,7 @@ public class MongoDbUtility {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-        return getDocumentFromUpdateResult(collection.updateOne(op.getFilterDoc(), op.getUpdateDoc()));
+        return getDocumentFromUpdateResult(collection.updateOne(op.getFilterDocument(), op.getUpdateDocument()));
     }
 
 
@@ -233,7 +235,7 @@ public class MongoDbUtility {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-        return getDocumentFromUpdateResult(collection.updateMany(op.getFilterDoc(), op.getUpdateDoc()));
+        return getDocumentFromUpdateResult(collection.updateMany(op.getFilterDocument(), op.getUpdateDocument()));
     }
 
 
@@ -245,11 +247,42 @@ public class MongoDbUtility {
     }
 
 
+    public Document deleteOne(DeleteOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        DeleteOptions options = new DeleteOptions();
+        if (op.getCollation() != null)
+            options.collation(op.getCollation());
+
+        return getDocumentFromDeleteResult(collection.deleteOne(op.getFilterDocument(), options));
+    }
+
+
+    public Document deleteMany(DeleteOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        DeleteOptions options = new DeleteOptions();
+        if (op.getCollation() != null)
+            options.collation(op.getCollation());
+
+        return getDocumentFromDeleteResult(collection.deleteMany(op.getFilterDocument()));
+    }
+
+
     private Document getDocumentFromUpdateResult(UpdateResult updateResult) {
         Document result = new Document();
         result.put("matchedCount", updateResult.getMatchedCount());
         result.put("modifiedCount", updateResult.getModifiedCount());
         result.put("upsertedId", updateResult.getUpsertedId());
+        return result;
+    }
+
+    private Document getDocumentFromDeleteResult(DeleteResult deleteResult) {
+        Document result = new Document();
+        result.put("acknowledged", deleteResult.wasAcknowledged());
+        result.put("deletedCount", deleteResult.getDeletedCount());
         return result;
     }
 

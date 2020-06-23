@@ -2,36 +2,36 @@ package com.appiancorp.solutionsconsulting.cs.mongodb.operations;
 
 import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDocumentUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
+import com.mongodb.client.model.Collation;
 import org.bson.Document;
 
 import java.util.Map;
 
-public class UpdateOperation extends CollectionWriteOperation {
+
+public class DeleteOperation extends CollectionWriteOperation {
     private String outputType;
     private String filterJson;
-    private String updateJson;
-    private Boolean skipDateTimeConversion;
+    private Collation collation;
+
     private Document filterDocument;
     private Document updateDocument;
 
-    public UpdateOperation(
+    public DeleteOperation(
             String databaseName, Boolean validateDatabase,
             String collectionName, Boolean validateCollection,
-            String outputType, String filterJson, String updateJson, Boolean skipDateTimeConversion
+            String outputType, String filterJson, Collation collation
     ) throws InvalidJsonException {
         super(databaseName, validateDatabase, collectionName, validateCollection);
 
         setOutputType(outputType);
         setFilterJson(filterJson);
-        setUpdateJson(updateJson);
-        setSkipDateTimeConversion(skipDateTimeConversion);
+        setCollation(collation);
 
         try {
-            setFilterDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getFilterJson()), getSkipDateTimeConversion()));
-            setUpdateDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getUpdateJson()), getSkipDateTimeConversion()));
+            setFilterDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getFilterJson()), false));
         } catch (Exception ex) {
             throw new InvalidJsonException(
-                    "Update JSON: Invalid JSON provided.",
+                    "Delete JSON: Invalid JSON provided.",
                     getFilterJson());
         }
     }
@@ -43,12 +43,9 @@ public class UpdateOperation extends CollectionWriteOperation {
 
         diagnostic.put("Output Type", getOutputType());
         diagnostic.put("Filter JSON", getFilterJson());
-        diagnostic.put("Update JSON", getUpdateJson());
-        diagnostic.put("Skip Date Time Conversion", getSkipDateTimeConversion());
 
         return diagnostic;
     }
-
 
     public String getOutputType() {
         return outputType;
@@ -74,27 +71,19 @@ public class UpdateOperation extends CollectionWriteOperation {
         this.filterDocument = filterDocument;
     }
 
-    public Boolean getSkipDateTimeConversion() {
-        return skipDateTimeConversion;
-    }
-
-    public void setSkipDateTimeConversion(Boolean skipDateTimeConversion) {
-        this.skipDateTimeConversion = skipDateTimeConversion;
-    }
-
-    public String getUpdateJson() {
-        return updateJson;
-    }
-
-    public void setUpdateJson(String updateJson) {
-        this.updateJson = updateJson;
-    }
-
     public Document getUpdateDocument() {
         return updateDocument;
     }
 
     public void setUpdateDocument(Document updateDocument) {
         this.updateDocument = updateDocument;
+    }
+
+    public Collation getCollation() {
+        return collation;
+    }
+
+    public void setCollation(Collation collation) {
+        this.collation = collation;
     }
 }

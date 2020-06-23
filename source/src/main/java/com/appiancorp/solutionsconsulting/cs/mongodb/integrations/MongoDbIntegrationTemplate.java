@@ -80,26 +80,26 @@ public abstract class MongoDbIntegrationTemplate extends SimpleIntegrationTempla
 
 
     /**
-     * Determines if the Integration Template has been annotated with UpdateOne
+     * Determines if the Integration Template has been annotated with ModifyOne
      *
-     * @return true if annotated with UpdateOne
+     * @return true if annotated with ModifyOne
      */
-    protected Boolean isUpsertOne() {
+    protected Boolean isModifyOne() {
         for (Annotation a : this.getClass().getDeclaredAnnotations())
-            if (a instanceof UpdateOne)
+            if (a instanceof ModifyOne)
                 return true;
         return false;
     }
 
 
     /**
-     * Determines if the Integration Template has been annotated with UpdateMany
+     * Determines if the Integration Template has been annotated with ModifyMany
      *
-     * @return true if annotated with UpdateMany
+     * @return true if annotated with ModifyMany
      */
-    protected Boolean isUpsertMany() {
+    protected Boolean isModifyMany() {
         for (Annotation a : this.getClass().getDeclaredAnnotations())
-            if (a instanceof UpdateMany)
+            if (a instanceof ModifyMany)
                 return true;
         return false;
     }

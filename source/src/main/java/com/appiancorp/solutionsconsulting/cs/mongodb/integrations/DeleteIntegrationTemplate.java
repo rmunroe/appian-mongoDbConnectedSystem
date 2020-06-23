@@ -3,16 +3,14 @@ package com.appiancorp.solutionsconsulting.cs.mongodb.integrations;
 import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfiguration;
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
-import com.appian.connectedsystems.templateframework.sdk.configuration.DisplayHint;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appian.connectedsystems.templateframework.sdk.configuration.TextPropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.UpdateOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.DeleteOperation;
 import com.mongodb.MongoException;
 import com.mongodb.MongoExecutionTimeoutException;
 
@@ -23,7 +21,7 @@ import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSyst
 
 
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
-public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
+public class DeleteIntegrationTemplate extends MongoDbIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -39,18 +37,7 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
 
         if (integrationConfiguration.getValue(COLLECTION) != null) {
             propertyDescriptorsUtil.buildFilterJsonProperty(true);
-
-            propertyDescriptors.add(TextPropertyDescriptor.builder()
-                    .key(UPDATE_JSON)
-                    .label("Update Instructions JSON")
-                    .description("A JSON string representing how the MongoDB Document should be updated")
-                    .isExpressionable(true)
-                    .displayHint(DisplayHint.EXPRESSION)
-                    .isRequired(true)
-                    .build()
-            );
-
-            propertyDescriptorsUtil.buildInsertOptionsProperties();
+            propertyDescriptorsUtil.buildCollationsProperty();
         }
 
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
@@ -71,9 +58,9 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
 
         this.setupExecute(apiMethodName, integrationConfiguration, connectedSystemConfiguration, executionContext);
 
-        UpdateOperation updateOperation;
+        DeleteOperation deleteOperation;
         try {
-            updateOperation = new UpdateOperation(
+            deleteOperation = new DeleteOperation(
                     integrationConfiguration.getValue(DATABASE),
                     integrationConfiguration.getValue(DATABASE_EXISTS),
                     integrationConfiguration.getValue(COLLECTION),
@@ -81,9 +68,8 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
 
                     integrationConfiguration.getValue(OUTPUT_TYPE),
                     integrationConfiguration.getValue(FILTER_JSON),
-                    integrationConfiguration.getValue(UPDATE_JSON),
 
-                    integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
+                    integrationUtil.buildCollation()
             );
         } catch (InvalidJsonException e) {
             return csUtil.buildApiExceptionError(
@@ -91,20 +77,20 @@ public class UpdateIntegrationTemplate extends MongoDbIntegrationTemplate {
                     "Invalid JSON string: \"" + e.jsonString + "\"");
         }
 
-        csUtil.addAllRequestDiagnostic(updateOperation.getRequestDiagnostic());
+        csUtil.addAllRequestDiagnostic(deleteOperation.getRequestDiagnostic());
 
         Map<String, Object> output = new HashMap<>();
 
         csUtil.startTiming();
 
-        output.put("database", updateOperation.getDatabaseName());
-        output.put("collection", updateOperation.getCollectionName());
+        output.put("database", deleteOperation.getDatabaseName());
+        output.put("collection", deleteOperation.getCollectionName());
 
         try {
             if (this.isModifyOne())
-                output.put("updateResult", mongoDbUtility.updateOne(updateOperation));
+                output.put("deleteResult", mongoDbUtility.deleteOne(deleteOperation));
             else
-                output.put("updateResult", mongoDbUtility.updateMany(updateOperation));
+                output.put("deleteResult", mongoDbUtility.deleteMany(deleteOperation));
 
         } catch (MongoExecutionTimeoutException ex) {
             return csUtil.buildApiExceptionError(

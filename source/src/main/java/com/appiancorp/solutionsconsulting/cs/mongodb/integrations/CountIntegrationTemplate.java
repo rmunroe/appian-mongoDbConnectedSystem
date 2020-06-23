@@ -28,9 +28,9 @@ import java.util.Map;
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
 
-@TemplateId(name = "CollectionCountIntegrationTemplate")
+@TemplateId(name = "CountIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class CollectionCountIntegrationTemplate extends SimpleIntegrationTemplate {
+public class CountIntegrationTemplate extends SimpleIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,

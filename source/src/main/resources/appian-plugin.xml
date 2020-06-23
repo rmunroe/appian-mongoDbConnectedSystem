@@ -16,22 +16,20 @@
         <integration-template key="ListCollectionsIntegrationTemplate" name="ListCollectionsIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ListCollectionsIntegrationTemplate"/>
 
-        <integration-template key="ReadCollectionFindIntegrationTemplate" name="ReadCollectionFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadCollectionFindIntegrationTemplate"/>
+        <integration-template key="ReadFindIntegrationTemplate" name="ReadFindIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadFindIntegrationTemplate"/>
 
-        <integration-template key="WriteCollectionFindIntegrationTemplate" name="WriteCollectionFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteCollectionFindIntegrationTemplate"/>
+        <integration-template key="WriteFindIntegrationTemplate" name="WriteFindIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteFindIntegrationTemplate"/>
 
-        <integration-template key="CollectionCountIntegrationTemplate" name="CollectionCountIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CollectionCountIntegrationTemplate"/>
+        <integration-template key="CountIntegrationTemplate" name="CountIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CountIntegrationTemplate"/>
 
-        <integration-template key="ReadCollectionAggregateIntegrationTemplate"
-                              name="ReadCollectionAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadCollectionAggregateIntegrationTemplate"/>
+        <integration-template key="ReadAggregateIntegrationTemplate" name="ReadAggregateIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadAggregateIntegrationTemplate"/>
 
-        <integration-template key="WriteCollectionAggregateIntegrationTemplate"
-                              name="WriteCollectionAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteCollectionAggregateIntegrationTemplate"/>
+        <integration-template key="WriteAggregateIntegrationTemplate" name="WriteAggregateIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteAggregateIntegrationTemplate"/>
 
         <integration-template key="InsertManyIntegrationTemplate" name="InsertManyIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertManyIntegrationTemplate"/>

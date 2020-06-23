@@ -6,13 +6,19 @@ import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
+import com.appiancorp.solutionsconsulting.cs.mongodb.ConnectedSystemUtil;
+import com.appiancorp.solutionsconsulting.cs.mongodb.IntegrationUtil;
+import com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbUtility;
+import com.appiancorp.solutionsconsulting.cs.mongodb.PropertyDescriptorsUtil;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.InvalidJsonException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingCollectionException;
 import com.appiancorp.solutionsconsulting.cs.mongodb.exceptions.MissingDatabaseException;
-import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionFindOperation;
+import com.appiancorp.solutionsconsulting.cs.mongodb.operations.CollectionAggregateOperation;
+import com.mongodb.MongoCommandException;
 import com.mongodb.MongoExecutionTimeoutException;
 import com.mongodb.MongoQueryException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +26,7 @@ import java.util.Map;
 import static com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemConstants.*;
 
 
-public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplate {
-
+public class AggregateIntegrationTemplate extends MongoDbIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -29,7 +34,9 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
             PropertyPath propertyPath,
             ExecutionContext executionContext) {
 
-        this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
+        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
+        List<PropertyDescriptor<?>> propertyDescriptors = new ArrayList<>();
+        PropertyDescriptorsUtil propertyDescriptorsUtil = new PropertyDescriptorsUtil(this, integrationConfiguration, mongoDbUtility, propertyDescriptors);
 
         if (this.isWriteOperation())
             propertyDescriptorsUtil.buildFileOutputProperty(); // Show file output settings
@@ -40,12 +47,20 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
         propertyDescriptorsUtil.buildCollectionsProperty();
 
         if (integrationConfiguration.getValue(COLLECTION) != null) {
-            propertyDescriptorsUtil.buildCollectionFindProperties();
+            propertyDescriptorsUtil.buildCollectionAggregateProperties();
+
+            propertyDescriptorsUtil.buildCollationsProperty();
+            propertyDescriptorsUtil.buildReadPreferenceProperty();
+            propertyDescriptorsUtil.buildReadConcernProperty();
         }
 
-        return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
+        return integrationConfiguration.setProperties(
+                propertyDescriptors.toArray(new PropertyDescriptor[0])
+        ).setValue(
+                "ExamplePipeline",
+                "a!toJson({{'$group':{'_id':\"$lastName\",count:{'$sum':1}}},{'$sort':{count:-1,'_id':1}},{'$limit':10}})"
+        );
     }
-
 
     @Override
     protected IntegrationResponse execute(
@@ -53,11 +68,13 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
             SimpleConfiguration connectedSystemConfiguration,
             ExecutionContext executionContext) {
 
-        this.setupExecute("MongoCollection.find()", integrationConfiguration, connectedSystemConfiguration, executionContext);
+        ConnectedSystemUtil csUtil = new ConnectedSystemUtil("MongoCollection.aggregate()");
+        MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
+        IntegrationUtil integrationUtil = new IntegrationUtil(integrationConfiguration, executionContext);
 
-        CollectionFindOperation findOperation;
+        CollectionAggregateOperation aggregateOperation;
         try {
-            findOperation = new CollectionFindOperation(
+            aggregateOperation = new CollectionAggregateOperation(
                     integrationConfiguration.getValue(DATABASE),
                     integrationConfiguration.getValue(DATABASE_EXISTS),
                     integrationConfiguration.getValue(COLLECTION),
@@ -66,14 +83,7 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
                     integrationConfiguration.getValue(READ_CONCERN),
 
                     integrationConfiguration.getValue(OUTPUT_TYPE),
-                    integrationConfiguration.getValue(FILTER_JSON),
-                    integrationConfiguration.getValue(SORT_JSON),
-                    integrationConfiguration.getValue(PROJECTION_JSON),
-
-                    integrationConfiguration.getValue(LIMIT) != null ? integrationConfiguration.getValue(LIMIT) : 0,
-                    integrationConfiguration.getValue(SKIP) != null ? integrationConfiguration.getValue(SKIP) : 0,
-                    integrationConfiguration.getValue(RECORD_ID),
-                    integrationConfiguration.getValue(MAX_TIME),
+                    integrationConfiguration.getValue(AGGREGATE_PIPELINE_JSON),
 
                     integrationUtil.buildCollation()
             );
@@ -83,37 +93,37 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
                     "Invalid JSON string: \"" + e.jsonString + "\"");
         }
 
-        csUtil.addAllRequestDiagnostic(findOperation.getRequestDiagnostic());
+        csUtil.addAllRequestDiagnostic(aggregateOperation.getRequestDiagnostic());
 
         Map<String, Object> output = new HashMap<>();
 
         csUtil.startTiming();
 
-        output.put("database", findOperation.getDatabaseName());
-        output.put("collection", findOperation.getCollectionName());
+        output.put("database", aggregateOperation.getDatabaseName());
+        output.put("collection", aggregateOperation.getCollectionName());
 
         try {
             if (this.isWriteOperation()) {
                 // Export to JSON file
-                List<String> jsonList = mongoDbUtility.findJson(findOperation);
+                List<String> jsonList = mongoDbUtility.aggregateJson(aggregateOperation);
                 Document document = integrationUtil.writeJsonListToDocument(jsonList);
                 output.put("jsonDocument", document);
 
-            } else if (findOperation.getOutputType() != null && findOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
-                output.put("documents", mongoDbUtility.findJson(findOperation));
+            } else if (aggregateOperation.getOutputType() != null && aggregateOperation.getOutputType().equals(OUTPUT_TYPE_JSON_ARRAY)) {
+                output.put("documents", mongoDbUtility.aggregateJson(aggregateOperation));
 
             } else {
-                output.put("documents", mongoDbUtility.find(findOperation));
+                output.put("documents", mongoDbUtility.aggregate(aggregateOperation));
             }
 
-        } catch (MongoExecutionTimeoutException ex) {
+        } catch (MongoExecutionTimeoutException e) {
             return csUtil.buildApiExceptionError(
                     "Max Processing Time Exceeded",
-                    ex.getMessage());
-        } catch (MongoQueryException ex) {
+                    e.getMessage());
+        } catch (MongoQueryException e) {
             return csUtil.buildApiExceptionError(
                     "Query Exception",
-                    ex.getMessage());
+                    e.getMessage());
         } catch (MissingCollectionException e) {
             return csUtil.buildApiExceptionError(
                     "Missing Collection Exception",
@@ -122,13 +132,9 @@ public class CollectionFindIntegrationTemplate extends MongoDbIntegrationTemplat
             return csUtil.buildApiExceptionError(
                     "Missing Database Exception",
                     e.getMessage());
-        } catch (UnsupportedOperationException e) {
+        } catch (MongoCommandException e) {
             return csUtil.buildApiExceptionError(
-                    "Unsupported Operation Exception",
-                    e.getMessage());
-        } catch (Exception e) {
-            return csUtil.buildApiExceptionError(
-                    "Exception",
+                    "Mongo Command Exception",
                     e.getMessage());
         }
 

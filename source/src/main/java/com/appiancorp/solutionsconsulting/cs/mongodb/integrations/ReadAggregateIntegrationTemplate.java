@@ -5,7 +5,7 @@ import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTem
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 
 
-@TemplateId(name = "ReadCollectionAggregateIntegrationTemplate")
+@TemplateId(name = "ReadAggregateIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class ReadCollectionAggregateIntegrationTemplate extends CollectionAggregateIntegrationTemplate {
+public class ReadAggregateIntegrationTemplate extends AggregateIntegrationTemplate {
 }

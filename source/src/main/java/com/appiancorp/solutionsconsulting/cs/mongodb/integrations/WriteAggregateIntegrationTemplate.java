@@ -5,8 +5,7 @@ import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTem
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 
 
-@TemplateId(name = "WriteCollectionFindIntegrationTemplate")
+@TemplateId(name = "WriteAggregateIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
-public class WriteCollectionFindIntegrationTemplate extends CollectionFindIntegrationTemplate {
-
+public class WriteAggregateIntegrationTemplate extends AggregateIntegrationTemplate {
 }

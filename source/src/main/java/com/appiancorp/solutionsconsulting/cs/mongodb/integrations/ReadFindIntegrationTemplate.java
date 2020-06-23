@@ -5,8 +5,8 @@ import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTem
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 
 
-@TemplateId(name = "ReadCollectionFindIntegrationTemplate")
+@TemplateId(name = "ReadFindIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
-public class ReadCollectionFindIntegrationTemplate extends CollectionFindIntegrationTemplate {
+public class ReadFindIntegrationTemplate extends FindIntegrationTemplate {
 
 }

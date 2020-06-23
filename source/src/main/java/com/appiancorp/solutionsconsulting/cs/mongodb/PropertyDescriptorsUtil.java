@@ -132,7 +132,7 @@ public class PropertyDescriptorsUtil {
                 .key(DATABASE)
                 .label("Database")
                 .choices(databaseChoices.toArray(new Choice[0]))
-                .description("The MongoDB Database to list Collections from")
+                .description("The MongoDB Database")
                 .refresh(RefreshPolicy.ALWAYS)
                 .isExpressionable(true)
                 .isRequired(true)
@@ -156,7 +156,7 @@ public class PropertyDescriptorsUtil {
             TextPropertyDescriptor.TextPropertyDescriptorBuilder propertyDescriptorBuilder = TextPropertyDescriptor.builder()
                     .key(COLLECTION)
                     .label("Collection")
-                    .description("The MongoDB Collection to Find from")
+                    .description("The MongoDB Collection")
                     .refresh(RefreshPolicy.ALWAYS)
                     .isExpressionable(true)
                     .isRequired(true);

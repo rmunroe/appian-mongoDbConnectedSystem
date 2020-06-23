@@ -54,5 +54,8 @@
         <integration-template key="DeleteOneIntegrationTemplate" name="DeleteOneIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DeleteOneIntegrationTemplate"/>
 
+        <integration-template key="DropCollectionIntegrationTemplate" name="DropCollectionIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DropCollectionIntegrationTemplate"/>
+
     </connected-system-template>
 </appian-plugin>

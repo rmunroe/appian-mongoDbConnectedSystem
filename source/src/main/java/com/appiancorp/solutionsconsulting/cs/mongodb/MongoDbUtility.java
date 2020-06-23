@@ -271,6 +271,21 @@ public class MongoDbUtility {
     }
 
 
+    public boolean dropCollection(DropCollectionOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        collection.drop();
+
+        try {
+            getCollection(database, op.getCollectionName(), true);
+        } catch (MissingCollectionException e) {
+            return true;
+        }
+        return false;
+    }
+
+
     private Document getDocumentFromUpdateResult(UpdateResult updateResult) {
         Document result = new Document();
         result.put("matchedCount", updateResult.getMatchedCount());

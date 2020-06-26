@@ -1,4 +1,4 @@
-<appian-plugin name="MongoDB Connected System" key="com.appiancorp.solutionsconsulting.cs.mongodb">
+<appian-plugin name="MongoDB Connected System" key="com.appiancorp.solutionsconsulting.plugin.mongodb">
 
     <plugin-info>
         <description>MongoDB Connected System for Appian</description>
@@ -7,53 +7,69 @@
         <application-version min="19.4.0.0"/>
     </plugin-info>
 
+    <function-category key="MongoDbCategory" name="MongoDb CS Helper"/>
+
+    <datatype key="MongoDb" name="Mongo DB Data Types">
+        <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId</class>
+        <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Binary</class>
+    </datatype>
+
+
+    <function key="MdbNow" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MdbNow"/>
+    <function key="MdbFromJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MdbFromJson"/>
+    <function key="MdbToJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MdbToJson"/>
+
+
     <connected-system-template key="MongoDbConnectedSystem" name="MongoDbConnectedSystem"
-                               class="com.appiancorp.solutionsconsulting.cs.mongodb.MongoDbConnectedSystemTemplate">
+                               class="com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemTemplate">
 
         <integration-template key="ListDatabasesIntegrationTemplate" name="ListDatabasesIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ListDatabasesIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.ListDatabasesIntegrationTemplate"/>
 
         <integration-template key="ListCollectionsIntegrationTemplate" name="ListCollectionsIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ListCollectionsIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.ListCollectionsIntegrationTemplate"/>
 
         <integration-template key="ReadFindIntegrationTemplate" name="ReadFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadFindIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.ReadFindIntegrationTemplate"/>
 
         <integration-template key="WriteFindIntegrationTemplate" name="WriteFindIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteFindIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.WriteFindIntegrationTemplate"/>
 
         <integration-template key="CountIntegrationTemplate" name="CountIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.CountIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.CountIntegrationTemplate"/>
 
         <integration-template key="ReadAggregateIntegrationTemplate" name="ReadAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReadAggregateIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.ReadAggregateIntegrationTemplate"/>
 
         <integration-template key="WriteAggregateIntegrationTemplate" name="WriteAggregateIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.WriteAggregateIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.WriteAggregateIntegrationTemplate"/>
 
         <integration-template key="InsertManyIntegrationTemplate" name="InsertManyIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertManyIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.InsertManyIntegrationTemplate"/>
 
         <integration-template key="InsertOneIntegrationTemplate" name="InsertOneIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.InsertOneIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.InsertOneIntegrationTemplate"/>
 
         <integration-template key="UpdateManyIntegrationTemplate" name="UpdateManyIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.UpdateManyIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.UpdateManyIntegrationTemplate"/>
 
         <integration-template key="UpdateOneIntegrationTemplate" name="UpdateOneIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.UpdateOneIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.UpdateOneIntegrationTemplate"/>
 
         <integration-template key="ReplaceOneIntegrationTemplate" name="ReplaceOneIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.ReplaceOneIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.ReplaceOneIntegrationTemplate"/>
 
         <integration-template key="DeleteManyIntegrationTemplate" name="DeleteManyIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DeleteManyIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.DeleteManyIntegrationTemplate"/>
 
         <integration-template key="DeleteOneIntegrationTemplate" name="DeleteOneIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DeleteOneIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.DeleteOneIntegrationTemplate"/>
+
+        <integration-template key="CreateCollectionIntegrationTemplate" name="CreateCollectionIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.CreateCollectionIntegrationTemplate"/>
 
         <integration-template key="DropCollectionIntegrationTemplate" name="DropCollectionIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.cs.mongodb.integrations.DropCollectionIntegrationTemplate"/>
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.DropCollectionIntegrationTemplate"/>
 
     </connected-system-template>
 </appian-plugin>

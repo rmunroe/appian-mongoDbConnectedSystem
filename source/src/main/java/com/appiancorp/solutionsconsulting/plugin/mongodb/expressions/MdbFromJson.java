@@ -96,7 +96,7 @@ public class MdbFromJson {
 
         } else if (value instanceof org.bson.types.Binary) {
             // Is a BSON Binary. Convert to our Binary.
-            Datatype type = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MCSH", "Binary"));
+            Datatype type = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MongoDB", "Binary"));
             AppianObject binary = (AppianObject) typeFactory.createElement(type.getId());
             binary.put("binary", typeFactory.createString(Base64.getEncoder().encodeToString(
                     ((org.bson.types.Binary) value).getData()
@@ -106,7 +106,7 @@ public class MdbFromJson {
 
         } else if (value instanceof org.bson.types.ObjectId) {
             // Is a BSON ObjectId. Convert to our ObjectId.
-            Datatype type = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MCSH", "ObjectId"));
+            Datatype type = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MongoDB", "ObjectId"));
             AppianObject oid = (AppianObject) typeFactory.createElement(type.getId());
             oid.put("oid", typeFactory.createString(value.toString()));
             return oid;

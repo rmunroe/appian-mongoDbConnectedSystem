@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 
-@XmlRootElement(namespace = "urn:com:appian:types:MCSH", name = "ObjectId")
+@XmlRootElement(namespace = "urn:com:appian:types:MongoDB", name = "ObjectId")
 @XmlType(
-        namespace = "urn:com:appian:types:MCSH",
+        namespace = "urn:com:appian:types:MongoDB",
         name = ObjectId.LOCAL_PART,
         propOrder = {
                 "oid"
@@ -17,7 +17,7 @@ import javax.xml.namespace.QName;
 @XmlSeeAlso({ObjectId.class})
 public class ObjectId {
     public static final String LOCAL_PART = "ObjectId";
-    public static final QName QNAME = new QName("urn:com:appian:types:MCSH", LOCAL_PART);
+    public static final QName QNAME = new QName("urn:com:appian:types:MongoDB", LOCAL_PART);
     private static final long serialVersionUID = 1L;
     private String oid;
 

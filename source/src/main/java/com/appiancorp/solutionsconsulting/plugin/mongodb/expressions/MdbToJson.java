@@ -45,8 +45,8 @@ public class MdbToJson {
 
         Document doc = new Document();
 
-        Datatype binaryType = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MCSH", "Binary"));
-        Datatype objectIdType = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MCSH", "ObjectId"));
+        Datatype binaryType = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MongoDB", "Binary"));
+        Datatype objectIdType = typeService.getTypeByQualifiedName(new QName("urn:com:appian:types:MongoDB", "ObjectId"));
 
         @SuppressWarnings("unchecked")
         Map<TypedValue, TypedValue> dictionary = (HashMap<TypedValue, TypedValue>) typeService.cast(AppianTypeLong.DICTIONARY, typedValue).getValue();

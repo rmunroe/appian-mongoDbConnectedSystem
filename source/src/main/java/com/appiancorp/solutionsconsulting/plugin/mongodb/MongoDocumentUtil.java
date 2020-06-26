@@ -27,8 +27,10 @@ public class MongoDocumentUtil {
                 document.put(key, prepDocumentForOutput((Document) val, objectIdAsString, uuidAsString)); // recurse
 
             } else if (objectIdAsString != null && objectIdAsString && val instanceof ObjectId) {
-                Document oid = new Document();
-                oid.put("$oid", val.toString());
+//                Document oid = new Document();
+//                oid.put("$oid", val.toString());
+                com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId oid = new com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId();
+                oid.setOid(val.toString());
                 document.put(key, oid);
 
             } else if (uuidAsString != null && uuidAsString && val instanceof UUID) {

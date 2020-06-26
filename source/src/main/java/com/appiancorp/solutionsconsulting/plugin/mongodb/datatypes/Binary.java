@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 
-@XmlRootElement(namespace = "urn:com:appian:types:MCSH", name = "Binary")
+@XmlRootElement(namespace = "urn:com:appian:types:MongoDB", name = "Binary")
 @XmlType(
-        namespace = "urn:com:appian:types:MCSH",
+        namespace = "urn:com:appian:types:MongoDB",
         name = Binary.LOCAL_PART,
         propOrder = {
                 "binary",
@@ -18,7 +18,7 @@ import javax.xml.namespace.QName;
 @XmlSeeAlso({Binary.class})
 public class Binary {
     public static final String LOCAL_PART = "Binary";
-    public static final QName QNAME = new QName("urn:com:appian:types:MCSH", LOCAL_PART);
+    public static final QName QNAME = new QName("urn:com:appian:types:MongoDB", LOCAL_PART);
     private static final long serialVersionUID = 1L;
     private String binary;
     private String type;

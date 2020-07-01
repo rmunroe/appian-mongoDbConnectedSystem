@@ -15,38 +15,40 @@
     </datatype>
 
 
-    <function key="Mdb_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.Mdb_Now"/>
-    <function key="Mdb_FromJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.Mdb_FromJson"/>
-    <function key="Mdb_ToJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.Mdb_ToJson"/>
+    <function key="M_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_Now"/>
+    <function key="M_FromJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FromJson"/>
+    <function key="M_ToJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ToJson"/>
 
-    <function key="Mdb_Field"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.Mdb_Field"/>
+    <function key="M_Query" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Query"/>
+    <function key="M_Field" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Field"/>
 
-    <function key="Mdb_Eq"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Eq"/>
-    <function key="Mdb_Gt"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Gt"/>
-    <function key="Mdb_Gte"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Gte"/>
-    <function key="Mdb_In"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_In"/>
-    <function key="Mdb_Lt"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Lt"/>
-    <function key="Mdb_Lte"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Lte"/>
-    <function key="Mdb_Ne"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Ne"/>
-    <function key="Mdb_Nin"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.Mdb_Nin"/>
+    <function key="M_Eq"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Eq"/>
+    <function key="M_Gt"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Gt"/>
+    <function key="M_Gte"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Gte"/>
+    <function key="M_In"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_In"/>
+    <function key="M_Lt"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Lt"/>
+    <function key="M_Lte"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Lte"/>
+    <function key="M_Ne"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Ne"/>
+    <function key="M_Nin"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.comparison.M_Nin"/>
 
-    <function key="Mdb_And"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.Mdb_And"/>
-    <function key="Mdb_Nor"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.Mdb_Nor"/>
-    <function key="Mdb_Not"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.Mdb_Not"/>
-    <function key="Mdb_Or"
-              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.Mdb_Or"/>
+    <function key="M_And"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.M_And"/>
+    <function key="M_Nor"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.M_Nor"/>
+    <function key="M_Not"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.M_Not"/>
+    <function key="M_Or" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.logical.M_Or"/>
+
+    <function key="M_Exists"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.element.M_Exists"/>
 
 
     <connected-system-template key="MongoDbConnectedSystem" name="MongoDbConnectedSystem"

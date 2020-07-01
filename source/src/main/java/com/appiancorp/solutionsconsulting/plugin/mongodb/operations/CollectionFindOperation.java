@@ -40,7 +40,7 @@ public class CollectionFindOperation extends CollectionReadOperation {
                 setFilterDocument(Document.parse(getFilterJson()));
             } catch (Exception ex) {
                 throw new InvalidJsonException(
-                        "Find JSON Query: Invalid JSON provided. Perhaps you need to call a!toJson() on your value?",
+                        "Find JSON Query: Invalid JSON provided.",
                         getFilterJson());
             }
 
@@ -50,7 +50,7 @@ public class CollectionFindOperation extends CollectionReadOperation {
                 setSortDocument(Document.parse(getSortJson()));
             } catch (Exception ex) {
                 throw new InvalidJsonException(
-                        "Sort JSON: Invalid JSON provided. Perhaps you need to call a!toJson() on your value?",
+                        "Sort JSON: Invalid JSON provided.",
                         getSortJson());
             }
 
@@ -60,7 +60,7 @@ public class CollectionFindOperation extends CollectionReadOperation {
                 setProjectionDocument(Document.parse(getProjectionJson()));
             } catch (Exception ex) {
                 throw new InvalidJsonException(
-                        "Projection JSON: Invalid JSON provided. Perhaps you need to call a!toJson() on your value?",
+                        "Projection JSON: Invalid JSON provided.",
                         getProjectionJson());
             }
 

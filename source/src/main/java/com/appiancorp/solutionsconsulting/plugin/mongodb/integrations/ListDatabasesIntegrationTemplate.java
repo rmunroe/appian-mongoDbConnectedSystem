@@ -49,7 +49,7 @@ public class ListDatabasesIntegrationTemplate extends SimpleIntegrationTemplate 
             SimpleConfiguration connectedSystemConfiguration,
             ExecutionContext executionContext) {
 
-        ConnectedSystemUtil csUtil = new ConnectedSystemUtil("MongoDbClient.listDatabaseNames()");
+        ConnectedSystemUtil csUtil = new ConnectedSystemUtil("MongoClient.listDatabaseNames()");
         MongoDbUtility mongoDbUtility = new MongoDbUtility(connectedSystemConfiguration);
 
         String outputType = integrationConfiguration.getValue(OUTPUT_TYPE);

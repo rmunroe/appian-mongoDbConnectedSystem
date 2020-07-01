@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @MongoDbCategory
-public class MdbNow {
+public class Mdb_Now {
 
     @Function
-    public Timestamp mdbNow() {
+    public Timestamp mdb_Now() {
         return new Timestamp((new Date()).getTime());
     }
 }

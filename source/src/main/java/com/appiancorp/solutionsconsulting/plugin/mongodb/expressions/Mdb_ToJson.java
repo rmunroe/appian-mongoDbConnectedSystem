@@ -28,8 +28,8 @@ import java.util.Map;
 
 
 @MongoDbCategory
-public class MdbToJson {
-    private static final Logger LOG = Logger.getLogger(MdbToJson.class);
+public class Mdb_ToJson {
+    private static final Logger LOG = Logger.getLogger(Mdb_ToJson.class);
 
     /**
      * Takes an Appian
@@ -110,8 +110,8 @@ public class MdbToJson {
     }
 
     @Function
-    public String mdbToJson(TypeService typeService, ContentService contentService, @Parameter TypedValue value) throws Exception {
-        LOG.debug("mdbToJson was called");
+    public String mdb_ToJson(TypeService typeService, ContentService contentService, @Parameter TypedValue value) throws Exception {
+        LOG.debug("mdb_ToJson was called");
 
         try {
             return typedValueToDocument(typeService, value).toJson();

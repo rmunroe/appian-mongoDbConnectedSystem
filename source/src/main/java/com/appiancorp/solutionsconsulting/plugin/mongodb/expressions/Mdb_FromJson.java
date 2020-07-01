@@ -5,7 +5,6 @@ import com.appiancorp.ps.plugins.typetransformer.AppianList;
 import com.appiancorp.ps.plugins.typetransformer.AppianObject;
 import com.appiancorp.ps.plugins.typetransformer.AppianTypeFactory;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbCategory;
-import com.appiancorp.suiteapi.content.ContentService;
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 import com.appiancorp.suiteapi.type.AppianType;
@@ -24,8 +23,8 @@ import java.util.List;
 
 
 @MongoDbCategory
-public class MdbFromJson {
-    private static final Logger LOG = Logger.getLogger(MdbFromJson.class);
+public class Mdb_FromJson {
+    private static final Logger LOG = Logger.getLogger(Mdb_FromJson.class);
 
     /**
      * Copies the values from a BSON Document into an Appian Dictionary
@@ -120,8 +119,8 @@ public class MdbFromJson {
     }
 
     @Function
-    public TypedValue mdbFromJson(TypeService typeService, ContentService contentService, @Parameter String json) throws Exception {
-        LOG.debug("mdbFromJson was called; create a dictionary and return it");
+    public TypedValue mdb_FromJson(TypeService typeService, @Parameter String json) throws Exception {
+        LOG.debug("mdb_FromJson was called; create a dictionary and return it");
 
         AppianTypeFactory typeFactory = AppianTypeFactory.newInstance(typeService);
 

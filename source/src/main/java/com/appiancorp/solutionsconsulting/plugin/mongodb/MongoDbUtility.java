@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 
 public class MongoDbUtility {
@@ -159,9 +158,13 @@ public class MongoDbUtility {
 
     public List<Map<String, Object>> aggregate(CollectionAggregateOperation op) throws MissingDatabaseException, MissingCollectionException {
         List<Map<String, Object>> results = new ArrayList<>();
-        Consumer<Document> documentConsumer = results::add;
+//        Consumer<Document> documentConsumer = results::add;
 
-        aggregateExec(op).forEach(documentConsumer);
+//        aggregateExec(op).forEach(documentConsumer);
+
+        for (Document doc : aggregateExec(op)) {
+            results.add(MongoDocumentUtil.prepDocumentForOutput(doc, true, false));
+        }
 
         return results;
     }

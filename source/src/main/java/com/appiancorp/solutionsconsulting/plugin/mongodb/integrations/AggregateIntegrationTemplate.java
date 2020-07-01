@@ -136,6 +136,10 @@ public class AggregateIntegrationTemplate extends MongoDbIntegrationTemplate {
             return csUtil.buildApiExceptionError(
                     "Mongo Command Exception",
                     e.getMessage());
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(
+                    "Exception",
+                    e.getMessage());
         }
 
         csUtil.stopTiming();

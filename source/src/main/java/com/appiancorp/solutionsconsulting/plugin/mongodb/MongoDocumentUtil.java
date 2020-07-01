@@ -1,8 +1,10 @@
 package com.appiancorp.solutionsconsulting.plugin.mongodb;
 
 import org.bson.Document;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
+import java.util.Base64;
 import java.util.UUID;
 
 
@@ -27,11 +29,19 @@ public class MongoDocumentUtil {
                 document.put(key, prepDocumentForOutput((Document) val, objectIdAsString, uuidAsString)); // recurse
 
             } else if (objectIdAsString != null && objectIdAsString && val instanceof ObjectId) {
-//                Document oid = new Document();
-//                oid.put("$oid", val.toString());
-                com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId oid = new com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId();
-                oid.setOid(val.toString());
+                Document oid = new Document();
+                oid.put("oid", val.toString());
+//                com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId oid = new com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId();
+//                oid.setOid(val.toString());
                 document.put(key, oid);
+
+            } else if (val instanceof Binary) {
+                Document binary = new Document();
+                binary.put("binary", Base64.getEncoder().encodeToString(
+                        ((org.bson.types.Binary) val).getData()
+                ));
+                binary.put("type", "" + ((org.bson.types.Binary) val).getType());
+                document.put(key, binary);
 
             } else if (uuidAsString != null && uuidAsString && val instanceof UUID) {
                 document.put(key, val.toString());

@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.plugin.mongodb.expressions;
+package com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.futures;
 
 import com.appiancorp.core.data.DateWithTimezone;
 import com.appiancorp.core.data.TimestampWithTimezone;

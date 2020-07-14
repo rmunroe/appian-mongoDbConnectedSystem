@@ -1,4 +1,4 @@
-package com.appiancorp.solutionsconsulting.plugin.mongodb.expressions;
+package com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.futures;
 
 import com.appiancorp.ps.plugins.typetransformer.AppianElement;
 import com.appiancorp.ps.plugins.typetransformer.AppianList;

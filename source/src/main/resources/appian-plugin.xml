@@ -17,8 +17,6 @@
 
     <function key="M_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_Now"/>
     <function key="M_ObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ObjectId"/>
-    <function key="M_FromJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FromJson"/>
-    <function key="M_ToJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ToJson"/>
 
     <function key="M_Query" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Query"/>
     <function key="M_Field" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Field"/>

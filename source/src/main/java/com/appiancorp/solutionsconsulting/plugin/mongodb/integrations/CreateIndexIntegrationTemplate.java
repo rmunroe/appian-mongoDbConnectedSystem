@@ -4,11 +4,13 @@ import com.appian.connectedsystems.simplified.sdk.configuration.SimpleConfigurat
 import com.appian.connectedsystems.templateframework.sdk.ExecutionContext;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.TemplateId;
+import com.appian.connectedsystems.templateframework.sdk.configuration.DisplayHint;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
+import com.appian.connectedsystems.templateframework.sdk.configuration.TextPropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.CreateCollectionOperation;
+import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.CreateIndexOperation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +18,9 @@ import java.util.Map;
 import static com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemConstants.*;
 
 
-@TemplateId(name = "CreateCollectionIntegrationTemplate")
+@TemplateId(name = "CreateIndexIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
-public class CreateCollectionIntegrationTemplate extends MongoDbIntegrationTemplate {
+public class CreateIndexIntegrationTemplate extends MongoDbIntegrationTemplate {
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -29,10 +31,14 @@ public class CreateCollectionIntegrationTemplate extends MongoDbIntegrationTempl
         this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
 
         propertyDescriptorsUtil.buildDatabaseProperty();
+        propertyDescriptorsUtil.buildCollectionsProperty();
 
-        propertyDescriptors.add(textProperty(COLLECTION)
-                .label("New Collection Name")
+        propertyDescriptors.add(TextPropertyDescriptor.builder()
+                .key(INDEX_JSON)
+                .label("Index JSON")
+                .description("A JSON string representing a MongoDB index")
                 .isExpressionable(true)
+                .displayHint(DisplayHint.EXPRESSION)
                 .isRequired(true)
                 .build()
         );
@@ -47,25 +53,33 @@ public class CreateCollectionIntegrationTemplate extends MongoDbIntegrationTempl
             SimpleConfiguration connectedSystemConfiguration,
             ExecutionContext executionContext
     ) {
-        this.setupExecute("MongoDatabase.createCollection()", integrationConfiguration, connectedSystemConfiguration, executionContext);
+        this.setupExecute("MongoCollection.createIndex()", integrationConfiguration, connectedSystemConfiguration, executionContext);
 
-        CreateCollectionOperation createCollectionOperation = new CreateCollectionOperation(
-                integrationConfiguration.getValue(DATABASE),
-                integrationConfiguration.getValue(DATABASE_EXISTS),
-                integrationConfiguration.getValue(COLLECTION)
-        );
+        CreateIndexOperation createIndexOperation;
+        try {
+            createIndexOperation = new CreateIndexOperation(
+                    integrationConfiguration.getValue(DATABASE),
+                    integrationConfiguration.getValue(DATABASE_EXISTS),
+                    integrationConfiguration.getValue(COLLECTION),
+                    integrationConfiguration.getValue(COLLECTION_EXISTS),
 
-        csUtil.addAllRequestDiagnostic(createCollectionOperation.getRequestDiagnostic());
+                    integrationConfiguration.getValue(INDEX_JSON)
+            );
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(e);
+        }
+
+        csUtil.addAllRequestDiagnostic(createIndexOperation.getRequestDiagnostic());
 
         Map<String, Object> output = new HashMap<>();
 
         csUtil.startTiming();
 
-        output.put("database", createCollectionOperation.getDatabaseName());
-        output.put("collection", createCollectionOperation.getCollectionName());
+        output.put("database", createIndexOperation.getDatabaseName());
+        output.put("collection", createIndexOperation.getCollectionName());
 
         try {
-            output.put("collectionCreated", mongoDbUtility.createCollection(createCollectionOperation));
+            output.put("indexName", mongoDbUtility.createIndex(createIndexOperation));
 
         } catch (Exception e) {
             return csUtil.buildApiExceptionError(e);

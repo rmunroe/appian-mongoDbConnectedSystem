@@ -39,10 +39,9 @@ public class InsertManyOperation extends CollectionWriteOperation {
         setSourceFile(sourceFile);
         setFileIsArray(fileIsArray);
 
-
-        if (insertSource.equals(INSERT_SOURCE_DOCUMENT)) {
+        if (getInsertSource().equals(INSERT_SOURCE_DOCUMENT)) {
             InputStream inputStream = sourceFile.getInputStream();
-            if (fileIsArray) {
+            if (getFileIsArray()) {
                 // Read entire file contents into JSON array
                 sourceJsonArray = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
                         .lines()
@@ -60,7 +59,7 @@ public class InsertManyOperation extends CollectionWriteOperation {
         setSkipDateTimeConversion(skipDateTimeConversion);
 
         List<Document> documents = new ArrayList<>();
-        if (sourceJsonArray.matches("^\\[.*]$")) {
+        if (sourceJsonArray.startsWith("[") && sourceJsonArray.endsWith("]")) {
             try {
                 @SuppressWarnings("unchecked")
                 List<Document> docs = (List<Document>) Document.parse("{docs:" + sourceJsonArray + "}").get("docs");

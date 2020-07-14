@@ -10,13 +10,7 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.ConnectedSystemUtil;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.IntegrationUtil;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbUtility;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.PropertyDescriptorsUtil;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatabaseException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.CollectionAggregateOperation;
-import com.mongodb.MongoCommandException;
-import com.mongodb.MongoExecutionTimeoutException;
-import com.mongodb.MongoQueryException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,10 +81,8 @@ public class AggregateIntegrationTemplate extends MongoDbIntegrationTemplate {
 
                     integrationUtil.buildCollation()
             );
-        } catch (InvalidJsonException e) {
-            return csUtil.buildApiExceptionError(
-                    e.getMessage(),
-                    "Invalid JSON string: \"" + e.jsonString + "\"");
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.addAllRequestDiagnostic(aggregateOperation.getRequestDiagnostic());
@@ -116,30 +108,8 @@ public class AggregateIntegrationTemplate extends MongoDbIntegrationTemplate {
                 output.put("documents", mongoDbUtility.aggregate(aggregateOperation));
             }
 
-        } catch (MongoExecutionTimeoutException e) {
-            return csUtil.buildApiExceptionError(
-                    "Max Processing Time Exceeded",
-                    e.getMessage());
-        } catch (MongoQueryException e) {
-            return csUtil.buildApiExceptionError(
-                    "Query Exception",
-                    e.getMessage());
-        } catch (MissingCollectionException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Collection Exception",
-                    e.getMessage());
-        } catch (MissingDatabaseException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Database Exception",
-                    e.getMessage());
-        } catch (MongoCommandException e) {
-            return csUtil.buildApiExceptionError(
-                    "Mongo Command Exception",
-                    e.getMessage());
         } catch (Exception e) {
-            return csUtil.buildApiExceptionError(
-                    "Exception",
-                    e.getMessage());
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.stopTiming();

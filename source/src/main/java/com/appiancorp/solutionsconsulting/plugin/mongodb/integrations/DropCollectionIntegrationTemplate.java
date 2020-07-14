@@ -8,11 +8,7 @@ import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyD
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatabaseException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.DropCollectionOperation;
-import com.mongodb.MongoException;
-import com.mongodb.MongoExecutionTimeoutException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,30 +62,8 @@ public class DropCollectionIntegrationTemplate extends MongoDbIntegrationTemplat
         try {
             output.put("collectionDropped", mongoDbUtility.dropCollection(dropCollectionOperation));
 
-        } catch (MongoExecutionTimeoutException ex) {
-            return csUtil.buildApiExceptionError(
-                    "Max Processing Time Exceeded",
-                    ex.getMessage());
-        } catch (MissingCollectionException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Collection Exception",
-                    e.getMessage());
-        } catch (MissingDatabaseException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Database Exception",
-                    e.getMessage());
-        } catch (UnsupportedOperationException e) {
-            return csUtil.buildApiExceptionError(
-                    "Unsupported Operation Exception",
-                    e.getMessage());
-        } catch (MongoException e) {
-            return csUtil.buildApiExceptionError(
-                    "Mongo Exception",
-                    e.getMessage());
         } catch (Exception e) {
-            return csUtil.buildApiExceptionError(
-                    "Exception",
-                    e.getMessage());
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.stopTiming();

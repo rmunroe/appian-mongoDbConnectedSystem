@@ -3,6 +3,8 @@ package com.appiancorp.solutionsconsulting.plugin.mongodb;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationError;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.diagnostics.IntegrationDesignerDiagnostic;
+import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,20 +91,26 @@ public class ConnectedSystemUtil {
     }
 
 
-    public IntegrationResponse buildApiExceptionError(String detail) {
-        return buildApiExceptionError(
-                "Could not perform action",
-                "Could not perform requested action, verify that the inputs are valid.",
-                detail
-        );
-    }
-
-    public IntegrationResponse buildApiExceptionError(String message, String detail) {
-        return buildApiExceptionError(
-                "Could not perform action",
-                message,
-                detail
-        );
+    public IntegrationResponse buildApiExceptionError(Exception e) {
+        if (e instanceof InvalidJsonException) {
+            return buildApiExceptionError(
+                    "Invalid Json Exception",
+                    e.getMessage(),
+                    ((InvalidJsonException) e).jsonString
+            );
+        } else {
+            String message = e.getMessage();
+            String detail = "";
+            if (message.contains("The full response is")) {
+                detail = message.replaceAll("^.* The full response is ", "");
+                message = message.replaceAll(" The full response is .*$", "");
+            }
+            return buildApiExceptionError(
+                    String.join(" ", StringUtils.splitByCharacterTypeCamelCase(e.getClass().getSimpleName())),
+                    message,
+                    detail
+            );
+        }
     }
 
     public IntegrationResponse buildApiExceptionError(String title, String message, String detail) {

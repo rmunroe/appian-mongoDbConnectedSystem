@@ -16,6 +16,7 @@
 
 
     <function key="M_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_Now"/>
+    <function key="M_ObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ObjectId"/>
     <function key="M_FromJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FromJson"/>
     <function key="M_ToJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ToJson"/>
 
@@ -49,6 +50,21 @@
 
     <function key="M_Exists"
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.element.M_Exists"/>
+    <function key="M_Type"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.element.M_Type"/>
+
+    <function key="M_Expr"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Expr"/>
+    <function key="M_JsonSchema"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_JsonSchema"/>
+    <function key="M_Mod"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Mod"/>
+    <function key="M_Regex"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Regex"/>
+    <function key="M_Text"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Text"/>
+    <function key="M_Where"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Where"/>
 
 
     <connected-system-template key="MongoDbConnectedSystem" name="MongoDbConnectedSystem"
@@ -75,6 +91,12 @@
         <integration-template key="WriteAggregateIntegrationTemplate" name="WriteAggregateIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.WriteAggregateIntegrationTemplate"/>
 
+        <integration-template key="CreateCollectionIntegrationTemplate" name="CreateCollectionIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.CreateCollectionIntegrationTemplate"/>
+
+        <integration-template key="CreateIndexIntegrationTemplate" name="CreateIndexIntegrationTemplate"
+                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.CreateIndexIntegrationTemplate"/>
+
         <integration-template key="InsertManyIntegrationTemplate" name="InsertManyIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.InsertManyIntegrationTemplate"/>
 
@@ -95,9 +117,6 @@
 
         <integration-template key="DeleteOneIntegrationTemplate" name="DeleteOneIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.DeleteOneIntegrationTemplate"/>
-
-        <integration-template key="CreateCollectionIntegrationTemplate" name="CreateCollectionIntegrationTemplate"
-                              class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.CreateCollectionIntegrationTemplate"/>
 
         <integration-template key="DropCollectionIntegrationTemplate" name="DropCollectionIntegrationTemplate"
                               class="com.appiancorp.solutionsconsulting.plugin.mongodb.integrations.DropCollectionIntegrationTemplate"/>

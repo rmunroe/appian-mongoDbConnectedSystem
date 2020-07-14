@@ -10,7 +10,7 @@ import java.util.Arrays;
 @MongoDbCategory
 public class M_Or {
     @Function
-    public String m_Or(@Parameter String... queryClauses) {
-        return MongoDbJsonHelper.buildArrayOperator("$or", Arrays.asList(queryClauses), true);
+    public String m_Or(@Parameter String... queryExpressions) {
+        return MongoDbJsonHelper.buildArrayOperator("$or", Arrays.asList(queryExpressions), true);
     }
 }

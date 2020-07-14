@@ -7,12 +7,7 @@ import com.appian.connectedsystems.templateframework.sdk.TemplateId;
 import com.appian.connectedsystems.templateframework.sdk.configuration.*;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatabaseException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.InsertManyOperation;
-import com.mongodb.MongoException;
-import com.mongodb.MongoExecutionTimeoutException;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
@@ -106,10 +101,8 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
 
                     integrationConfiguration.getValue(INSERT_SKIP_DATETIME_CONVERSION)
             );
-        } catch (InvalidJsonException e) {
-            return csUtil.buildApiExceptionError(
-                    e.getMessage(),
-                    "Invalid JSON string: \"" + e.jsonString + "\"");
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.addAllRequestDiagnostic(insertManyOperation.getRequestDiagnostic());
@@ -122,32 +115,11 @@ public class InsertManyIntegrationTemplate extends MongoDbIntegrationTemplate {
         output.put("collection", insertManyOperation.getCollectionName());
 
         try {
-            output.put("documents", mongoDbUtility.insertMany(insertManyOperation));
+            mongoDbUtility.insertMany(insertManyOperation);
+            output.put("documentCount", insertManyOperation.getDocuments().size());
 
-        } catch (MongoExecutionTimeoutException ex) {
-            return csUtil.buildApiExceptionError(
-                    "Max Processing Time Exceeded",
-                    ex.getMessage());
-        } catch (MissingCollectionException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Collection Exception",
-                    e.getMessage());
-        } catch (MissingDatabaseException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Database Exception",
-                    e.getMessage());
-        } catch (UnsupportedOperationException e) {
-            return csUtil.buildApiExceptionError(
-                    "Unsupported Operation Exception",
-                    e.getMessage());
-        } catch (MongoException e) {
-            return csUtil.buildApiExceptionError(
-                    "Mongo Exception",
-                    e.getMessage());
         } catch (Exception e) {
-            return csUtil.buildApiExceptionError(
-                    "Exception",
-                    e.getMessage());
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.stopTiming();

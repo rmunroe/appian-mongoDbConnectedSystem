@@ -29,7 +29,7 @@ public class CollectionAggregateOperation extends CollectionReadOperation {
 
         List<Document> stagesDocuments = new ArrayList<>();
         try {
-            if (stagesJson.matches("^\\[.*]$")) {
+            if (stagesJson.startsWith("[") && stagesJson.endsWith("]")) {
                 @SuppressWarnings("unchecked")
                 List<Document> stages = (List<Document>) Document.parse("{stages:" + stagesJson + "}").get("stages");
                 stagesDocuments.addAll(stages);

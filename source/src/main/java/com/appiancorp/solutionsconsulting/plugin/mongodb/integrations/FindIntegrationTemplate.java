@@ -6,12 +6,7 @@ import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.configuration.Document;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyDescriptor;
 import com.appian.connectedsystems.templateframework.sdk.configuration.PropertyPath;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingCollectionException;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatabaseException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.CollectionFindOperation;
-import com.mongodb.MongoExecutionTimeoutException;
-import com.mongodb.MongoQueryException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,10 +72,8 @@ public class FindIntegrationTemplate extends MongoDbIntegrationTemplate {
 
                     integrationUtil.buildCollation()
             );
-        } catch (InvalidJsonException e) {
-            return csUtil.buildApiExceptionError(
-                    e.getMessage(),
-                    "Invalid JSON string: \"" + e.jsonString + "\"");
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.addAllRequestDiagnostic(findOperation.getRequestDiagnostic());
@@ -106,30 +99,8 @@ public class FindIntegrationTemplate extends MongoDbIntegrationTemplate {
                 output.put("documents", mongoDbUtility.find(findOperation));
             }
 
-        } catch (MongoExecutionTimeoutException ex) {
-            return csUtil.buildApiExceptionError(
-                    "Max Processing Time Exceeded",
-                    ex.getMessage());
-        } catch (MongoQueryException ex) {
-            return csUtil.buildApiExceptionError(
-                    "Query Exception",
-                    ex.getMessage());
-        } catch (MissingCollectionException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Collection Exception",
-                    e.getMessage());
-        } catch (MissingDatabaseException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Database Exception",
-                    e.getMessage());
-        } catch (UnsupportedOperationException e) {
-            return csUtil.buildApiExceptionError(
-                    "Unsupported Operation Exception",
-                    e.getMessage());
         } catch (Exception e) {
-            return csUtil.buildApiExceptionError(
-                    "Exception",
-                    e.getMessage());
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.stopTiming();

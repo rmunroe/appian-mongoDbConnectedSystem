@@ -10,7 +10,7 @@ import java.util.Arrays;
 @MongoDbCategory
 public class M_Nor {
     @Function
-    public String m_Nor(@Parameter String... queryClauses) {
-        return MongoDbJsonHelper.buildArrayOperator("$nor", Arrays.asList(queryClauses), true);
+    public String m_Nor(@Parameter String... queryExpressions) {
+        return MongoDbJsonHelper.buildArrayOperator("$nor", Arrays.asList(queryExpressions), true);
     }
 }

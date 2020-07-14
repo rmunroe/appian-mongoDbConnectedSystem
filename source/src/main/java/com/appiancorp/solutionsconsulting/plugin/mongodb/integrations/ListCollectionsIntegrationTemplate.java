@@ -14,7 +14,6 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.ConnectedSystemUtil;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemConstants;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbUtility;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.PropertyDescriptorsUtil;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatabaseException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,10 +86,9 @@ public class ListCollectionsIntegrationTemplate extends SimpleIntegrationTemplat
             } else {
                 output.put("collections", mongoDbUtility.listCollections(databaseName, validateDatabase, uuidAsString));
             }
-        } catch (MissingDatabaseException e) {
-            return csUtil.buildApiExceptionError(
-                    "Missing Database Exception",
-                    e.getMessage());
+
+        } catch (Exception e) {
+            return csUtil.buildApiExceptionError(e);
         }
 
         csUtil.stopTiming();

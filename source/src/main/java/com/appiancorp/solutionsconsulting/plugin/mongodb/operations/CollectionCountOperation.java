@@ -28,7 +28,7 @@ public class CollectionCountOperation extends CollectionReadOperation {
                 setFilterDocument(Document.parse(getFilterJson()));
             } catch (Exception ex) {
                 throw new InvalidJsonException(
-                        "Find JSON Query: Invalid JSON provided.",
+                        "Filter JSON Query: Invalid JSON provided.",
                         getFilterJson());
             }
 

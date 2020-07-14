@@ -10,7 +10,7 @@ import java.util.Arrays;
 @MongoDbCategory
 public class M_And {
     @Function
-    public String m_And(@Parameter String... queryClauses) {
-        return MongoDbJsonHelper.buildArrayOperator("$and", Arrays.asList(queryClauses), true);
+    public String m_And(@Parameter String... queryExpressions) {
+        return MongoDbJsonHelper.buildArrayOperator("$and", Arrays.asList(queryExpressions), true);
     }
 }

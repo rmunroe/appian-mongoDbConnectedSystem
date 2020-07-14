@@ -198,17 +198,11 @@ public class MongoDbUtility {
     }
 
 
-    public List<Document> insertMany(InsertManyOperation op) throws MissingDatabaseException, MissingCollectionException {
+    public void insertMany(InsertManyOperation op) throws MissingDatabaseException, MissingCollectionException {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
         MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
 
-        List<Document> documents = op.getDocuments();
-        collection.insertMany(documents);
-
-        List<Document> updated = new ArrayList<>();
-        documents.forEach(doc -> updated.add(MongoDocumentUtil.prepDocumentForOutput(doc, true, true)));
-
-        return updated;
+        collection.insertMany(op.getDocuments());
     }
 
 
@@ -299,6 +293,14 @@ public class MongoDbUtility {
             return false;
         }
         return true;
+    }
+
+
+    public String createIndex(CreateIndexOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        return collection.createIndex(op.getIndexDocument());
     }
 
 

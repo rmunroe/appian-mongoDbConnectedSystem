@@ -68,7 +68,7 @@ task deployToVm {
     doLast {
         ssh.run {
             session(remotes.vmware) {
-                put from: 'build/libs/mongodb-csp-1.0.jar', into: '/opt/appian/20.2/_admin/plugins/'
+                put from: 'build/libs/ps-plugin-MongoDbConnectedSystem-1.0.jar', into: '/opt/appian/20.2/_admin/plugins/'
             }
         }
     }

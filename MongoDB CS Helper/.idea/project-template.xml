@@ -1,3 +1,0 @@
-<template>
-  <input-field default="com.appiancorp.solutionsconsulting.mypluginkey">IJ_BASE_PACKAGE</input-field>
-</template>

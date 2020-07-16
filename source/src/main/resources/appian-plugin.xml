@@ -64,6 +64,22 @@
     <function key="M_Where"
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.evaluation.M_Where"/>
 
+    <function key="M_All"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.array.M_All"/>
+    <function key="M_ElemMatch"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.array.M_ElemMatch"/>
+    <function key="M_Size"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.array.M_Size"/>
+
+    <function key="M_GeoIntersects"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoIntersects"/>
+    <function key="M_GeoWithin"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithin"/>
+    <function key="M_Near"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_Near"/>
+    <function key="M_NearSphere"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_NearSphere"/>
+
 
     <connected-system-template key="MongoDbConnectedSystem" name="MongoDbConnectedSystem"
                                class="com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemTemplate">

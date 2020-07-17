@@ -3,7 +3,7 @@
     <plugin-info>
         <description>MongoDB Connected System for Appian</description>
         <vendor name="Appian Solutions Consulting" url="http://www.appian.com"/>
-        <version>1.0.0.2</version>
+        <version>1.1.0.0</version>
         <application-version min="19.4.0.0"/>
     </plugin-info>
 
@@ -12,6 +12,7 @@
     <datatype key="MongoDb" name="Mongo DB Data Types">
         <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId</class>
         <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Binary</class>
+        <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Point</class>
     </datatype>
 
 
@@ -75,11 +76,20 @@
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoIntersects"/>
     <function key="M_GeoWithin"
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithin"/>
+    <function key="M_GeoWithinBox"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithinBox"/>
+    <function key="M_GeoWithinCircle"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithinCircle"/>
+    <function key="M_GeoWithinSphere"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithinSphere"/>
+    <function key="M_GeoWithinPolygon"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_GeoWithinPolygon"/>
     <function key="M_Near"
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_Near"/>
     <function key="M_NearSphere"
               class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_NearSphere"/>
-
+    <function key="M_ToPoint"
+              class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.geospatial.M_ToPoint"/>
 
     <connected-system-template key="MongoDbConnectedSystem" name="MongoDbConnectedSystem"
                                class="com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemTemplate">

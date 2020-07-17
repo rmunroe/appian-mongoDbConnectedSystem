@@ -5,6 +5,7 @@ import com.appiancorp.core.data.TimestampWithTimezone;
 import com.appiancorp.ps.plugins.typetransformer.AppianTypeFactory;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.AppianTypeHelper;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Binary;
+import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Point;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId;
 import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
@@ -141,6 +142,12 @@ public class MongoDbJsonHelper {
             String text = sdf.format(valObject);
             valString = "ISODate(\"" + text + "\")";
 
+        } else if (valObject instanceof Point) {
+            valString = valObject.toString();
+
+        } else if (valObject instanceof Point[]) {
+            valString = geoPointArrayToString((Point[]) valObject);
+
         } else {
             // Strings will match here
             if (noQuotes)
@@ -224,5 +231,14 @@ public class MongoDbJsonHelper {
             }
 
         return "\"" + operator + "\": [ " + String.join(", ", jsonValues) + " ]";
+    }
+
+
+    public static String geoPointArrayToString(Point[] array) {
+        List<String> pointStrings = new ArrayList<>();
+        for (Point point : array) {
+            pointStrings.add(point.toString());
+        }
+        return "[ " + String.join(", ", pointStrings) + " ]";
     }
 }

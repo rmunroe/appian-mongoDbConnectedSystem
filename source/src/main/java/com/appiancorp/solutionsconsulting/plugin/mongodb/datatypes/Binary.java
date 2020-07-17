@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 
 @XmlRootElement(namespace = "urn:com:appian:types:MongoDB", name = "Binary")
 @XmlType(
-        namespace = "urn:com:appian:types:MongoDB",
+        namespace = Binary.NAMESPACE_URI,
         name = Binary.LOCAL_PART,
         propOrder = {
                 "binary",
@@ -18,7 +18,8 @@ import javax.xml.namespace.QName;
 @XmlSeeAlso({Binary.class})
 public class Binary {
     public static final String LOCAL_PART = "Binary";
-    public static final QName QNAME = new QName("urn:com:appian:types:MongoDB", LOCAL_PART);
+    public static final String NAMESPACE_URI = "urn:com:appian:types:MongoDB";
+    public static final QName QNAME = new QName(NAMESPACE_URI, LOCAL_PART);
     private static final long serialVersionUID = 1L;
     private String binary;
     private String type;

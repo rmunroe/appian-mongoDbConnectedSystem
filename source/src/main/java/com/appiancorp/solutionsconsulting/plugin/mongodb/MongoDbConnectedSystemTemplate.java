@@ -52,7 +52,7 @@ public class MongoDbConnectedSystemTemplate extends SimpleTestableConnectedSyste
     @Override
     protected TestConnectionResult testConnection(SimpleConfiguration configuration, ExecutionContext executionContext) {
         try {
-            MongoClient mongoClient = MongoDbConnection.instance.get(configuration.getValue(CONNECTION_STRING));
+            MongoClient mongoClient = MongoDbConnection.instance.getClientFor(configuration.getValue(CONNECTION_STRING));
             assert MongoDbConnection.testMongoDbConnection(mongoClient);
         } catch (Exception e) {
             String message = e.getClass().getSimpleName() + "\n\n" + e.getMessage();

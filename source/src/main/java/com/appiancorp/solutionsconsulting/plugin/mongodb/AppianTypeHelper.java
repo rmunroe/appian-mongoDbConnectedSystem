@@ -1,6 +1,5 @@
 package com.appiancorp.solutionsconsulting.plugin.mongodb;
 
-import com.appiancorp.ps.plugins.typetransformer.AppianElement;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidCdtException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidDictionaryException;
 import com.appiancorp.suiteapi.type.Datatype;
@@ -13,18 +12,18 @@ import com.appiancorp.type.DataTypeProperties;
 
 import java.util.*;
 
-
+@SuppressWarnings("unchecked")
 public class AppianTypeHelper {
 
     /**
      * Takes the first object (Dictionary or CDT) in the sourceObjects and returns the field names, useful for
      *
-     * @param typeService
-     * @param value
-     * @return
+     * @param typeService Injected TypeService instance
+     * @param typedValue  the value
+     * @return the list of field names
      */
-    public static String[] getFieldNames(TypeService typeService, TypedValue value) throws Exception {
-        Map<TypedValue, TypedValue> map = (HashMap<TypedValue, TypedValue>) typeService.cast(AppianTypeLong.LIST_OF_DICTIONARY, value).getValue();
+    public static String[] getFieldNames(TypeService typeService, TypedValue typedValue) throws Exception {
+        Map<TypedValue, TypedValue> map = (HashMap<TypedValue, TypedValue>) typeService.cast(AppianTypeLong.LIST_OF_DICTIONARY, typedValue).getValue();
 
         Set<TypedValue> keySet = map.keySet();
         ArrayList<String> fieldNames = new ArrayList<>(keySet.size());
@@ -34,16 +33,13 @@ public class AppianTypeHelper {
             fieldNames.add(fieldName);
         }
 
-        String[] header = fieldNames.toArray(new String[fieldNames.size()]);
-
-        return header;
+        return fieldNames.toArray(new String[0]);
     }
 
     /**
-     * @param typeService
-     * @param typedValue
-     * @return
-     * @throws InvalidCdtException
+     * @param typeService Injected TypeService instance
+     * @param typedValue  the value
+     * @return true if cast to Dictionary was successful, otherwise false
      */
     public static Boolean isListDictOrCdt(TypeService typeService, TypedValue typedValue) {
         if (typedValue == null) return false;
@@ -61,10 +57,10 @@ public class AppianTypeHelper {
 
 
     /**
-     * @param typeService
-     * @param typedValue
-     * @return
-     * @throws InvalidCdtException
+     * @param typeService Injected TypeService instance
+     * @param typedValue  the value
+     * @return the typedValue cast as an ArrayList&gt;HashMap&gt;TypedValue, TypedValue&lt;&lt;
+     * @throws InvalidCdtException typedValue was not a CDT or Dictionary
      */
     public static ArrayList<HashMap<TypedValue, TypedValue>> toMapList(TypeService typeService, TypedValue typedValue) throws InvalidCdtException {
         try {
@@ -72,7 +68,7 @@ public class AppianTypeHelper {
         } catch (Exception e1) {
             try {
                 HashMap<TypedValue, TypedValue> returnMap = (HashMap<TypedValue, TypedValue>) typeService.cast(AppianTypeLong.DICTIONARY, typedValue).getValue();
-                ArrayList<HashMap<TypedValue, TypedValue>> returnList = new ArrayList<HashMap<TypedValue, TypedValue>>();
+                ArrayList<HashMap<TypedValue, TypedValue>> returnList = new ArrayList<>();
                 returnList.add(returnMap);
                 return (ArrayList<HashMap<TypedValue, TypedValue>>) returnList.clone();
             } catch (Exception e2) {
@@ -84,14 +80,14 @@ public class AppianTypeHelper {
 
 
     /**
-     * @param ts
-     * @param toCast
-     * @return
-     * @throws InvalidTypeException
+     * @param typeService Injected TypeService instance
+     * @param toCast The TypedValue instance to cast
+     * @return a TypedValue instance
+     * @throws InvalidTypeException when toCast could not be cast to a list of dictionary
      */
-    public static TypedValue toDictionaryList(TypeService ts, ArrayList<HashMap<TypedValue, TypedValue>> toCast) throws InvalidTypeException {
+    public static TypedValue toDictionaryList(TypeService typeService, ArrayList<HashMap<TypedValue, TypedValue>> toCast) throws InvalidTypeException {
         try {
-            return new TypedValue(AppianTypeLong.LIST_OF_DICTIONARY, toCast.toArray(new HashMap[toCast.size()]));
+            return new TypedValue(AppianTypeLong.LIST_OF_DICTIONARY, toCast.toArray(new HashMap[0]));
         } catch (Exception e) {
             throw new InvalidTypeException("Could not cast to list of dictionary");
         }
@@ -121,15 +117,15 @@ public class AppianTypeHelper {
      * @return
      */
     public static ArrayList<TypedValue> setToArrayList(Set<TypedValue> set) {
-        return new ArrayList<TypedValue>(Arrays.asList(set.toArray(new TypedValue[set.size()])));
+        return new ArrayList<>(Arrays.asList(set.toArray(new TypedValue[0])));
     }
 
 
     /**
      * Attempts to get the scalar type of the given type. Will throw an error if passed a CDT or list of variant (2d array)
      *
-     * @param typeService
-     * @param typedValue
+     * @param typeService Injected TypeService instance
+     * @param typedValue  the value
      * @return
      * @throws InvalidTypeException
      * @throws InvalidDictionaryException
@@ -139,7 +135,7 @@ public class AppianTypeHelper {
         DatatypeProperties typeProperties = typeService.getDatatypeProperties(typeLong);
         List<Datatype> referencedTypes = typeService.getReferencedTypes(typeLong);
 
-        if (!typeProperties.hasFlag(DataTypeProperties.FLAG_SYSTEM) || typeLong == AppianTypeLong.LIST_OF_VARIANT)
+        if (!typeProperties.hasFlag(DataTypeProperties.FLAG_SYSTEM) || typeLong.equals(AppianTypeLong.LIST_OF_VARIANT))
             throw new InvalidDictionaryException("Nested CDTs and lists currently not supported.");
 
         Long type = 0L;

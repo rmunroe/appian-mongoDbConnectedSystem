@@ -51,7 +51,7 @@ Compatibility
 
 This plugin was built and tested on Appian versions 19.4 and 20.2.
 
-Version 1.2 of this plugin uses the `MongoDB Java Driver version 3.12.5 <https://mongodb.github.io/mongo-java-driver/3.12/>`__ and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this `compatibility chart <https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility>`__ for full details.
+Version 1.1 of this plugin uses the `MongoDB Java Driver version 3.12.5 <https://mongodb.github.io/mongo-java-driver/3.12/>`__ and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this `compatibility chart <https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility>`__ for full details.
 
 This plugin was tested against a `MongoDB Atlas <https://www.mongodb.com/cloud/atlas>`__ a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.
 

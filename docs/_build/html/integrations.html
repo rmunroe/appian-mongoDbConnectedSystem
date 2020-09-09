@@ -1,0 +1,1535 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Integrations &mdash; MongoDB Connected System 1.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="JSON Query Expression Functions" href="expressions.html" />
+    <link rel="prev" title="Connected System" href="connected_system.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Integrations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#read-integration-operations">READ Integration Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-databases">List Databases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#result-value">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#list-collections">List Collections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-find">Collection Find</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-count">Collection Count</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-aggregate">Collection Aggregate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">Result Value</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#write-integration-operations">WRITE Integration Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#collection-find-to-json-file">Collection Find to JSON File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-aggregate-to-json-file">Collection Aggregate to JSON File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id29">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id34">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-collection">Create Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id36">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id38">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-index-in-collection">Create Index in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id39">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id42">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#insert-many-in-collection">Insert Many in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id43">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id47">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#insert-one-in-collection">Insert One in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id48">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#update-many-in-collection">Update Many in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id53">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id59">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#update-one-in-collection">Update One in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id60">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id68">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#replace-one-in-collection">Replace One in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id69">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id75">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-many-in-collection">Delete Many in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id77">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id83">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-one-in-collection">Delete One in Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id84">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id90">Result Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-collection">Drop Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id91">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id94">Result Value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-configuration-parameters">Common Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#common-output-type">Output Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-collection">Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-filter-json">Filter JSON</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-output-json-as-a-single-array">Output JSON As a Single Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-save-to-folder">Save to Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-filename">Filename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-skip-automatic-date-time-conversion">Skip Automatic Date Time Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-character-set">Character Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-collation">Collation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-read-preference">Read Preference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-read-concern">Read Concern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MongoDB Connected System</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Integrations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/integrations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="integrations">
+<h1>Integrations<a class="headerlink" href="#integrations" title="Permalink to this headline">¶</a></h1>
+<p>Creating an Integration will be the same steps for all Integration operations listed below. Start by clicking <strong>New &gt; Integration</strong> in your application in Designer.</p>
+<p>Enter the name of your MongoDB <strong>Connected System</strong> object, select the Integration <strong>Operation</strong>, then give it a <strong>Name</strong> and <strong>Description</strong> and the folder to <strong>Save In</strong> and click <strong>Create</strong>.</p>
+<div class="figure align-default">
+<img alt="_images/image7.png" src="_images/image7.png" />
+</div>
+<p>Each Integration Operation will be configured differently, as noted below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unless noted otherwise, all parameters in all Integration Operations are expressionable, meaning that they can be mapped to rule inputs or otherwise derived at runtime.</p>
+</div>
+<div class="section" id="read-integration-operations">
+<h2>READ Integration Operations<a class="headerlink" href="#read-integration-operations" title="Permalink to this headline">¶</a></h2>
+<p>This section details all Integration Operations supported by the Connected System in a <strong>READ</strong> context. They can be used anywhere that Expressions are evaluated.</p>
+<div class="section" id="list-databases">
+<span id="read-list-databases"></span><h3>List Databases<a class="headerlink" href="#list-databases" title="Permalink to this headline">¶</a></h3>
+<p>This Integration executes the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listDatabases/">List Databases</a> operation to list all Databases available in the Connected System instance.</p>
+<div class="figure align-default">
+<img alt="_images/image8.png" src="_images/image8.png" />
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">result.databases.name</span></code> property is the MongoDB Database name that can be used as any Integration Operation’s <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> parameter value.</p>
+<div class="section" id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="output-type">
+<h5><em>Output Type</em><a class="headerlink" href="#output-type" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="result-value">
+<h4>Result Value<a class="headerlink" href="#result-value" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">databases</span></code></p></td>
+<td><p><em>List of Dictionary</em></p></td>
+<td><p>Dictionaries represent the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listDatabases/#output">List Databases output data</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="list-collections">
+<span id="read-list-collections"></span><h3>List Collections<a class="headerlink" href="#list-collections" title="Permalink to this headline">¶</a></h3>
+<p>This Integration executes the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listCollections/">List Collections</a> operation to list all MongoDB Collections in the given Database available to the connected user.</p>
+<div class="figure align-default">
+<img alt="_images/image9.png" src="_images/image9.png" />
+</div>
+<div class="section" id="id3">
+<h4>Parameters<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id4">
+<h5><em>Output Type</em><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="database">
+<h5><em>Database</em><a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="uuids-as-string">
+<h5><em>UUIDs as String</em><a class="headerlink" href="#uuids-as-string" title="Permalink to this headline">¶</a></h5>
+<p>MongoDB stores UUIDs as a special data type internally. When returned to Appian, they are sub-dictionaries with several properties. Chances are this is not as useful to you, so setting <strong>Yes</strong> here will ensure the string representation of the UUID is returned instead of the sub-dictionary.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>Result Value<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collections</span></code></p></td>
+<td><p><em>List of Dictionary</em></p></td>
+<td><p>Dictionaries represent the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listCollections/#output">List Collections output data</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="collection-find">
+<span id="read-collection-find"></span><h3>Collection Find<a class="headerlink" href="#collection-find" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.find/">Find</a> operation in the given MongoDB Collection and returns the matching MongoDB Documents. This is the standard operation for querying MongoDB Documents.</p>
+<div class="figure align-default">
+<img alt="_images/image10.png" src="_images/image10.png" />
+</div>
+<div class="section" id="id6">
+<h4>Parameters<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h5><em>Output Type</em><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id8">
+<h5><em>Database</em><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="collection">
+<h5><em>Collection</em><a class="headerlink" href="#collection" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="filter-json">
+<h5><em>Filter JSON</em><a class="headerlink" href="#filter-json" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="sort-json">
+<h5><em>Sort JSON</em><a class="headerlink" href="#sort-json" title="Permalink to this headline">¶</a></h5>
+<p>A JSON string representing the sort order for a <code class="docutils literal notranslate"><span class="pre">Collection.Find()</span></code> query.  Sort specifies the order in which the query returns matching documents.  Example, sorting by last name ascendingly, then first name ascendingly:</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="projection-json">
+<h5><em>Projection JSON</em><a class="headerlink" href="#projection-json" title="Permalink to this headline">¶</a></h5>
+<p>A JSON string representing a <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/">Projection</a> for a <code class="docutils literal notranslate"><span class="pre">Collection.Find()</span></code> query. Projections limit the amount of data that MongoDB returns.</p>
+<p>Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the _id (which is always projected unless omitted):</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{ &quot;firstName&quot;: 1, &quot;lastName&quot;: 1, &quot;address.postalCode&quot;: 1, _id: 0 }
+</pre></div>
+</div>
+</div>
+<div class="section" id="limit">
+<h5><em>Limit</em><a class="headerlink" href="#limit" title="Permalink to this headline">¶</a></h5>
+<p>Sets the number of MongoDB Document results to return. Useful for mapping <code class="docutils literal notranslate"><span class="pre">a!pagingInfo.batchSize</span></code> to use paging in your queries.</p>
+</div>
+<div class="section" id="skip">
+<h5><em>Skip</em><a class="headerlink" href="#skip" title="Permalink to this headline">¶</a></h5>
+<p>Sets the number of MongoDB Document results to skip before returning.  Useful for mapping <code class="docutils literal notranslate"><span class="pre">a!pagingInfo.startIndex</span></code> to use paging in your queries.</p>
+</div>
+<div class="section" id="collation">
+<h5><em>Collation</em><a class="headerlink" href="#collation" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collation"><span class="std std-ref">Collation</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="max-processing-time">
+<h5><em>Max Processing Time</em><a class="headerlink" href="#max-processing-time" title="Permalink to this headline">¶</a></h5>
+<p>Specifies a cumulative time limit in milliseconds for <strong>processing</strong> operations on a Find operation. Note that this is not the complete time to perform the Integration Operation, nor the entire query on the MongoDB server, but only the time MongoDB is processing the query.</p>
+</div>
+<div class="section" id="read-preference">
+<h5><em>Read Preference</em><a class="headerlink" href="#read-preference" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-preference"><span class="std std-ref">Read Preference</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="read-concern">
+<h5><em>Read Concern</em><a class="headerlink" href="#read-concern" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-concern"><span class="std std-ref">Read Concern</span></a> in Common Configuration
+Parameters.</p>
+</div>
+<div class="section" id="include-record-id">
+<h5><em>Include Record Id</em><a class="headerlink" href="#include-record-id" title="Permalink to this headline">¶</a></h5>
+<p>Modifies the output of a query by adding a field <code class="docutils literal notranslate"><span class="pre">recordId</span></code> to matching MongoDB Documents. Record Id is the internal key which uniquely identifies a MongoDB Document in a Collection.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is different from a MongoDB Document’s Object Id.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>Result Value<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documents</span></code></p></td>
+<td><p><em>List of Dictionary</em> <strong>OR</strong> <em>List of Text</em></p></td>
+<td><p>The MongoDB Documents matched by the Filter JSON query, either as Dictionaries or JSON strings depending on the Output Type selected</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="collection-count">
+<h3>Collection Count<a class="headerlink" href="#collection-count" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.count/">Count</a> operation on the Collection, returning the number of MongoDB Documents that match the provided Filter JSON.</p>
+<div class="figure align-default">
+<img alt="_images/image11.png" src="_images/image11.png" />
+</div>
+<p>This is useful for determining how many total results match a given Filter JSON without returning the data. Using this in conjunction with <a class="reference internal" href="#read-collection-find"><span class="std std-ref">Collection Find</span></a> and <code class="docutils literal notranslate"><span class="pre">a!pagingInfo()</span></code> allows for complete paging of your queries.</p>
+<div class="section" id="id10">
+<h4>Parameters<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h5><em>Database</em><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id12">
+<h5><em>Collection</em><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id13">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id14">
+<h5><em>Collation</em><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collation"><span class="std std-ref">Collation</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id15">
+<h5><em>Read Preference</em><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-preference"><span class="std std-ref">Read Preference</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id16">
+<h5><em>Read Concern</em><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-concern"><span class="std std-ref">Read Concern</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h4>Result Value<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 20%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The number of MongoDB Documents matched by the Filter JSON</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="collection-aggregate">
+<h3>Collection Aggregate<a class="headerlink" href="#collection-aggregate" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/aggregation/">Aggregate</a> operation, taking in an <a class="reference external" href="https://docs.mongodb.com/manual/core/aggregation-pipeline/">Aggregation Pipeline</a> in the form of a single Text parameter that represents an array of JSON pipeline operations.</p>
+<div class="figure align-default">
+<img alt="_images/image12.png" src="_images/image12.png" />
+</div>
+<p>Aggregates are MongoDB’s method of performing analytic operations on Collections, allowing for operations such as <code class="docutils literal notranslate"><span class="pre">$match</span></code> and <code class="docutils literal notranslate"><span class="pre">$group</span></code>. Please see the MongoDB documentation for further details.</p>
+<div class="section" id="id18">
+<h4>Parameters<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id19">
+<h5><em>Output Type</em><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id20">
+<h5><em>Database</em><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id21">
+<h5><em>Collection</em><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="aggregate-pipeline-stages-json">
+<h5><em>Aggregate Pipeline Stages JSON</em><a class="headerlink" href="#aggregate-pipeline-stages-json" title="Permalink to this headline">¶</a></h5>
+<p>This parameter allows you to provide a collection of “stages” of an Aggregate Pipeline in the form of a single Text value that represents an array of JSON pipeline operations. For example, this JSON value represents an Aggregate Pipeline that returns the top 10 most common last names from a collection (e.g. Customers).</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;$group&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;$lastName&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;$sum&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;$sort&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">-1</span><span class="p">,</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;$limit&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id22">
+<h5><em>Collation</em><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collation"><span class="std std-ref">Collation</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id23">
+<h5><em>Read Preference</em><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-preference"><span class="std std-ref">Read Preference</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id24">
+<h5><em>Read Concern</em><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-read-concern"><span class="std std-ref">Read Concern</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id25">
+<h4>Result Value<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documents</span></code></p></td>
+<td><p><em>List of Dictionary</em> <strong>OR</strong> <em>List of Text</em></p></td>
+<td><p>The MongoDB Documents produced by the Aggregate operation, either as Dictionaries or JSON strings depending on the Output Type selected</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="write-integration-operations">
+<h2>WRITE Integration Operations<a class="headerlink" href="#write-integration-operations" title="Permalink to this headline">¶</a></h2>
+<p>This section details all Integration Operations supported by the Connected System in a <strong>WRITE</strong> context. These Integrations can only be used in the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Call_Integration_Smart_Service.html">Call Integration Smart Service</a>, in a <a class="reference external" href="https://docs.appian.com/suite/help/latest/Designing_Web_APIs.html">Web API</a> that uses a <strong>POST</strong>, <strong>PUT</strong>, or <strong>DELETE</strong> Request, or in a SAIL <a class="reference external" href="https://docs.appian.com/suite/help/latest/enabling_user_interaction.html#saving-modified-or-alternative-values">Save Into</a> event.</p>
+<div class="section" id="collection-find-to-json-file">
+<h3>Collection Find to JSON File<a class="headerlink" href="#collection-find-to-json-file" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.find/">Find</a> operation in the given MongoDB Collection and exports the results as JSON to an Appian Document. This is identical to the READ <a class="reference internal" href="#read-collection-find"><span class="std std-ref">Collection Find</span></a> operation except that a document is created from the output.</p>
+<div class="figure align-default">
+<img alt="_images/image13.png" src="_images/image13.png" />
+</div>
+<div class="section" id="id27">
+<h4>Parameters<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Only the parameters that differ from the READ version of <a class="reference internal" href="#read-collection-find"><span class="std std-ref">Collection Find</span></a> above are discussed here. For all others, see <a class="reference internal" href="#read-collection-find"><span class="std std-ref">above</span></a>.</p>
+</div>
+<div class="section" id="output-json-as-a-single-array">
+<h5><em>Output JSON As a Single Array</em><a class="headerlink" href="#output-json-as-a-single-array" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-json-as-a-single-array"><span class="std std-ref">Output JSON As a Single Array</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="save-to-folder">
+<h5><em>Save to Folder</em><a class="headerlink" href="#save-to-folder" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-save-to-folder"><span class="std std-ref">Save to Folder</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="filename">
+<h5><em>Filename</em><a class="headerlink" href="#filename" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filename"><span class="std std-ref">Filename</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="character-set">
+<h5><em>Character Set</em><a class="headerlink" href="#character-set" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-character-set"><span class="std std-ref">Character Set</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id28">
+<h4>Result Value<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 22%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jsonDocument</span></code></p></td>
+<td><p><em>Appian Document</em></p></td>
+<td><p>The output file in Appian’s content management</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="collection-aggregate-to-json-file">
+<h3>Collection Aggregate to JSON File<a class="headerlink" href="#collection-aggregate-to-json-file" title="Permalink to this headline">¶</a></h3>
+<p>Performs the Aggregate operation in the given MongoDB Collection and exports the results as JSON to an Appian Document. This is identical to the READ <a class="reference internal" href="#collection-aggregate">Collection Aggregate</a> operation except that a document is created from the output.</p>
+<div class="figure align-default">
+<img alt="_images/image14.png" src="_images/image14.png" />
+</div>
+<div class="section" id="id29">
+<h4>Parameters<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Only the parameters that differ from the READ version of <a class="reference internal" href="#read-collection-find"><span class="std std-ref">Collection Find</span></a> above are discussed here. For all others, see <a class="reference internal" href="#read-collection-find"><span class="std std-ref">above</span></a>.</p>
+</div>
+<div class="section" id="id30">
+<h5><em>Output JSON As a Single Array</em><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-json-as-a-single-array"><span class="std std-ref">Output JSON As a Single Array</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id31">
+<h5><em>Save to Folder</em><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-save-to-folder"><span class="std std-ref">Save to Folder</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id32">
+<h5><em>Filename</em><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filename"><span class="std std-ref">Filename</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id33">
+<h5><em>Character Set</em><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-character-set"><span class="std std-ref">Character Set</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id34">
+<h4>Result Value<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 22%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jsonDocument</span></code></p></td>
+<td><p><em>Appian Document</em></p></td>
+<td><p>The output file in Appian’s content management</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="create-collection">
+<h3>Create Collection<a class="headerlink" href="#create-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.createCollection/">Create Collection</a> operation, explicitly creating a new Collection in the given Database.</p>
+<div class="figure align-default">
+<img alt="_images/image15.png" src="_images/image15.png" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to implicitly create a Collection using <a class="reference internal" href="#insert-one-in-collection">Insert One in Collection</a> or <a class="reference internal" href="#insert-many-in-collection">Insert Many in Collection</a> by specifying a <strong>Collection</strong> name that does not exist and ensuring that the <strong>Return error if Collection does not exist</strong> checkbox is not checked.</p>
+</div>
+<div class="section" id="id36">
+<h4>Parameters<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id37">
+<h5><em>Database</em><a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="collection-name">
+<h5><em>Collection Name</em><a class="headerlink" href="#collection-name" title="Permalink to this headline">¶</a></h5>
+<p>The name of the new Collection to be created.</p>
+</div>
+</div>
+<div class="section" id="id38">
+<h4>Result Value<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 20%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection name provided</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collectionCreated</span></code></p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>Whether the Collection was created or not</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="create-index-in-collection">
+<h3>Create Index in Collection<a class="headerlink" href="#create-index-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/">Create Index</a> operation, adding a new index in the given Collection.  <a class="reference external" href="https://docs.mongodb.com/manual/indexes/">Indexes</a> are critical for ensuring good performance on any operation that includes a Filter JSON value.</p>
+<div class="figure align-default">
+<img alt="_images/image16.png" src="_images/image16.png" />
+</div>
+<div class="section" id="id39">
+<h4>Parameters<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id40">
+<h5><em>Database</em><a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id41">
+<h5><em>Collection</em><a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="index-json">
+<h5><em>Index JSON</em><a class="headerlink" href="#index-json" title="Permalink to this headline">¶</a></h5>
+<p>The <a class="reference external" href="https://docs.mongodb.com/manual/indexes/">MongoDB Index Document</a> in JSON form to instruct MongoDB how to create the new index.</p>
+</div>
+</div>
+<div class="section" id="id42">
+<h4>Result Value<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 23%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">indexName</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The name of the newly created Index</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="insert-many-in-collection">
+<h3>Insert Many in Collection<a class="headerlink" href="#insert-many-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/">Insert Many</a> operation, creating new MongoDB Document instances in the Collection provided.</p>
+<div class="figure align-default">
+<img alt="_images/image17.png" src="_images/image17.png" />
+</div>
+<p>This Integration Operation allows you to select the source of the JSON to be inserted, either as a List of Text (an array of JSON documents) or by reading JSON from an Appian Document.</p>
+<p>When used in conjunction with one of the other WRITE operations that produce Appian Document outputs (such as <a class="reference internal" href="#collection-find-to-json-file"><span class="std std-ref">Collection Find to JSON File</span></a>) this allows for the export and import of larger amounts of data without impacting Process Engine memory usage.</p>
+<div class="section" id="id43">
+<h4>Parameters<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id44">
+<h5><em>Output Type</em><a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id45">
+<h5><em>Database</em><a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id46">
+<h5><em>Collection</em><a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="json-source">
+<h5><em>JSON Source</em><a class="headerlink" href="#json-source" title="Permalink to this headline">¶</a></h5>
+<p>This parameter allows you to select between passing in JSON values or alternatively reading JSON from an Appian Document.</p>
+<div class="figure align-default">
+<img alt="_images/image18.png" src="_images/image18.png" />
+</div>
+</div>
+<div class="section" id="insert-many-json-array">
+<h5><em>Insert Many JSON Array</em><a class="headerlink" href="#insert-many-json-array" title="Permalink to this headline">¶</a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Present only if <a class="reference internal" href="#json-source">JSON Source</a> is “JSON String.”</p>
+</div>
+<p>The JSON array of MongoDB Documents to be inserted, in the form of: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">]</span></code></p>
+</div>
+<div class="section" id="source-json-file">
+<h5><em>Source JSON File</em><a class="headerlink" href="#source-json-file" title="Permalink to this headline">¶</a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Present only if <a class="reference internal" href="#json-source">JSON Source</a> is “JSON from Appian Document.”</p>
+</div>
+<p>The Appian Document that contains the MongoDB Documents in JSON form to be inserted.</p>
+</div>
+<div class="section" id="json-file-contains-a-single-array">
+<h5><em>JSON File Contains a Single Array</em><a class="headerlink" href="#json-file-contains-a-single-array" title="Permalink to this headline">¶</a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Present only if <a class="reference internal" href="#json-source">JSON Source</a> is “JSON from Appian Document.”</p>
+</div>
+<p>If <strong>Yes</strong> (or <code class="docutils literal notranslate"><span class="pre">true</span></code>) then the file will be treated as a single JSON array of MongoDB Documents, e.g. <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">]</span></code></p>
+<p>If <strong>No</strong> (or <code class="docutils literal notranslate"><span class="pre">false</span></code>) then the file must have one JSON object per line (delimited with newline), without trailing commas.</p>
+</div>
+<div class="section" id="skip-automatic-date-time-conversion">
+<h5><em>Skip Automatic Date Time Conversion</em><a class="headerlink" href="#skip-automatic-date-time-conversion" title="Permalink to this headline">¶</a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Present only if <a class="reference internal" href="#json-source">JSON Source</a> is “JSON from Appian Document.”</p>
+</div>
+<p>Refer to <a class="reference internal" href="#common-skip-automatic-date-time-conversion"><span class="std std-ref">Skip Automatic Date Time Conversion</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id47">
+<h4>Result Value<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 19%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documentCount</span></code></p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The count of new MongoDB Documents inserted into the Collection</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="insert-one-in-collection">
+<h3>Insert One in Collection<a class="headerlink" href="#insert-one-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/">Insert One</a> operation, creating a new, singular MongoDB Document instance in the Collection provided.</p>
+<div class="figure align-default">
+<img alt="_images/image19.png" src="_images/image19.png" />
+</div>
+<div class="section" id="id48">
+<h4>Parameters<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id49">
+<h5><em>Output Type</em><a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id50">
+<h5><em>Database</em><a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id51">
+<h5><em>Collection</em><a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="insert-one-json">
+<h5><em>Insert One JSON</em><a class="headerlink" href="#insert-one-json" title="Permalink to this headline">¶</a></h5>
+<p>The JSON value of the MongoDB Document to be inserted</p>
+</div>
+</div>
+<div class="section" id="id52">
+<h4>Result Value<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">document</span></code></p></td>
+<td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
+<td><p>The MongoDB Document produced by the Insert One operation, either as a Dictionary or JSON string depending on the Output Type selected</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="update-many-in-collection">
+<h3>Update Many in Collection<a class="headerlink" href="#update-many-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/">Update Many</a> operation, updating all MongoDB Document instances that match the provided Filter JSON.</p>
+<div class="figure align-default">
+<img alt="_images/image20.png" src="_images/image20.png" />
+</div>
+<div class="section" id="id53">
+<h4>Parameters<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id54">
+<h5><em>Output Type</em><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id55">
+<h5><em>Database</em><a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id56">
+<h5><em>Collection</em><a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id57">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="update-instructions-json">
+<h5><em>Update Instructions JSON</em><a class="headerlink" href="#update-instructions-json" title="Permalink to this headline">¶</a></h5>
+<p>This field accepts the JSON to instruct MongoDB how to update the MongoDB Documents matched by the Filter JSON, using <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/update/">Update Operators</a>.</p>
+</div>
+<div class="section" id="id58">
+<h5><em>Skip Automatic Date Time Conversion</em><a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-skip-automatic-date-time-conversion"><span class="std std-ref">Skip Automatic Date Time Conversion</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id59">
+<h4>Result Value<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 84%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
+<td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/#returns">Update Many results</a> as defined in the MongoDB Documentation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="update-one-in-collection">
+<h3>Update One in Collection<a class="headerlink" href="#update-one-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/">Update One</a> operation, updating a singular MongoDB Document instance that match the provided Filter JSON.</p>
+<div class="figure align-default">
+<img alt="_images/image21.png" src="_images/image21.png" />
+</div>
+<div class="section" id="id60">
+<h4>Parameters<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id61">
+<h5><em>Output Type</em><a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id62">
+<h5><em>Database</em><a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id63">
+<h5><em>Collection</em><a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id64">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should match a <em>single</em> MongoDB Document, e.g. by filtering on the MongoDB Document’s ID (ObjectID).</p>
+</div>
+</div>
+<div class="section" id="id65">
+<h5><em>Update Instructions JSON</em><a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h5>
+<p>This field accepts the JSON to instruct MongoDB how to update the MongoDB Documents matched by the Filter JSON, using <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/update/">Update Operators</a>.</p>
+</div>
+<div class="section" id="id67">
+<h5><em>Skip Automatic Date Time Conversion</em><a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-skip-automatic-date-time-conversion"><span class="std std-ref">Skip Automatic Date Time Conversion</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id68">
+<h4>Result Value<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 84%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
+<td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/#returns">Update One results</a> as defined in the MongoDB Documentation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="replace-one-in-collection">
+<h3>Replace One in Collection<a class="headerlink" href="#replace-one-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/">Replace One</a> operation, completely a singular MongoDB Document instance that match the provided Filter JSON with an entire new MongoDB Document.</p>
+<div class="figure align-default">
+<img alt="_images/image22.png" src="_images/image22.png" />
+</div>
+<div class="section" id="id69">
+<h4>Parameters<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id70">
+<h5><em>Output Type</em><a class="headerlink" href="#id70" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id71">
+<h5><em>Database</em><a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id72">
+<h5><em>Collection</em><a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id73">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should match a <em>single</em> MongoDB Document, e.g. by filtering on the MongoDB Document’s ID (ObjectID).</p>
+</div>
+</div>
+<div class="section" id="replacement-mongo-document-json">
+<h5><em>Replacement Mongo Document JSON</em><a class="headerlink" href="#replacement-mongo-document-json" title="Permalink to this headline">¶</a></h5>
+<p>The JSON value of the new MongoDB Document to replace the one matched.</p>
+</div>
+<div class="section" id="id74">
+<h5><em>Skip Automatic Date Time Conversion</em><a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-skip-automatic-date-time-conversion"><span class="std std-ref">Skip Automatic Date Time Conversion</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id75">
+<h4>Result Value<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 84%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
+<td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/#returns">Update One results</a> as defined in the MongoDB Documentation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="delete-many-in-collection">
+<h3>Delete Many in Collection<a class="headerlink" href="#delete-many-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/">Delete Many</a> operation, deleting all MongoDB Document instances that match the provided Filter JSON.</p>
+<div class="figure align-default">
+<img alt="_images/image23.png" src="_images/image23.png" />
+</div>
+<div class="section" id="id77">
+<h4>Parameters<a class="headerlink" href="#id77" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id78">
+<h5><em>Output Type</em><a class="headerlink" href="#id78" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id79">
+<h5><em>Database</em><a class="headerlink" href="#id79" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id80">
+<h5><em>Collection</em><a class="headerlink" href="#id80" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id81">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id81" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is very important that your Filter JSON matches only the subset of MongoDB Documents to be deleted. There is no “undo” functionality of this operation.</p>
+</div>
+</div>
+<div class="section" id="id82">
+<h5><em>Collation</em><a class="headerlink" href="#id82" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collation"><span class="std std-ref">Collation</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id83">
+<h4>Result Value<a class="headerlink" href="#id83" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteResult</span></code></p></td>
+<td><p><em>Dictionary</em></p></td>
+<td><p>Contains the results of the operation with the following 2 keys and values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.acknowledged</span></code></p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>That the Delete One operation was acknowledged by MongoDB</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.deletedCount</span></code></p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The number of MongoDB Documents deleted by this operation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="delete-one-in-collection">
+<h3>Delete One in Collection<a class="headerlink" href="#delete-one-in-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne/">Delete One</a> operation, updating a singular MongoDB Document instance that match the provided Filter JSON.</p>
+<div class="figure align-default">
+<img alt="_images/image24.png" src="_images/image24.png" />
+</div>
+<div class="section" id="id84">
+<h4>Parameters<a class="headerlink" href="#id84" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id85">
+<h5><em>Output Type</em><a class="headerlink" href="#id85" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-output-type"><span class="std std-ref">Output Type</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id86">
+<h5><em>Database</em><a class="headerlink" href="#id86" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id87">
+<h5><em>Collection</em><a class="headerlink" href="#id87" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration
+Parameters.</p>
+</div>
+<div class="section" id="id88">
+<h5><em>Filter JSON</em><a class="headerlink" href="#id88" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-filter-json"><span class="std std-ref">Filter JSON</span></a> in Common Configuration Parameters.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is very important that your Filter JSON matches only the <strong>single</strong> MongoDB Document to be deleted. There is no “undo” functionality of this operation.</p>
+</div>
+</div>
+<div class="section" id="id89">
+<h5><em>Collation</em><a class="headerlink" href="#id89" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collation"><span class="std std-ref">Collation</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id90">
+<h4>Result Value<a class="headerlink" href="#id90" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 72%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteResult</span></code></p></td>
+<td><p><em>Dictionary</em></p></td>
+<td><p>Contains the results of the operation with the following 2 keys and values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.acknowledged</span></code></p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>That the Delete One operation was acknowledged by MongoDB</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.deletedCount</span></code></p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The number of MongoDB Documents deleted by this operation (should always be 1 for Delete One).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="drop-collection">
+<h3>Drop Collection<a class="headerlink" href="#drop-collection" title="Permalink to this headline">¶</a></h3>
+<p>Performs the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.drop/">Drop</a> operation on a Collection, deleting the Collection and any MongoDB Documents found within.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This operation can be very destructive if not used with great caution. There is no “undo” functionality of this operation.</p>
+</div>
+<div class="figure align-default">
+<img alt="_images/image25.png" src="_images/image25.png" />
+</div>
+<div class="section" id="id91">
+<h4>Parameters<a class="headerlink" href="#id91" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id92">
+<h5><em>Database</em><a class="headerlink" href="#id92" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-database"><span class="std std-ref">Database</span></a> in Common Configuration Parameters.</p>
+</div>
+<div class="section" id="id93">
+<h5><em>Collection</em><a class="headerlink" href="#id93" title="Permalink to this headline">¶</a></h5>
+<p>Refer to <a class="reference internal" href="#common-collection"><span class="std std-ref">Collection</span></a> in Common Configuration Parameters.</p>
+</div>
+</div>
+<div class="section" id="id94">
+<h4>Result Value<a class="headerlink" href="#id94" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 19%" />
+<col style="width: 56%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
+<td><p><strong>Data Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The database used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The collection used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collectionDropped</span></code></p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>Whether the Collection was successfully dropped</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="common-configuration-parameters">
+<h4>Common Configuration Parameters<a class="headerlink" href="#common-configuration-parameters" title="Permalink to this headline">¶</a></h4>
+<p>This section describes the collection of Parameters that are shared among multiple Integration Operations.</p>
+</div>
+</div>
+<div class="section" id="common-output-type">
+<span id="id95"></span><h3>Output Type<a class="headerlink" href="#common-output-type" title="Permalink to this headline">¶</a></h3>
+<p>This parameter allows you to select how the Integration Operation returns the data, either as Appian Dictionaries or as a List of Text containing the JSON representations of the MongoDB Documents. See <a class="reference internal" href="introduction.html#special-considerations"><span class="std std-ref">Special Considerations</span></a> for how ObjectIds are transformed when being output as Dictionaries.</p>
+<p>When selecting the List of JSON Strings, the JSON output comes directly from the MongoDB Java Driver, which represents the data in its “purest” form.</p>
+<div class="figure align-default">
+<img alt="_images/image26.png" src="_images/image26.png" />
+</div>
+</div>
+<div class="section" id="common-database">
+<span id="id96"></span><h3>Database<a class="headerlink" href="#common-database" title="Permalink to this headline">¶</a></h3>
+<p>This parameter tells the Integration Operation which MongoDB Database to perform the operation on. The drop-down is automatically populated with the available Databases in your Connected System, using the same method as <a class="reference internal" href="#read-list-databases"><span class="std std-ref">List Databases</span></a> above.</p>
+<p>Below the drop-down is a checkbox which if checked will ensure that the Database exists before performing the Operation. MongoDB is very forgiving and will allow many API methods to be performed on non-existent Databases, returning null or an empty set. Checking this box will ensure that the database exists, to help avoid entering the wrong database name.</p>
+<div class="figure align-default">
+<img alt="_images/image27.png" src="_images/image27.png" />
+</div>
+</div>
+<div class="section" id="common-collection">
+<span id="id97"></span><h3>Collection<a class="headerlink" href="#common-collection" title="Permalink to this headline">¶</a></h3>
+<p>This parameter tells the Integration Operation which MongoDB Collection to perform the operation on. The drop-down is automatically populated with the available Collections in the given Database in your Connected System, using the same method as <a class="reference internal" href="#read-list-collections"><span class="std std-ref">List Collections</span></a> above.</p>
+<p>Below the drop-down is a checkbox which if checked will ensure that the Collection exists before performing the Operation. MongoDB is very forgiving and will allow many API methods to be performed on non-existent Collections, returning null or an empty set. Checking this box will ensure that the Collection exists, to help avoid entering the wrong Collection name.</p>
+<div class="figure align-default">
+<img alt="_images/image28.png" src="_images/image28.png" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For WRITE operations (e.g. <a class="reference internal" href="#insert-one-in-collection">Insert One in Collection</a>), if the checkbox is unchecked and the Collection does not exist, MongoDB will <em>create a new Collection</em> with the given name to perform the write into. This can be an unintended action, but it can also be very useful when performing certain business functions, such as reading back the results of a <a class="reference internal" href="#collection-aggregate">Collection Aggregate</a> and writing them to a new Collection in one nested operation.</p>
+</div>
+</div>
+<div class="section" id="common-filter-json">
+<span id="id98"></span><h3>Filter JSON<a class="headerlink" href="#common-filter-json" title="Permalink to this headline">¶</a></h3>
+<p>This parameter represents a <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Document</a> in JSON form. This is the query language that MongoDB uses, similar to how RDBMS platforms use SQL. When present, the value provided here will be used to match MongoDB Documents in the given Collection.</p>
+<p>For READ operations such as Find, this will determine which MongoDB Documents are returned.</p>
+<p>For WRITE operations such as Update, this will determine which MongoDB Documents are modified, so it is critical your Filter JSON matches only those to be modified. It is therefore a good idea to test your Filter JSON values for WRITE operations before performing them (e.g. by performing a Find first and validating that only the documents to be updated are returned).</p>
+<p>This JSON string value can be hard-coded, constructed via Expressions or Expression Rules, or constructed using the <a class="reference internal" href="expressions.html#json-query-expression-functions"><span class="std std-ref">JSON Query Expression Functions</span></a> as shown:</p>
+<div class="figure align-default">
+<img alt="_images/image29.png" src="_images/image29.png" />
+</div>
+</div>
+<div class="section" id="common-output-json-as-a-single-array">
+<span id="id99"></span><h3>Output JSON As a Single Array<a class="headerlink" href="#common-output-json-as-a-single-array" title="Permalink to this headline">¶</a></h3>
+<p>This will join the results as a JSON array such as: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">]</span></code>, allowing easier import using <a class="reference internal" href="#insert-many-in-collection">Insert Many in Collection</a> or other MongoDB tools. Selecting No (or false) will write one MongoDB Document per line.</p>
+</div>
+<div class="section" id="common-save-to-folder">
+<span id="id100"></span><h3>Save to Folder<a class="headerlink" href="#common-save-to-folder" title="Permalink to this headline">¶</a></h3>
+<p>The Appian Folder where the new Document will be created. This is a standard Appian folder picker.</p>
+</div>
+<div class="section" id="common-filename">
+<span id="id101"></span><h3>Filename<a class="headerlink" href="#common-filename" title="Permalink to this headline">¶</a></h3>
+<p>The complete name of the output file, including any extension you would like (most commonly .json)</p>
+</div>
+<div class="section" id="common-skip-automatic-date-time-conversion">
+<span id="id102"></span><h3>Skip Automatic Date Time Conversion<a class="headerlink" href="#common-skip-automatic-date-time-conversion" title="Permalink to this headline">¶</a></h3>
+<p>This plugin will attempt to detect Dates and Times and convert them to MongoDB timestamps. Selecting Yes (or true) here will skip this and instead insert these values as Strings.</p>
+</div>
+<div class="section" id="common-character-set">
+<span id="id103"></span><h3>Character Set<a class="headerlink" href="#common-character-set" title="Permalink to this headline">¶</a></h3>
+<p>The character set that the text file should use. Valid values are:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Value</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ISO-8859-1</span></code></p></td>
+<td><p>ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-8</span></code></p></td>
+<td><p>Eight-bit UCS Transformation Format</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16LE</span></code></p></td>
+<td><p>Sixteen-bit UCS Transformation Format, little-endian byte order</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16</span></code></p></td>
+<td><p>Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16BE</span></code></p></td>
+<td><p>Sixteen-bit UCS Transformation Format, big-endian byte order</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">US-ASCII</span></code></p></td>
+<td><p>Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set</p></td>
+</tr>
+</tbody>
+</table>
+<div class="figure align-default">
+<img alt="_images/image30.png" src="_images/image30.png" />
+</div>
+</div>
+<div class="section" id="common-collation">
+<span id="id104"></span><h3>Collation<a class="headerlink" href="#common-collation" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/">Collation</a> allows users to specify language-specific rules for string comparison, such as rules for letter case and accent marks. This parameter section allows you to individually configure a <a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/#collation-document">Collation Document</a>, or you can define one by building an Appian Dictionary (and not a JSON string) in the form of:</p>
+<div class="figure align-default">
+<img alt="_images/image31.png" src="_images/image31.png" />
+</div>
+</div>
+<div class="section" id="common-read-preference">
+<span id="id106"></span><h3>Read Preference<a class="headerlink" href="#common-read-preference" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/core/read-preference/">Read Preference</a> describes how MongoDB clients route read operations to the members of a replica set.</p>
+</div>
+<div class="section" id="common-read-concern">
+<span id="id108"></span><h3>Read Concern<a class="headerlink" href="#common-read-concern" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/read-concern/">Read Concern</a> allows you to control the consistency and isolation properties of the data read from replica sets and replica set shards.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="expressions.html" class="btn btn-neutral float-right" title="JSON Query Expression Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="connected_system.html" class="btn btn-neutral float-left" title="Connected System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Rob Munroe / Appian Corporation
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

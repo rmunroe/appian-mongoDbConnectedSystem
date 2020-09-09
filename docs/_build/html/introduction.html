@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; MongoDB Connected System 1.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Connected System" href="connected_system.html" />
+    <link rel="prev" title="MongoDB Connected System Plugin for Appian" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-info">Project Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audience">Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compatibility">Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-design-principles">Plugin Design Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#special-considerations">Special Considerations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dates-and-times">Dates and Times</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object-ids">Object IDs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#object-id-cdt">Object ID CDT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#binary">Binary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#binary-cdt">Binary CDT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MongoDB Connected System</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode.</p>
+<p>Its official distribution location is this entry in the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian Community App Market</a>.</p>
+<div class="section" id="project-info">
+<span id="id1"></span><h2>Project Info<a class="headerlink" href="#project-info" title="Permalink to this headline">¶</a></h2>
+<p>This plugin was created by me, <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">Rob Munroe</a>, Principal Solutions Architect at <a class="reference external" href="https://appian.com">Appian</a>. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer.</p>
+<p>I have also been a fan of MongoDB since it first arrived in the late-00s. I feel that the speed and power of both Appian and MongoDB are a potent combination, and that both platforms pair very well given the strong support for JSON and dynamic data structures. Many customers have already integrated the two platforms using the standard <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">HTTP/REST Connected System</a>, however I wanted to make it even easier to use MongoDB inside of Appian as well as take advantage of what the MongoDB Java Driver had to offer.</p>
+<p>The benefits of using this plugin versus MongoDB’s REST API include:</p>
+<ul class="simple">
+<li><p>Most common MongoDB operations are provided as low-code <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">Integration objects</a>, making it very easy to quickly integrate Appian and MongoDB</p></li>
+<li><p>Uses connection pooling to reduce authentication time per operation</p></li>
+<li><p>Uses the <a class="reference external" href="https://docs.mongodb.com/manual/reference/mongodb-wire-protocol/">MongoDB Wire Protocol</a> with <a class="reference external" href="http://bsonspec.org">BSON</a> instead of HTTP/REST with JSON for more efficient communication</p></li>
+<li><p>Automatically handles the conversion of MongoDB BSON Documents to Appian Dictionaries, or alternatively provides MongoDB-created JSON representations</p></li>
+<li><p>Can import from and export to Appian Documents containing JSON</p></li>
+<li><p>Configured using a single <a class="reference external" href="https://docs.mongodb.com/manual/reference/connection-string/">Connection String</a>, which is masked and encrypted</p></li>
+</ul>
+<p>This project and <a class="reference external" href="https://github.com/rmunroe/appian-mongoDbConnectedSystem">its source</a> are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian App Market</a> page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.</p>
+<p>If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">LinkedIn</a>.</p>
+</div>
+<div class="section" id="audience">
+<h2>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h2>
+<p>Users of this Connected System plugin are expected to be familiar with the <a class="reference external" href="https://docs.mongodb.com/manual/introduction/">core concepts of MongoDB</a>, including topics such as querying and aggregation syntax. Additionally, it is expected that you are familiar with your own Databases, Collections, Document schemas, and MongoDB server infrastructure.</p>
+<p>Users are also expected to be familiar with Appian, building Applications, and how and why <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected Systems</a> and <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">Integration Objects</a> are used.</p>
+</div>
+<div class="section" id="compatibility">
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<p>This plugin was built and tested on Appian versions 19.4 and 20.2.</p>
+<p>Version 1.2 of this plugin uses the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver version 3.12.5</a> and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility">compatibility chart</a> for full details.</p>
+<p>This plugin was tested against a <a class="reference external" href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.</p>
+<p>It is expected that your MongoDB instance(s) allow network connections from your Appian instance(s).</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>If installing to a fully-managed Appian Cloud instance, install using the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins">Plugins</a> panel of the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html">Administration Console</a>.</p>
+<div class="figure align-default">
+<img alt="_images/image2.png" src="_images/image2.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/image3.png" src="_images/image3.png" />
+</div>
+<p>If installing to a self-managed Appian instance, copy the <code class="docutils literal notranslate"><span class="pre">ps-plugin-MongoDbConnectedSystem-X.X.jar</span></code> file to the <code class="docutils literal notranslate"><span class="pre">&lt;APPIAN_HOME&gt;/_admin/plugins</span></code> directory.</p>
+</div>
+<div class="section" id="plugin-design-principles">
+<h2>Plugin Design Principles<a class="headerlink" href="#plugin-design-principles" title="Permalink to this headline">¶</a></h2>
+<p>This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let <a class="reference external" href="ProjectInfo">me</a> know if there are missing features that you require.</p>
+<p>Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of <a class="reference external" href="#_JSON_Query_Expression_1">JSON Query Expression Functions</a> to cleanly and easily generate MongoDB JSON-based queries.</p>
+</div>
+<div class="section" id="special-considerations">
+<span id="id2"></span><h2>Special Considerations<a class="headerlink" href="#special-considerations" title="Permalink to this headline">¶</a></h2>
+<p>Due to how the MongoDB Java Driver returns Object IDs and Binary data types, special handling must be performed by the Connected System as described below.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is critical that you understand these special cases and design for them accordingly</p>
+</div>
+<div class="section" id="dates-and-times">
+<h3>Dates and Times<a class="headerlink" href="#dates-and-times" title="Permalink to this headline">¶</a></h3>
+<p>Dates and times in MongoDB are different from most other databases in that it stores them in UTC by default and will convert any local time representations into this form. Applications that must operate or report on some unmodified local time value must store the time zone offset alongside the UTC timestamp (e.g. as a separate field) and compute the original local time in their application logic.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is up to you and your Application to account for this.</p>
+</div>
+<p>When storing Date and Time values from Appian to MongoDB, MongoDB will convert them to UTC. Therefore, any of your date queries should be against UTC dates and times. Use Appian’s built-in Date and Time <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Functions.html">functions</a> to ensure the dates being sent to MongoDB make sense in this regard.</p>
+<p>Also note that unlike Appian, there is no date <em>without time</em> data type in MongoDB. When wishing to store a date without time, use midnight UTC of that date (e.g. <code class="docutils literal notranslate"><span class="pre">2020-07-01T00:00:00.000Z</span></code>) and query accordingly. The <a class="reference external" href="#_JSON_Query_Expression_1">JSON Query Expression Functions</a> will take this into account and convert Appian Dates to this format.</p>
+</div>
+<div class="section" id="object-ids">
+<h3>Object IDs<a class="headerlink" href="#object-ids" title="Permalink to this headline">¶</a></h3>
+<p>While the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/ObjectId/">MongoDB Object ID</a> data type is most often represented as a string (e.g.  “5efa0b06fc13ae730e00024a”), it is stored internally as 12-byte values broken down into several data points. It is far easier to work with the string value in Appian, so this Connected System will return a sub-Dictionary of the below form for each Object ID in the resulting dataset.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This transformation only applies to results returned as Appian Dictionaries. JSON results use the MongoDB JSON notation.</p>
+</div>
+<p>A MongoDB Document representing this value:</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
+  _id: ObjectId(&quot;5efa0b06fc13ae730e00024a&quot;)
+  ...
+}
+</pre></div>
+</div>
+<p>Would be returned as an Appian Dictionary like this:</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
+  _id: {
+    oid: &quot;5efa0b06fc13ae730e00024a&quot;
+  }
+  ...
+}
+</pre></div>
+</div>
+<p>The key detail here is that Object ID fields will be accessed like this
+in Appian::</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>local!theObjectId: local!myDocument._id.oid
+</pre></div>
+</div>
+<div class="section" id="object-id-cdt">
+<h4>Object ID CDT<a class="headerlink" href="#object-id-cdt" title="Permalink to this headline">¶</a></h4>
+<p>This plugin contains a CDT named <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MongoDB}ObjectId</span></code> that can be used to represent these values in a consistent manner.  MongoDB Document properties in Dictionaries can be cast directly to this CDT.</p>
+<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function will return this value as well.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MCSD}MCSD_Customer</span></code> CDT in the demo application for example.</p>
+</div>
+</div>
+<div class="section" id="binary">
+<h3>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h3>
+<p>MongoDB’s Binary data type allows you to store chunks of binary data in a MongoDB Document, however Appian does not support storing binary data in Dictionaries. To work around this any binary results will be returned as Base64 encoded text.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This transformation only applies to results returned as Appian Dictionaries. JSON results use the MongoDB JSON notation.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Returning large amounts of Base64 encoded binary data to Appian can have severe impacts on the performance of the Appian environment. A best practice would be to use a projection and eliminate the binary field from the MongoDB Document.</p>
+</div>
+<p>A MongoDB Document representing this value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">binaryField</span><span class="p">:</span> <span class="n">Binary</span><span class="p">(</span><span class="s2">&quot;... Binary data value ...&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Would be returned as an Appian Dictionary like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">binaryField</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">binary</span><span class="p">:</span> <span class="s2">&quot;...Base64 encoded data...&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="binary-cdt">
+<h4>Binary CDT<a class="headerlink" href="#binary-cdt" title="Permalink to this headline">¶</a></h4>
+<p>Similarly to Object ID, this plugin contains a CDT named <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MongoDB}Binary</span></code> that can be used to represent these values in a consistent manner. MongoDB Document properties in Dictionaries can be cast directly to this CDT.</p>
+<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function will return this value as well.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MCSD}MCSD_Customer</span></code> CDT in the demo application for example.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="connected_system.html" class="btn btn-neutral float-right" title="Connected System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="MongoDB Connected System Plugin for Appian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Rob Munroe / Appian Corporation
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -24,7 +24,7 @@ copyright = '2020, Rob Munroe / Appian Corporation'
 author = 'Rob Munroe, Principal Solutions Architect, Appian Corporation'
 
 # The full version, including alpha/beta/rc tags
-release = '1.2'
+release = '1.1'
 
 
 # -- General configuration ---------------------------------------------------

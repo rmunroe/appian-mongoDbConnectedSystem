@@ -1,0 +1,22 @@
+Future Enhancements
+===================
+
+As of this release, this list comprises the next known enhancements to this plugin. If you do not see an enhancement here that is needed, please comment on the `Community App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ entry.
+
+-  An example Appian Application that uses the MongoDB Connected System in Expression-Backed records, plus other examples such as using Aggregates for producing charts or other reports.
+
+-  More Query Operator Examples
+
+-  Support for Write Concern in all supported operations
+
+-  Add support for UpdateOptions in Update One and Update Many
+
+-  Add support of Aggregate Pipelines in Update operations
+
+-  More JSON operator Expression Functions:
+
+   -  All remaining MongoDB Query Operators
+
+   -  Update Operators
+
+   -  Aggregate Pipelines

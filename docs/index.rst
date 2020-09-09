@@ -4,7 +4,7 @@ MongoDB Connected System Plugin for Appian
 
 `Rob Munroe <https://www.linkedin.com/in/robertmunroe/>`_, Principal Solutions Architect, `Appian Corporation <https://appian.com>`_
 
-Version 1.1
+Version 1.2
 
 .. toctree::
    :maxdepth: 2
@@ -14,5 +14,6 @@ Version 1.1
    connected_system
    integrations
    expressions
+   demo_application
    changelog
    futures

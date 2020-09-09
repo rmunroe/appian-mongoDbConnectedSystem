@@ -13,3 +13,5 @@ Changelog
 |              |               |                                                                                 |
 |              |               | -  Modified several Expression Functions to take a Dictionary as well as JSON   |
 +--------------+---------------+---------------------------------------------------------------------------------+
+|              | 1.2           | -  Now hashing connection strings with SHA-256 when in memory                   |
++--------------+---------------+---------------------------------------------------------------------------------+

@@ -1,0 +1,899 @@
+
+
+JSON Query Expression Functions
+===============================
+
+As many Integration Operation parameters take as input JSON expressions,
+such as those for filtering MongoDB Documents in `Collection
+Find <#_7rhymb3k3rwm>`__, we have included a set of Expression Functions
+to help create these JSON Query expressions without having to construct
+the strings yourself.
+
+|image31|
+
+In addition to generating the special JSON structures MongoDB expects,
+these functions make creating MongoDB’s non-standard JSON alterations
+much easier in Appian. The functions also handle converting Appian
+primitive types to their necessary JSON representations. For example,
+this expression:
+
++----------------+
+| | M\_query(    |
+| | M\_field(    |
+|                |
+| "createdOn",   |
+|                |
+| M\_eq(now())   |
+|                |
+| | )            |
+| | )            |
++----------------+
+
+Would produce this JSON:
+
++-------------------------------------------------------------------+
+| { "createdOn": { "$eq": ISODate("2020-07-01T20:32:20.900Z") } }   |
++-------------------------------------------------------------------+
+
+Note the MongoDB-specific JSON ISODate() function call. Also note the
+field names that begin with $. It is not easy (and, in some cases such
+as this one, not possible) to generate JSON in this manner by
+constructing Dictionaries and using Appian’s built-in a!toJson()
+function.
+
+More MongoDB query functions will be added in later versions of this
+plugin.
+
+Top-Level Functions
+-------------------
+
+M\_query()
+~~~~~~~~~~
+
+This function begins a MongoDB query. It should be the top-level
+function call whose output is sent to one of the JSON filter parameters.
+Essentially this wraps the contents provided in braces { ... } to ensure
+a complete query JSON string.
+
+**queryClauses** (List of Text String): The list of expressions (often
+created with `M\_field() <#_4xmbc82p4ndp>`__) you wish to evaluate
+
+For example, this expression:
+
++---------------------------------------------------------------------+
+| M\_query(                                                           |
+|                                                                     |
+| | M\_field("createdOn", M\_eq(fn!datetime(2019,4,26,10,28,57,0)))   |
+| | )                                                                 |
++---------------------------------------------------------------------+
+
+Would produce this JSON:
+
++-------------------------------------------------------------------+
+| { "createdOn": { "$eq": ISODate("2019-04-26T10:28:57.000Z") } }   |
++-------------------------------------------------------------------+
+
+M\_field()
+~~~~~~~~~~
+
+This function begins a query expression on a field, in the form of
+fieldName: ... where the passed in queryClauses are joined to complete
+the expression. To be used within `M\_query() <#_M_query()>`__ or one of
+the other Expression Functions that take in a complete field, such as
+`M\_and() <#_M_and()>`__.
+
+**field** (Text): The name of the field in the MongoDB Document you wish
+to filter on
+
+**queryClauses** (List of Text String): The list of expressions (often
+created with other m\_\* functions) you wish to evaluate
+
+For example, this expression:
+
++-------------------------------------------------------------------+
+| M\_field("createdOn", M\_eq(fn!datetime(2019,4,26,10,28,57,0)))   |
++-------------------------------------------------------------------+
+
+Would produce this portion of JSON:
+
++---------------------------------------------------------------+
+| "createdOn": { "$eq": ISODate("2019-04-26T10:28:57.000Z") }   |
++---------------------------------------------------------------+
+
+Comparison Query Operators
+--------------------------
+
+These functions correspond directly to the `Comparison Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-comparison/>`__
+provided by the MongoDB Query language.
+
+These functions handle converting Appian primitive types to their
+necessary JSON representations. For example, this expression:
+
++----------------+
+| | M\_query(    |
+| | M\_field(    |
+|                |
+| "createdOn",   |
+|                |
+| M\_eq(now())   |
+|                |
+| | )            |
+| | )            |
++----------------+
+
+Would produce this JSON:
+
++-------------------------------------------------------------------+
+| { "createdOn": { "$eq": ISODate("2020-07-01T20:32:20.900Z") } }   |
++-------------------------------------------------------------------+
+
+Note the MongoDB-specific ISODate() function call. It is not possible to
+generate JSON in this manner using Appian’s built-in a!toJson()
+function.
+
+M\_eq()
+~~~~~~~
+
+Implements the
+`$eq <https://docs.mongodb.com/manual/reference/operator/query/eq/>`__
+operator. Specifies equality condition. The $eq operator matches
+documents where the value of a field equals the specified value.
+
+**value** (Any Type): The value to evaluate against.
+
+M\_gt()
+~~~~~~~
+
+Implements the
+`$gt <https://docs.mongodb.com/manual/reference/operator/query/gt/>`__
+operator. Selects those documents where the value of the field is
+greater than (i.e. >) the specified value.
+
+**value** (Any Type): The value to evaluate against.
+
+M\_gte()
+~~~~~~~~
+
+Implements the
+`$gte <https://docs.mongodb.com/manual/reference/operator/query/gte/>`__
+operator. Selects the documents where the value of the field is greater
+than or equal to (i.e. >=) a specified value (e.g. value.)
+
+**value** (Any Type): The value to evaluate against.
+
+M\_in()
+~~~~~~~
+
+Implements the
+`$in <https://docs.mongodb.com/manual/reference/operator/query/in/>`__
+operator. Selects the documents where the value of a field equals any
+value in the specified array.
+
+**array** (List of Variant): The array of values to evaluate against.
+
+M\_lt()
+~~~~~~~
+
+Implements the
+`$lt <https://docs.mongodb.com/manual/reference/operator/query/lt/>`__
+operator. Selects the documents where the value of the field is less
+than (i.e. <) the specified value.
+
+**value** (Any Type): The value to evaluate against.
+
+M\_lte()
+~~~~~~~~
+
+Implements the
+`$lte <https://docs.mongodb.com/manual/reference/operator/query/lte/>`__
+operator. Selects the documents where the value of the field is less
+than or equal to (i.e. <=) the specified value.
+
+**value** (Any Type): The value to evaluate against.
+
+M\_ne()
+~~~~~~~
+
+Implements the
+`$ne <https://docs.mongodb.com/manual/reference/operator/query/ne/>`__
+operator. Selects the documents where the value of the field is not
+equal to the specified value. This includes documents that do not
+contain the field.
+
+**value** (Any Type): The value to evaluate against.
+
+M\_nin()
+~~~~~~~~
+
+Implements the
+`$nin <https://docs.mongodb.com/manual/reference/operator/query/nin/>`__
+operator. Selects the documents where the field value is not in the
+specified array or the field does not exist.
+
+**array** (List of Variant): The array of values to evaluate against.
+
+Logical Query Operators
+-----------------------
+
+These functions correspond directly to the `Logical Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-logical/>`__
+provided by the MongoDB Query language.
+
+For example, this expression:
+
++-------------------------------------+
+| M\_query(                           |
+|                                     |
+| M\_and(                             |
+|                                     |
+| M\_field(                           |
+|                                     |
+| "lastName",                         |
+|                                     |
+| M\_in(                              |
+|                                     |
+| "McIlraith",                        |
+|                                     |
+| "Orcott",                           |
+|                                     |
+| "Toulch",                           |
+|                                     |
+| "Jemmett"                           |
+|                                     |
+| )                                   |
+|                                     |
+| ),                                  |
+|                                     |
+| M\_field("disabled", M\_ne(true))   |
+|                                     |
+| )                                   |
+|                                     |
+| )                                   |
++-------------------------------------+
+
+Would produce this JSON:
+
++------------------------------------------------------------------------------------------------------------------------------+
+| { "$and": [ { "lastName": { "$in": [ "McIlraith", "Orcott", "Toulch", "Jemmett" ] } }, { "disabled": { "$ne": true } } ] }   |
++------------------------------------------------------------------------------------------------------------------------------+
+
+M\_and()
+~~~~~~~~
+
+Implements the
+`$and <https://docs.mongodb.com/manual/reference/operator/query/and/>`__
+operator. Performs a logical AND operation on an array of one or more
+expressions (e.g. expression1, expression2, etc.) and selects the
+documents that satisfy all the expressions in the array. The $and
+operator uses short-circuit evaluation. If the first expression (e.g.
+expression1) evaluates to false, MongoDB will not evaluate the remaining
+expressions.
+
+**queryExpressions** (List of Text String): The list of expressions
+(often created with other M\_\* functions) you wish to evaluate against.
+
+M\_nor()
+~~~~~~~~
+
+Implements the
+`$nor <https://docs.mongodb.com/manual/reference/operator/query/nor/>`__
+operator. Performs a logical NOR operation on an array of one or more
+query expressions and selects the documents that fail all the query
+expressions in the array.
+
+**queryExpressions** (List of Text String): The list of expressions
+(often created with other M\_\* functions) you wish to evaluate against.
+
+M\_not()
+~~~~~~~~
+
+Implements the
+`$not <https://docs.mongodb.com/manual/reference/operator/query/not/>`__
+operator. Performs a logical NOT operation on the specified
+operator-expression and selects the documents that do not match the
+operator-expression. This includes documents that do not contain the
+field.
+
+**queryExpression** (Text): The expression (often created with other
+M\_\* functions) you wish to evaluate against.
+
+M\_or()
+~~~~~~~
+
+Implements the
+`$or <https://docs.mongodb.com/manual/reference/operator/query/or/>`__
+operator. Performs a logical OR operation on an array of two or more
+expressions and selects the documents that satisfy at least one of the
+expressions.
+
+**queryExpressions** (List of Text String): The list of expressions
+(often created with other M\_\* functions) you wish to evaluate against.
+
+Element Query Operators
+-----------------------
+
+These functions correspond directly to the `Element Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-element/>`__
+provided by the MongoDB Query language.
+
+M\_exists()
+~~~~~~~~~~~
+
+Implements the
+`$exists <https://docs.mongodb.com/manual/reference/operator/query/exists/>`__
+operator. When value is true, $exists matches the documents that contain
+the field, including documents where the field value is null. If value
+is false, the query returns only the documents that do not contain the
+field.
+
+**value** (Boolean): Whether it should exist or not.
+
+M\_type()
+~~~~~~~~~
+
+Implements the
+`$type <https://docs.mongodb.com/manual/reference/operator/query/type/>`__
+operator. Selects documents where the value of the field is an instance
+of the specified BSON type(s). Querying by data type is useful when
+dealing with highly unstructured data where data types are not
+predictable.
+
+**types** (List of Variant): Either the BSON type numbers (integer) or
+aliases (string).
+
+Evaluation Query Operators
+--------------------------
+
+These functions correspond directly to the `Evaluation Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-evaluation/>`__
+provided by the MongoDB Query language.
+
+M\_expr()
+~~~~~~~~~
+
+Implements the
+`$expr <https://docs.mongodb.com/manual/reference/operator/query/expr/>`__
+operator. Allows the use of aggregation expressions within the query
+language.
+
+**queryExpression** (Dictionary or Text): The expression (often created
+with other M\_\* functions) you wish to evaluate against.
+
+M\_jsonSchema()
+~~~~~~~~~~~~~~~
+
+Implements the
+`$jsonSchema <https://docs.mongodb.com/manual/reference/operator/query/jsonSchema/>`__
+operator. Matches documents that satisfy the specified JSON Schema.
+
+**jsonSchema** (Dictionary or Text): The JSON Schema object as an Appian
+Dictionary or a JSON string, formatted according to `draft 4 of the JSON
+Schema
+standard <https://tools.ietf.org/html/draft-zyp-json-schema-04>`__.
+
+M\_mod()
+~~~~~~~~
+
+Implements the
+`$mod <https://docs.mongodb.com/manual/reference/operator/query/mod/>`__
+operator. Select documents where the value of a field divided by a
+divisor has the specified remainder (i.e. perform a modulo operation to
+select documents).
+
+**divisor** (Number (Integer)): The divisor value.
+
+**remainder** (Number (Integer)): The remainder value.
+
+M\_regex()
+~~~~~~~~~~
+
+Implements the
+`$regex <https://docs.mongodb.com/manual/reference/operator/query/regex/>`__
+operator. Provides regular expression capabilities for pattern matching
+strings in queries. MongoDB uses Perl compatible regular expressions
+(i.e. "PCRE") version 8.42 with UTF-8 support.
+
+**regex** (Text): The regular expression (without enclosing slashes),
+e.g. "^foo.\*bar$"
+
+**options** (Text): The regular expression options modifiers ("i", "m",
+"s", and/or "x"), e.g. "im" for 'ignore case' and 'multiline' searches
+
+This example would match all MongoDB Documents where the last name
+begins with “St”:
+
++------------------------+
+| M\_query(              |
+|                        |
+| M\_field(              |
+|                        |
+| "lastName",            |
+|                        |
+| M\_regex("^St", "i")   |
+|                        |
+| )                      |
+|                        |
+| )                      |
++------------------------+
+
+Which would produce this JSON:
+
++----------------------------------------+
+| { "lastName": { "$regex": /^St/i } }   |
++----------------------------------------+
+
+M\_text()
+~~~~~~~~~
+
+Implements the
+`$text <https://docs.mongodb.com/manual/reference/operator/query/text/>`__
+operator. Performs a text search on the content of the fields indexed
+with a text index.
+
+**search** (Text): A string of terms that MongoDB parses and uses to
+query the text index. MongoDB performs a logical OR search of the terms
+unless specified as a phrase.
+
+**language** (Text): Optional (use null to omit). The language that
+determines the list of stop words for the search and the rules for the
+stemmer and tokenizer. If not specified, the search uses the default
+language of the index.
+
+**caseSensitive** (Boolean): Optional (use null to omit). A boolean flag
+to enable or disable case sensitive search. Defaults to false; i.e. the
+search defers to the case insensitivity of the text index.
+
+**diacriticSensitive** (Boolean): Optional (use null to omit). A boolean
+flag to enable or disable diacritic sensitive search against version 3
+text indexes. Defaults to false; i.e. the search defers to the diacritic
+insensitivity of the text index.
+
+M\_where()
+~~~~~~~~~~
+
+Implements the
+`$where <https://docs.mongodb.com/manual/reference/operator/query/where/>`__
+operator. Use the $where operator to pass either a string containing a
+JavaScript expression or a full JavaScript function to the query system.
+The $where provides greater flexibility but requires that the database
+processes the JavaScript expression or function for each document in the
+collection. Reference the document in the JavaScript expression or
+function using either this or obj.
+
+Please see `full
+documentation <https://docs.mongodb.com/manual/reference/operator/query/where/>`__
+for caveats and performance topics.
+
+**javaScript** (Text): A JavaScript expression or a full JavaScript
+function.
+
+This example would match all MongoDB Documents where the last name
+equals “Gudgen”:
+
++-----------------------------------------------------------------------------------------------------+
+| M\_query(                                                                                           |
+|                                                                                                     |
+| M\_where("function() { return (hex\_md5(this.lastName) == '9af26c4c8b156852e86d49566d96a0d1') }")   |
+|                                                                                                     |
+| )                                                                                                   |
++-----------------------------------------------------------------------------------------------------+
+
+Which would produce this JSON:
+
++-------------------------------------------------------------------------------------------------------------+
+| { "$where": "function() { return (hex\_md5(this.lastName) == \\'9af26c4c8b156852e86d49566d96a0d1\\') }" }   |
++-------------------------------------------------------------------------------------------------------------+
+
+Array Query Operators
+---------------------
+
+These functions correspond directly to the `Array Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-array/>`__
+provided by the MongoDB Query language.
+
+M\_all()
+~~~~~~~~
+
+Implements the
+`$all <https://docs.mongodb.com/manual/reference/operator/query/all/>`__
+operator. Selects the documents where the value of a field is an array
+that contains all of the specified elements.
+
+**array** (List of Variant): The array of values to evaluate against.
+
+M\_elemMatch()
+~~~~~~~~~~~~~~
+
+Implements the
+`$elemMatch <https://docs.mongodb.com/manual/reference/operator/query/elemMatch/>`__
+operator. Matches documents that contain an array field with at least
+one element that matches all the specified query criteria.
+
+**queryExpressions** (List of Text String): The list of expressions
+(often created with other M\_\* functions) you wish to evaluate against.
+
+M\_size()
+~~~~~~~~~
+
+Implements the
+`$size <https://docs.mongodb.com/manual/reference/operator/query/size/>`__
+operator. Matches any array with the number of elements specified by the
+argument.
+
+**value** (Number (Integer)): The number of elements to evaluate for.
+
+Geospatial Query Operators
+--------------------------
+
+These functions correspond directly to the `Geospatial Query
+Operators <https://docs.mongodb.com/manual/reference/operator/query-geospatial/>`__
+provided by the MongoDB Query language.
+
+|image32|
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Note**: Many of the following geospatial query operators require that a geospatial index be added to the fields you wish to query. See `MongoDB documentation <https://docs.mongodb.com/manual/geospatial-queries/#geospatial-indexes>`__ for more information.   |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+M\_toPoint()
+~~~~~~~~~~~~
+
+Returns a Point CDT instance with the given coordinates. Used any time a
+[longitude, latitude] pair is required in the following Expression
+Functions.
+
+**longitude** (Number (Decimal)): The longitude of the point.
+
+**latitude** (Number (Decimal)): The latitude of the point.
+
+M\_geoIntersects()
+~~~~~~~~~~~~~~~~~~
+
+Implements the
+`$geoIntersects <https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/>`__
+operator. Selects documents whose geospatial data intersects with a
+specified
+`GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`__ object;
+i.e. where the intersection of the data and the specified object is
+non-empty.
+
+\ **geoJson** (Dictionary or Text): A
+`GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`__ object,
+as an Appian Dictionary or a JSON string.
+
+M\_geoWithin()
+~~~~~~~~~~~~~~
+
+Implements the
+`$geoWithin <https://docs.mongodb.com/manual/reference/operator/query/geoWithin/>`__
+operator. Selects documents with geospatial data that exists entirely
+within a specified shape.
+
+\ **geoJson** (Dictionary or Text): A
+`GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`__ object,
+as an Appian Dictionary or a JSON string.
+
+M\_geoWithinBox()
+~~~~~~~~~~~~~~~~~
+
+Implements the
+`$geoWithin <https://docs.mongodb.com/manual/reference/operator/query/geoWithin/>`__
+operator, using a
+`$box <https://docs.mongodb.com/manual/reference/operator/query/box/>`__
+to search within. Selects documents with geospatial data that exists
+entirely the bounds of the given rectangle, according to their
+point-based location data.
+
+**bottomLeft** (Point): Point with the coordinates of the bottom-left
+corner of the box.
+
+**topRight** (Point): Point with the coordinates of the top-right corner
+of the box.
+
+M\_geoWithinCircle()
+~~~~~~~~~~~~~~~~~~~~
+
+Implements the
+`$geoWithin <https://docs.mongodb.com/manual/reference/operator/query/geoWithin/>`__
+operator, using a
+`$center <https://docs.mongodb.com/manual/reference/operator/query/center/>`__
+(circle) to search within. Selects documents with geospatial data that
+exists entirely the bounds of the given circle, defined by a center
+point and radius.
+
+**centerPoint** (Point): Point with the coordinates of the center of the
+circle.
+
+**radius** (Number (Decimal)): The radius of the circle, as measured in
+the units used by the coordinate system.
+
+M\_geoWithinSphere()
+~~~~~~~~~~~~~~~~~~~~
+
+Implements the
+`$geoWithin <https://docs.mongodb.com/manual/reference/operator/query/geoWithin/>`__
+operator, using a
+`$centerSphere <https://docs.mongodb.com/manual/reference/operator/query/centerSphere/>`__
+to search within. Selects documents with geospatial data that exists
+entirely the bounds of the given sphere, defined by a center point and
+radius.
+
+**centerPoint** (Point): Point with the coordinates of the center of the
+sphere.
+
+**radius** (Number (Decimal)): The radius of the sphere, as measured in
+the units used by the coordinate system.
+
+M\_geoWithinPolygon()
+~~~~~~~~~~~~~~~~~~~~~
+
+Implements the
+`$geoWithin <https://docs.mongodb.com/manual/reference/operator/query/geoWithin/>`__
+operator, using a
+`$polygon <https://docs.mongodb.com/manual/reference/operator/query/polygon/>`__
+to search within. Selects documents with geospatial data that exists
+entirely the bounds of the given polygon, defined by an array of
+GeoPoints.
+
+This example would match all MongoDB Documents where the address’s loc
+field (a
+`Point <https://docs.mongodb.com/manual/reference/geojson/#point>`__) is
+within an area roughly outlining McLean, VA:
+
++--------------------------------------+
+| M\_query(                            |
+|                                      |
+| M\_field(                            |
+|                                      |
+| "address.loc",                       |
+|                                      |
+| m\_geoWithinPolygon({                |
+|                                      |
+| M\_toPoint(-77.210903, 38.970481),   |
+|                                      |
+| M\_toPoint(-77.145100, 38.964342),   |
+|                                      |
+| M\_toPoint(-77.118225, 38.935857),   |
+|                                      |
+| M\_toPoint(-77.172360, 38.893213),   |
+|                                      |
+| M\_toPoint(-77.189069, 38.896396),   |
+|                                      |
+| M\_toPoint(-77.198767, 38.926490),   |
+|                                      |
+| M\_toPoint(-77.233222, 38.933877),   |
+|                                      |
+| M\_toPoint(-77.226622, 38.962158)    |
+|                                      |
+| })                                   |
+|                                      |
+| )                                    |
+|                                      |
+| )                                    |
++--------------------------------------+
+
+Which would produce this JSON:
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| { "address.loc": { "$geoWithin": { "$polygon": [ [ -77.210903, 38.970481 ], [ -77.1451, 38.964342 ], [ -77.118225, 38.935857 ], [ -77.17236, 38.893213 ], [ -77.189069, 38.896396 ], [ -77.198767, 38.92649 ], [ -77.233222, 38.933877 ], [ -77.226622, 38.962158 ] ] } } }   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+**polygonPoints** (List of Point): Array of GeoPoints representing the
+polygon to search within. Be sure to pass an actual Appian Array here
+inside of brackets ({}).
+
+M\_near()
+~~~~~~~~~
+
+Implements the
+`$near <https://docs.mongodb.com/manual/reference/operator/query/near/>`__
+operator. Specifies a point for which a geospatial query returns the
+documents from nearest to farthest.
+
+This example would match all MongoDB Documents where the address’s loc
+field (a
+`Point <https://docs.mongodb.com/manual/reference/geojson/#point>`__) is
+within 1 km of Appian HQ:
+
++--------------------------------------------------+
+| M\_query(                                        |
+|                                                  |
+| M\_field(                                        |
+|                                                  |
+| "address.loc",                                   |
+|                                                  |
+| M\_near(                                         |
+|                                                  |
+| {                                                |
+|                                                  |
+| type: "Point",                                   |
+|                                                  |
+| coordinates: M\_toPoint(-77.219049, 38.932308)   |
+|                                                  |
+| },                                               |
+|                                                  |
+| 0,                                               |
+|                                                  |
+| 1000                                             |
+|                                                  |
+| )                                                |
+|                                                  |
+| )                                                |
+|                                                  |
+| )                                                |
++--------------------------------------------------+
+
+Which would produce this JSON:
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| { "address.loc": { "$near": { "$geometry": {"type": "Point", "coordinates": [-77.219049, 38.932308]}, "$minDistance": 0.0, "$maxDistance": 1000.0 } } }   |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+\ **geoJson** (Dictionary or Text): A
+`GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`__ object,
+as an Appian Dictionary or a JSON string.
+
+**minDistance** (Number (Decimal)): Minimum distance in meters.
+
+**maxDistance** (Number (Decimal)): Maximum distance in meters.
+
+M\_nearSphere()
+~~~~~~~~~~~~~~~
+
+Implements the
+`$nearSphere <https://docs.mongodb.com/manual/reference/operator/query/nearSphere/>`__
+operator. Specifies a point for which a geospatial query returns the
+documents from nearest to farthest. MongoDB calculates distances for
+$nearSphere using spherical geometry.
+
+**geoJson** (Dictionary or Text): A
+`GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`__ object,
+as an Appian Dictionary or a JSON string.
+
+**minDistance** (Number (Decimal)): Minimum distance in meters.
+
+**maxDistance** (Number (Decimal)): Maximum distance in meters.
+
+Query Operator Examples
+-----------------------
+
+Date and Time Examples
+~~~~~~~~~~~~~~~~~~~~~~
+
+Query for Dates in a Range
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This expression will produce a query for finding MongoDB Documents with
+createdOn in the month of December 2019:
+
++------------------------------+
+| M\_query(                    |
+|                              |
+| M\_field(                    |
+|                              |
+| "createdOn",                 |
+|                              |
+| M\_gte(date(2019, 12, 1)),   |
+|                              |
+| M\_lt(date(2020, 1, 1))      |
+|                              |
+| )                            |
+|                              |
+| )                            |
++------------------------------+
+
+Which produces this JSON:
+
++------------------------------------------------+
+| {                                              |
+|                                                |
+| "createdOn": {                                 |
+|                                                |
+| "$gte": ISODate("2019-12-01T00:00:00.000Z"),   |
+|                                                |
+| "$lt": ISODate("2020-01-01T00:00:00.000Z")     |
+|                                                |
+| }                                              |
+|                                                |
+| }                                              |
++------------------------------------------------+
+
+Querying by Date Without Time
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As mentioned earlier, MongoDB stores all dates in UTC and does not have
+a date without time. Similar to above, in order to find all MongoDB
+Documents with createdOn on a single day, use $gte of that day:
+
++------------------------------+
+| M\_query(                    |
+|                              |
+| M\_field(                    |
+|                              |
+| "createdOn",                 |
+|                              |
+| M\_gte(date(2019, 12, 1)),   |
+|                              |
+| M\_lt(date(2020, 1, 1))      |
+|                              |
+| )                            |
+|                              |
+| )                            |
++------------------------------+
+
+Which produces this JSON:
+
++------------------------------------------------+
+| {                                              |
+|                                                |
+| "createdOn": {                                 |
+|                                                |
+| "$gte": ISODate("2019-12-01T00:00:00.000Z"),   |
+|                                                |
+| "$lt": ISODate("2020-01-01T00:00:00.000Z")     |
+|                                                |
+| }                                              |
+|                                                |
+| }                                              |
++------------------------------------------------+
+
+More examples will be added in newer versions of this plugin.
+
+Changelog
+=========
+
++--------------+---------------+---------------------------------------------------------------------------------+
+| **Date**     | **Version**   | **Description**                                                                 |
++--------------+---------------+---------------------------------------------------------------------------------+
+| 2020-07-14   | 1.0           | -  Initial version                                                              |
++--------------+---------------+---------------------------------------------------------------------------------+
+| 2020-07-17   | 1.1           | -  Added Array Query Operators                                                  |
+|              |               |                                                                                 |
+|              |               | -  Added Geospatial Query Operators, including new Point CDT                    |
+|              |               |                                                                                 |
+|              |               | -  Modified several Expression Functions to take a Dictionary as well as JSON   |
++--------------+---------------+---------------------------------------------------------------------------------+
+|              | 1.2           | -  Now hashing connection strings with SHA-256 when in memory                   |
++--------------+---------------+---------------------------------------------------------------------------------+
+
+Future Enhancements
+===================
+
+As of this writing, this list comprises the next known enhancements to
+this plugin. If you do not see an enhancement here that is needed,
+please comment on the `Community App
+Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`__
+entry.
+
+-  An example Appian Application that uses the MongoDB Connected System
+   in Expression-Backed records, plus other examples such as using
+   Aggregates for producing charts or other reports.
+
+-  More Query Operator Examples
+
+-  Support for Write Concern in all supported operations
+
+-  Add support for UpdateOptions in Update One and Update Many
+
+-  Add support of Aggregate Pipelines in Update operations
+
+-  More JSON operator Expression Functions:
+
+   -  All remaining MongoDB Query Operators
+
+   -  Update Operators
+
+   -  Aggregate Pipelines
+
+
+
+
+
+
+.. |image31| image:: media/image32.png
+   :width: 6.50000in
+   :height: 2.47222in
+.. |image32| image:: media/image33.png
+   :width: 6.50000in
+   :height: 3.56250in

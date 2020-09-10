@@ -219,7 +219,7 @@ public class MongoDbJsonHelper {
         if (AppianTypeHelper.isListDictOrCdt(typeService, value))
             return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value);
         else
-            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes);
+            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromTypedValue(typeService, value, noQuotes);
     }
 
 

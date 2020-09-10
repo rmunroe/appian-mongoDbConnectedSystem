@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
 
   
@@ -31,6 +32,8 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script src="_static/js/custom.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -176,26 +179,29 @@
 <li class="toctree-l3"><a class="reference internal" href="#drop-collection">Drop Collection</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id91">Parameters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id94">Result Value</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#common-configuration-parameters">Common Configuration Parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#common-output-type">Output Type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-database">Database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-collection">Collection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-filter-json">Filter JSON</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-output-json-as-a-single-array">Output JSON As a Single Array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-save-to-folder">Save to Folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-filename">Filename</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-skip-automatic-date-time-conversion">Skip Automatic Date Time Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#common-configuration-parameters">Common Configuration Parameters</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#common-character-set">Character Set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#common-collation">Collation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-read-preference">Read Preference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-collection">Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-filename">Filename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-filter-json">Filter JSON</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-output-json-as-a-single-array">Output JSON As a Single Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-output-type">Output Type</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#common-read-concern">Read Concern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-read-preference">Read Preference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-save-to-folder">Save to Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-skip-automatic-date-time-conversion">Skip Automatic Date Time Conversion</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
 </ul>
@@ -296,16 +302,18 @@
 <h4>Result Value<a class="headerlink" href="#result-value" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
+<col style="width: 7%" />
 <col style="width: 13%" />
-<col style="width: 77%" />
+<col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">databases</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>databases</p></td>
 <td><p><em>List of Dictionary</em></p></td>
 <td><p>Dictionaries represent the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listDatabases/#output">List Databases output data</a></p></td>
 </tr>
@@ -338,20 +346,22 @@
 <h4>Result Value<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 12%" />
-<col style="width: 78%" />
+<col style="width: 7%" />
+<col style="width: 13%" />
+<col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collections</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>collections</p></td>
 <td><p><em>List of Dictionary</em></p></td>
 <td><p>Dictionaries represent the <a class="reference external" href="https://docs.mongodb.com/manual/reference/command/listCollections/#output">List Collections output data</a></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<tr class="row-odd"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
@@ -386,7 +396,7 @@
 <div class="section" id="sort-json">
 <h5><em>Sort JSON</em><a class="headerlink" href="#sort-json" title="Permalink to this headline">¶</a></h5>
 <p>A JSON string representing the sort order for a <code class="docutils literal notranslate"><span class="pre">Collection.Find()</span></code> query.  Sort specifies the order in which the query returns matching documents.  Example, sorting by last name ascendingly, then first name ascendingly:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -394,7 +404,7 @@
 <h5><em>Projection JSON</em><a class="headerlink" href="#projection-json" title="Permalink to this headline">¶</a></h5>
 <p>A JSON string representing a <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/">Projection</a> for a <code class="docutils literal notranslate"><span class="pre">Collection.Find()</span></code> query. Projections limit the amount of data that MongoDB returns.</p>
 <p>Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the _id (which is always projected unless omitted):</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{ &quot;firstName&quot;: 1, &quot;lastName&quot;: 1, &quot;address.postalCode&quot;: 1, _id: 0 }
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;address.postalCode&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">_id</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -436,24 +446,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 22%" />
-<col style="width: 69%" />
+<col style="width: 6%" />
+<col style="width: 23%" />
+<col style="width: 71%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documents</span></code></p></td>
+<tr class="row-even"><td><p>documents</p></td>
 <td><p><em>List of Dictionary</em> <strong>OR</strong> <em>List of Text</em></p></td>
 <td><p>The MongoDB Documents matched by the Filter JSON query, either as Dictionaries or JSON strings depending on the Output Type selected</p></td>
 </tr>
@@ -499,24 +511,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 20%" />
-<col style="width: 62%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 66%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<tr class="row-even"><td><p>count</p></td>
 <td><p><em>Number (Integer)</em></p></td>
 <td><p>The number of MongoDB Documents matched by the Filter JSON</p></td>
 </tr>
@@ -587,24 +601,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 22%" />
-<col style="width: 69%" />
+<col style="width: 6%" />
+<col style="width: 23%" />
+<col style="width: 71%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documents</span></code></p></td>
+<tr class="row-even"><td><p>documents</p></td>
 <td><p><em>List of Dictionary</em> <strong>OR</strong> <em>List of Text</em></p></td>
 <td><p>The MongoDB Documents produced by the Aggregate operation, either as Dictionaries or JSON strings depending on the Output Type selected</p></td>
 </tr>
@@ -649,24 +665,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21%" />
-<col style="width: 22%" />
-<col style="width: 57%" />
+<col style="width: 17%" />
+<col style="width: 23%" />
+<col style="width: 60%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jsonDocument</span></code></p></td>
+<tr class="row-even"><td><p>jsonDocument</p></td>
 <td><p><em>Appian Document</em></p></td>
 <td><p>The output file in Appian’s content management</p></td>
 </tr>
@@ -707,24 +725,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21%" />
-<col style="width: 22%" />
-<col style="width: 57%" />
+<col style="width: 17%" />
+<col style="width: 23%" />
+<col style="width: 60%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jsonDocument</span></code></p></td>
+<tr class="row-even"><td><p>jsonDocument</p></td>
 <td><p><em>Appian Document</em></p></td>
 <td><p>The output file in Appian’s content management</p></td>
 </tr>
@@ -757,24 +777,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 20%" />
-<col style="width: 53%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+<col style="width: 56%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection name provided</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collectionCreated</span></code></p></td>
+<tr class="row-even"><td><p>collectionCreated</p></td>
 <td><p><em>Boolean</em></p></td>
 <td><p>Whether the Collection was created or not</p></td>
 </tr>
@@ -807,24 +829,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 24%" />
-<col style="width: 23%" />
-<col style="width: 53%" />
+<col style="width: 18%" />
+<col style="width: 25%" />
+<col style="width: 57%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">indexName</span></code></p></td>
+<tr class="row-even"><td><p>indexName</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The name of the newly created Index</p></td>
 </tr>
@@ -839,7 +863,7 @@ Parameters.</p>
 <img alt="_images/image17.png" src="_images/image17.png" />
 </div>
 <p>This Integration Operation allows you to select the source of the JSON to be inserted, either as a List of Text (an array of JSON documents) or by reading JSON from an Appian Document.</p>
-<p>When used in conjunction with one of the other WRITE operations that produce Appian Document outputs (such as <a class="reference internal" href="#collection-find-to-json-file"><span class="std std-ref">Collection Find to JSON File</span></a>) this allows for the export and import of larger amounts of data without impacting Process Engine memory usage.</p>
+<p>When used in conjunction with one of the other WRITE operations that produce Appian Document outputs (such as <span class="xref std std-ref">Collection Find to JSON File</span>) this allows for the export and import of larger amounts of data without impacting Process Engine memory usage.</p>
 <div class="section" id="id43">
 <h4>Parameters<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="id44">
@@ -899,24 +923,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 19%" />
-<col style="width: 64%" />
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 66%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">documentCount</span></code></p></td>
+<tr class="row-even"><td><p>documentCount</p></td>
 <td><p><em>Number (Integer)</em></p></td>
 <td><p>The count of new MongoDB Documents inserted into the Collection</p></td>
 </tr>
@@ -953,24 +979,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 15%" />
-<col style="width: 75%" />
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 78%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">document</span></code></p></td>
+<tr class="row-even"><td><p>document</p></td>
 <td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
 <td><p>The MongoDB Document produced by the Insert One operation, either as a Dictionary or JSON string depending on the Output Type selected</p></td>
 </tr>
@@ -1015,24 +1043,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 5%" />
 <col style="width: 10%" />
-<col style="width: 84%" />
+<col style="width: 85%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<tr class="row-even"><td><p>updateResult</p></td>
 <td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
 <td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/#returns">Update Many results</a> as defined in the MongoDB Documentation</p></td>
 </tr>
@@ -1081,24 +1111,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 5%" />
 <col style="width: 10%" />
-<col style="width: 84%" />
+<col style="width: 85%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<tr class="row-even"><td><p>updateResult</p></td>
 <td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
 <td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/#returns">Update One results</a> as defined in the MongoDB Documentation</p></td>
 </tr>
@@ -1147,24 +1179,26 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 5%" />
 <col style="width: 10%" />
-<col style="width: 84%" />
+<col style="width: 85%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">updateResult</span></code></p></td>
+<tr class="row-even"><td><p>updateResult</p></td>
 <td><p><em>Dictionary</em> <strong>OR</strong> <em>Text</em></p></td>
 <td><p>A Dictionary or JSON string (depending on the Output Type selected) that represents the <a class="reference external" href="https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/#returns">Update One results</a> as defined in the MongoDB Documentation</p></td>
 </tr>
@@ -1209,32 +1243,34 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id83" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 67%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 69%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteResult</span></code></p></td>
+<tr class="row-even"><td><p>deleteResult</p></td>
 <td><p><em>Dictionary</em></p></td>
 <td><p>Contains the results of the operation with the following 2 keys and values</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.acknowledged</span></code></p></td>
+<tr class="row-odd"><td><p>.acknowledged</p></td>
 <td><p><em>Boolean</em></p></td>
 <td><p>That the Delete One operation was acknowledged by MongoDB</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.deletedCount</span></code></p></td>
+<tr class="row-even"><td><p>.deletedCount</p></td>
 <td><p><em>Number (Integer)</em></p></td>
 <td><p>The number of MongoDB Documents deleted by this operation.</p></td>
 </tr>
@@ -1280,32 +1316,34 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id90" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
+<col style="width: 11%" />
 <col style="width: 15%" />
-<col style="width: 72%" />
+<col style="width: 74%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteResult</span></code></p></td>
+<tr class="row-even"><td><p>deleteResult</p></td>
 <td><p><em>Dictionary</em></p></td>
 <td><p>Contains the results of the operation with the following 2 keys and values</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.acknowledged</span></code></p></td>
+<tr class="row-odd"><td><p>.acknowledged</p></td>
 <td><p><em>Boolean</em></p></td>
 <td><p>That the Delete One operation was acknowledged by MongoDB</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.deletedCount</span></code></p></td>
+<tr class="row-even"><td><p>.deletedCount</p></td>
 <td><p><em>Number (Integer)</em></p></td>
 <td><p>The number of MongoDB Documents deleted by this operation (should always be 1 for Delete One).</p></td>
 </tr>
@@ -1338,53 +1376,96 @@ Parameters.</p>
 <h4>Result Value<a class="headerlink" href="#id94" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 19%" />
-<col style="width: 56%" />
+<col style="width: 22%" />
+<col style="width: 20%" />
+<col style="width: 59%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Field Name</strong></p></td>
-<td><p><strong>Data Type</strong></p></td>
-<td><p><strong>Description</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>database</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The database used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collection</span></code></p></td>
+<tr class="row-odd"><td><p>collection</p></td>
 <td><p><em>Text</em></p></td>
 <td><p>The collection used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collectionDropped</span></code></p></td>
+<tr class="row-even"><td><p>collectionDropped</p></td>
 <td><p><em>Boolean</em></p></td>
 <td><p>Whether the Collection was successfully dropped</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="section" id="common-configuration-parameters">
-<h4>Common Configuration Parameters<a class="headerlink" href="#common-configuration-parameters" title="Permalink to this headline">¶</a></h4>
+<h2>Common Configuration Parameters<a class="headerlink" href="#common-configuration-parameters" title="Permalink to this headline">¶</a></h2>
 <p>This section describes the collection of Parameters that are shared among multiple Integration Operations.</p>
-</div>
-</div>
-<div class="section" id="common-output-type">
-<span id="id95"></span><h3>Output Type<a class="headerlink" href="#common-output-type" title="Permalink to this headline">¶</a></h3>
-<p>This parameter allows you to select how the Integration Operation returns the data, either as Appian Dictionaries or as a List of Text containing the JSON representations of the MongoDB Documents. See <a class="reference internal" href="introduction.html#special-considerations"><span class="std std-ref">Special Considerations</span></a> for how ObjectIds are transformed when being output as Dictionaries.</p>
-<p>When selecting the List of JSON Strings, the JSON output comes directly from the MongoDB Java Driver, which represents the data in its “purest” form.</p>
+<div class="section" id="common-character-set">
+<span id="id95"></span><h3>Character Set<a class="headerlink" href="#common-character-set" title="Permalink to this headline">¶</a></h3>
+<p>The character set that the text file should use. Valid values are:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ISO-8859-1</p></td>
+<td><p>ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>UTF-8</p></td>
+<td><p>Eight-bit UCS Transformation Format</p></td>
+</tr>
+<tr class="row-even"><td><p>UTF-16LE</p></td>
+<td><p>Sixteen-bit UCS Transformation Format, little-endian byte order</p></td>
+</tr>
+<tr class="row-odd"><td><p>UTF-16</p></td>
+<td><p>Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark</p></td>
+</tr>
+<tr class="row-even"><td><p>UTF-16BE</p></td>
+<td><p>Sixteen-bit UCS Transformation Format, big-endian byte order</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-ASCII</p></td>
+<td><p>Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set</p></td>
+</tr>
+</tbody>
+</table>
 <div class="figure align-default">
-<img alt="_images/image26.png" src="_images/image26.png" />
+<img alt="_images/image30.png" src="_images/image30.png" />
 </div>
 </div>
-<div class="section" id="common-database">
-<span id="id96"></span><h3>Database<a class="headerlink" href="#common-database" title="Permalink to this headline">¶</a></h3>
-<p>This parameter tells the Integration Operation which MongoDB Database to perform the operation on. The drop-down is automatically populated with the available Databases in your Connected System, using the same method as <a class="reference internal" href="#read-list-databases"><span class="std std-ref">List Databases</span></a> above.</p>
-<p>Below the drop-down is a checkbox which if checked will ensure that the Database exists before performing the Operation. MongoDB is very forgiving and will allow many API methods to be performed on non-existent Databases, returning null or an empty set. Checking this box will ensure that the database exists, to help avoid entering the wrong database name.</p>
+<div class="section" id="common-collation">
+<span id="id96"></span><h3>Collation<a class="headerlink" href="#common-collation" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/">Collation</a> allows users to specify language-specific rules for string comparison, such as rules for letter case and accent marks. This parameter section allows you to individually configure a <a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/#collation-document">Collation Document</a>, or you can define one by building an Appian Dictionary (and not a JSON string) in the form of:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nv">COLLATION_LOCALE</span><span class="p">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nv">COLLATION_CASE_LEVEL</span><span class="p">:</span> <span class="kt">true</span><span class="p">,</span>
+  <span class="nv">COLLATION_CASE_FIRST</span><span class="p">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nv">COLLATION_STRENGTH</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nv">COLLATION_NUMERIC_ORDERING</span><span class="p">:</span> <span class="kt">true</span><span class="p">,</span>
+  <span class="nv">COLLATION_ALTERNATE</span><span class="p">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nv">COLLATION_MAX_VARIABLE</span><span class="p">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nv">COLLATION_BACKWARDS</span><span class="p">:</span> <span class="kt">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="figure align-default">
-<img alt="_images/image27.png" src="_images/image27.png" />
+<img alt="_images/image31.png" src="_images/image31.png" />
 </div>
 </div>
 <div class="section" id="common-collection">
-<span id="id97"></span><h3>Collection<a class="headerlink" href="#common-collection" title="Permalink to this headline">¶</a></h3>
+<span id="id98"></span><h3>Collection<a class="headerlink" href="#common-collection" title="Permalink to this headline">¶</a></h3>
 <p>This parameter tells the Integration Operation which MongoDB Collection to perform the operation on. The drop-down is automatically populated with the available Collections in the given Database in your Connected System, using the same method as <a class="reference internal" href="#read-list-collections"><span class="std std-ref">List Collections</span></a> above.</p>
 <p>Below the drop-down is a checkbox which if checked will ensure that the Collection exists before performing the Operation. MongoDB is very forgiving and will allow many API methods to be performed on non-existent Collections, returning null or an empty set. Checking this box will ensure that the Collection exists, to help avoid entering the wrong Collection name.</p>
 <div class="figure align-default">
@@ -1395,82 +1476,55 @@ Parameters.</p>
 <p>For WRITE operations (e.g. <a class="reference internal" href="#insert-one-in-collection">Insert One in Collection</a>), if the checkbox is unchecked and the Collection does not exist, MongoDB will <em>create a new Collection</em> with the given name to perform the write into. This can be an unintended action, but it can also be very useful when performing certain business functions, such as reading back the results of a <a class="reference internal" href="#collection-aggregate">Collection Aggregate</a> and writing them to a new Collection in one nested operation.</p>
 </div>
 </div>
+<div class="section" id="common-database">
+<span id="id99"></span><h3>Database<a class="headerlink" href="#common-database" title="Permalink to this headline">¶</a></h3>
+<p>This parameter tells the Integration Operation which MongoDB Database to perform the operation on. The drop-down is automatically populated with the available Databases in your Connected System, using the same method as <a class="reference internal" href="#read-list-databases"><span class="std std-ref">List Databases</span></a> above.</p>
+<p>Below the drop-down is a checkbox which if checked will ensure that the Database exists before performing the Operation. MongoDB is very forgiving and will allow many API methods to be performed on non-existent Databases, returning null or an empty set. Checking this box will ensure that the database exists, to help avoid entering the wrong database name.</p>
+<div class="figure align-default">
+<img alt="_images/image27.png" src="_images/image27.png" />
+</div>
+</div>
+<div class="section" id="common-filename">
+<span id="id100"></span><h3>Filename<a class="headerlink" href="#common-filename" title="Permalink to this headline">¶</a></h3>
+<p>The complete name of the output file, including any extension you would like (most commonly .json)</p>
+</div>
 <div class="section" id="common-filter-json">
-<span id="id98"></span><h3>Filter JSON<a class="headerlink" href="#common-filter-json" title="Permalink to this headline">¶</a></h3>
+<span id="id101"></span><h3>Filter JSON<a class="headerlink" href="#common-filter-json" title="Permalink to this headline">¶</a></h3>
 <p>This parameter represents a <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Document</a> in JSON form. This is the query language that MongoDB uses, similar to how RDBMS platforms use SQL. When present, the value provided here will be used to match MongoDB Documents in the given Collection.</p>
 <p>For READ operations such as Find, this will determine which MongoDB Documents are returned.</p>
 <p>For WRITE operations such as Update, this will determine which MongoDB Documents are modified, so it is critical your Filter JSON matches only those to be modified. It is therefore a good idea to test your Filter JSON values for WRITE operations before performing them (e.g. by performing a Find first and validating that only the documents to be updated are returned).</p>
-<p>This JSON string value can be hard-coded, constructed via Expressions or Expression Rules, or constructed using the <a class="reference internal" href="expressions.html#json-query-expression-functions"><span class="std std-ref">JSON Query Expression Functions</span></a> as shown:</p>
+<p>This JSON string value can be hard-coded, constructed via Expressions or Expression Rules, or constructed using the <span class="xref std std-ref">JSON Query Expression Functions</span> as shown:</p>
 <div class="figure align-default">
 <img alt="_images/image29.png" src="_images/image29.png" />
 </div>
 </div>
 <div class="section" id="common-output-json-as-a-single-array">
-<span id="id99"></span><h3>Output JSON As a Single Array<a class="headerlink" href="#common-output-json-as-a-single-array" title="Permalink to this headline">¶</a></h3>
+<span id="id102"></span><h3>Output JSON As a Single Array<a class="headerlink" href="#common-output-json-as-a-single-array" title="Permalink to this headline">¶</a></h3>
 <p>This will join the results as a JSON array such as: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">]</span></code>, allowing easier import using <a class="reference internal" href="#insert-many-in-collection">Insert Many in Collection</a> or other MongoDB tools. Selecting No (or false) will write one MongoDB Document per line.</p>
 </div>
-<div class="section" id="common-save-to-folder">
-<span id="id100"></span><h3>Save to Folder<a class="headerlink" href="#common-save-to-folder" title="Permalink to this headline">¶</a></h3>
-<p>The Appian Folder where the new Document will be created. This is a standard Appian folder picker.</p>
-</div>
-<div class="section" id="common-filename">
-<span id="id101"></span><h3>Filename<a class="headerlink" href="#common-filename" title="Permalink to this headline">¶</a></h3>
-<p>The complete name of the output file, including any extension you would like (most commonly .json)</p>
-</div>
-<div class="section" id="common-skip-automatic-date-time-conversion">
-<span id="id102"></span><h3>Skip Automatic Date Time Conversion<a class="headerlink" href="#common-skip-automatic-date-time-conversion" title="Permalink to this headline">¶</a></h3>
-<p>This plugin will attempt to detect Dates and Times and convert them to MongoDB timestamps. Selecting Yes (or true) here will skip this and instead insert these values as Strings.</p>
-</div>
-<div class="section" id="common-character-set">
-<span id="id103"></span><h3>Character Set<a class="headerlink" href="#common-character-set" title="Permalink to this headline">¶</a></h3>
-<p>The character set that the text file should use. Valid values are:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 86%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Value</strong></p></td>
-<td><p><strong>Description</strong></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ISO-8859-1</span></code></p></td>
-<td><p>ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-8</span></code></p></td>
-<td><p>Eight-bit UCS Transformation Format</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16LE</span></code></p></td>
-<td><p>Sixteen-bit UCS Transformation Format, little-endian byte order</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16</span></code></p></td>
-<td><p>Sixteen-bit UCS Transformation Format, byte order identified by an optional byte-order mark</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UTF-16BE</span></code></p></td>
-<td><p>Sixteen-bit UCS Transformation Format, big-endian byte order</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">US-ASCII</span></code></p></td>
-<td><p>Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set</p></td>
-</tr>
-</tbody>
-</table>
+<div class="section" id="common-output-type">
+<span id="id103"></span><h3>Output Type<a class="headerlink" href="#common-output-type" title="Permalink to this headline">¶</a></h3>
+<p>This parameter allows you to select how the Integration Operation returns the data, either as Appian Dictionaries or as a List of Text containing the JSON representations of the MongoDB Documents. See <span class="xref std std-ref">Special Considerations</span> for how ObjectIds are transformed when being output as Dictionaries.</p>
+<p>When selecting the List of JSON Strings, the JSON output comes directly from the MongoDB Java Driver, which represents the data in its “purest” form.</p>
 <div class="figure align-default">
-<img alt="_images/image30.png" src="_images/image30.png" />
+<img alt="_images/image26.png" src="_images/image26.png" />
 </div>
 </div>
-<div class="section" id="common-collation">
-<span id="id104"></span><h3>Collation<a class="headerlink" href="#common-collation" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/">Collation</a> allows users to specify language-specific rules for string comparison, such as rules for letter case and accent marks. This parameter section allows you to individually configure a <a class="reference external" href="https://docs.mongodb.com/manual/reference/collation/#collation-document">Collation Document</a>, or you can define one by building an Appian Dictionary (and not a JSON string) in the form of:</p>
-<div class="figure align-default">
-<img alt="_images/image31.png" src="_images/image31.png" />
-</div>
+<div class="section" id="common-read-concern">
+<span id="id104"></span><h3>Read Concern<a class="headerlink" href="#common-read-concern" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/read-concern/">Read Concern</a> allows you to control the consistency and isolation properties of the data read from replica sets and replica set shards.</p>
 </div>
 <div class="section" id="common-read-preference">
 <span id="id106"></span><h3>Read Preference<a class="headerlink" href="#common-read-preference" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://docs.mongodb.com/manual/core/read-preference/">Read Preference</a> describes how MongoDB clients route read operations to the members of a replica set.</p>
 </div>
-<div class="section" id="common-read-concern">
-<span id="id108"></span><h3>Read Concern<a class="headerlink" href="#common-read-concern" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://docs.mongodb.com/manual/reference/read-concern/">Read Concern</a> allows you to control the consistency and isolation properties of the data read from replica sets and replica set shards.</p>
+<div class="section" id="common-save-to-folder">
+<span id="id108"></span><h3>Save to Folder<a class="headerlink" href="#common-save-to-folder" title="Permalink to this headline">¶</a></h3>
+<p>The Appian Folder where the new Document will be created. This is a standard Appian folder picker.</p>
+</div>
+<div class="section" id="common-skip-automatic-date-time-conversion">
+<span id="id109"></span><h3>Skip Automatic Date Time Conversion<a class="headerlink" href="#common-skip-automatic-date-time-conversion" title="Permalink to this headline">¶</a></h3>
+<p>This plugin will attempt to detect Dates and Times and convert them to MongoDB timestamps. Selecting Yes (or true) here will skip this and instead insert these values as Strings.</p>
 </div>
 </div>
 </div>

@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
 
   
@@ -31,6 +32,8 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script src="_static/js/custom.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -178,11 +181,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode.</p>
 <p>Its official distribution location is this entry in the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian Community App Market</a>.</p>
 <div class="section" id="project-info">
-<span id="id1"></span><h2>Project Info<a class="headerlink" href="#project-info" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Project Info<a class="headerlink" href="#project-info" title="Permalink to this headline">¶</a></h2>
 <p>This plugin was created by me, <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">Rob Munroe</a>, Principal Solutions Architect at <a class="reference external" href="https://appian.com">Appian</a>. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer.</p>
 <p>I have also been a fan of MongoDB since it first arrived in the late-00s. I feel that the speed and power of both Appian and MongoDB are a potent combination, and that both platforms pair very well given the strong support for JSON and dynamic data structures. Many customers have already integrated the two platforms using the standard <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">HTTP/REST Connected System</a>, however I wanted to make it even easier to use MongoDB inside of Appian as well as take advantage of what the MongoDB Java Driver had to offer.</p>
 <p>The benefits of using this plugin versus MongoDB’s REST API include:</p>
@@ -198,19 +201,19 @@
 <p>If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">LinkedIn</a>.</p>
 </div>
 <div class="section" id="audience">
-<h2>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h2>
 <p>Users of this Connected System plugin are expected to be familiar with the <a class="reference external" href="https://docs.mongodb.com/manual/introduction/">core concepts of MongoDB</a>, including topics such as querying and aggregation syntax. Additionally, it is expected that you are familiar with your own Databases, Collections, Document schemas, and MongoDB server infrastructure.</p>
 <p>Users are also expected to be familiar with Appian, building Applications, and how and why <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected Systems</a> and <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">Integration Objects</a> are used.</p>
 </div>
 <div class="section" id="compatibility">
-<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
 <p>This plugin was built and tested on Appian versions 19.4 and 20.2.</p>
 <p>Version 1.2 of this plugin uses the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver version 3.12.5</a> and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility">compatibility chart</a> for full details.</p>
 <p>This plugin was tested against a <a class="reference external" href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.</p>
 <p>It is expected that your MongoDB instance(s) allow network connections from your Appian instance(s).</p>
 </div>
 <div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>If installing to a fully-managed Appian Cloud instance, install using the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins">Plugins</a> panel of the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html">Administration Console</a>.</p>
 <div class="figure align-default">
 <img alt="_images/image2.png" src="_images/image2.png" />
@@ -221,12 +224,12 @@
 <p>If installing to a self-managed Appian instance, copy the <code class="docutils literal notranslate"><span class="pre">ps-plugin-MongoDbConnectedSystem-X.X.jar</span></code> file to the <code class="docutils literal notranslate"><span class="pre">&lt;APPIAN_HOME&gt;/_admin/plugins</span></code> directory.</p>
 </div>
 <div class="section" id="plugin-design-principles">
-<h2>Plugin Design Principles<a class="headerlink" href="#plugin-design-principles" title="Permalink to this headline">¶</a></h2>
-<p>This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let <a class="reference external" href="ProjectInfo">me</a> know if there are missing features that you require.</p>
-<p>Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of <a class="reference external" href="#_JSON_Query_Expression_1">JSON Query Expression Functions</a> to cleanly and easily generate MongoDB JSON-based queries.</p>
+<span id="id6"></span><h2>Plugin Design Principles<a class="headerlink" href="#plugin-design-principles" title="Permalink to this headline">¶</a></h2>
+<p>This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let <a class="reference internal" href="#project-info"><span class="std std-ref">me</span></a> know if there are missing features that you require.</p>
+<p>Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to cleanly and easily generate MongoDB JSON-based queries.</p>
 </div>
 <div class="section" id="special-considerations">
-<span id="id2"></span><h2>Special Considerations<a class="headerlink" href="#special-considerations" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>Special Considerations<a class="headerlink" href="#special-considerations" title="Permalink to this headline">¶</a></h2>
 <p>Due to how the MongoDB Java Driver returns Object IDs and Binary data types, special handling must be performed by the Connected System as described below.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -250,24 +253,24 @@
 <p>This transformation only applies to results returned as Appian Dictionaries. JSON results use the MongoDB JSON notation.</p>
 </div>
 <p>A MongoDB Document representing this value:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  _id: ObjectId(&quot;5efa0b06fc13ae730e00024a&quot;)
-  ...
-}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">_id</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;5efa0b06fc13ae730e00024a&quot;</span><span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Would be returned as an Appian Dictionary like this:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  _id: {
-    oid: &quot;5efa0b06fc13ae730e00024a&quot;
-  }
-  ...
-}
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nv">_id</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nv">oid</span><span class="p">:</span> <span class="s">&quot;5efa0b06fc13ae730e00024a&quot;</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The key detail here is that Object ID fields will be accessed like this
-in Appian::</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>local!theObjectId: local!myDocument._id.oid
+in Appian:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nv">local!theObjectId</span><span class="p">:</span> <span class="nv">local!myDocument</span><span class="p">.</span><span class="nv">_id</span><span class="p">.</span><span class="nv">oid</span>
 </pre></div>
 </div>
 <div class="section" id="object-id-cdt">
@@ -296,12 +299,12 @@ in Appian::</p>
 </pre></div>
 </div>
 <p>Would be returned as an Appian Dictionary like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="n">binaryField</span><span class="p">:</span> <span class="p">{</span>
-    <span class="n">binary</span><span class="p">:</span> <span class="s2">&quot;...Base64 encoded data...&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nv">binaryField</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nv">binary</span><span class="p">:</span> <span class="s">&quot;...Base64 encoded data...&quot;</span><span class="p">,</span>
+    <span class="nv">type</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
   <span class="p">}</span>
-  <span class="o">...</span>
+  <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 </div>

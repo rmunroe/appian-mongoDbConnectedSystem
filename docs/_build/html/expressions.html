@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
 
   
@@ -31,6 +32,8 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script src="_static/js/custom.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -38,7 +41,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="next" title="Demo Application" href="demo_application.html" />
     <link rel="prev" title="Integrations" href="integrations.html" /> 
 </head>
 
@@ -90,59 +93,64 @@
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">JSON Query Expression Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#top-level-functions">Top-Level Functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-query"><code class="docutils literal notranslate"><span class="pre">M_query()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-field"><code class="docutils literal notranslate"><span class="pre">M_field()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#top-level-query-functions">Top-Level Query Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#m-query">M_query()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-field">M_field()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-functions">Utility Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#m-objectid">M_objectId()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-validobjectid">M_validObjectId()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#comparison-query-operators">Comparison Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-eq"><code class="docutils literal notranslate"><span class="pre">M_eq()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-gt"><code class="docutils literal notranslate"><span class="pre">M_gt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-gte"><code class="docutils literal notranslate"><span class="pre">M_gte()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-in"><code class="docutils literal notranslate"><span class="pre">M_in()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-lt"><code class="docutils literal notranslate"><span class="pre">M_lt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-lte"><code class="docutils literal notranslate"><span class="pre">M_lte()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-ne"><code class="docutils literal notranslate"><span class="pre">M_ne()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-nin"><code class="docutils literal notranslate"><span class="pre">M_nin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-eq">M_eq()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-gt">M_gt()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-gte">M_gte()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-in">M_in()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-lt">M_lt()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-lte">M_lte()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-ne">M_ne()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-nin">M_nin()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#logical-query-operators">Logical Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-and"><code class="docutils literal notranslate"><span class="pre">M_and()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-nor"><code class="docutils literal notranslate"><span class="pre">M_nor()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-not"><code class="docutils literal notranslate"><span class="pre">M_not()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-or"><code class="docutils literal notranslate"><span class="pre">M_or()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-and">M_and()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-nor">M_nor()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-not">M_not()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-or">M_or()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#element-query-operators">Element Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-exists"><code class="docutils literal notranslate"><span class="pre">M_exists()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-type"><code class="docutils literal notranslate"><span class="pre">M_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-exists">M_exists()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-type">M_type()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#evaluation-query-operators">Evaluation Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-expr"><code class="docutils literal notranslate"><span class="pre">M_expr()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-jsonschema"><code class="docutils literal notranslate"><span class="pre">M_jsonSchema()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-mod"><code class="docutils literal notranslate"><span class="pre">M_mod()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-regex"><code class="docutils literal notranslate"><span class="pre">M_regex()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-text"><code class="docutils literal notranslate"><span class="pre">M_text()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-where"><code class="docutils literal notranslate"><span class="pre">M_where()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-expr">M_expr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-jsonschema">M_jsonSchema()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-mod">M_mod()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-regex">M_regex()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-text">M_text()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-where">M_where()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#array-query-operators">Array Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-all"><code class="docutils literal notranslate"><span class="pre">M_all()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-elemmatch"><code class="docutils literal notranslate"><span class="pre">M_elemMatch()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-size"><code class="docutils literal notranslate"><span class="pre">M_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-all">M_all()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-elemmatch">M_elemMatch()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-size">M_size()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#geospatial-query-operators">Geospatial Query Operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#m-topoint"><code class="docutils literal notranslate"><span class="pre">M_toPoint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geointersects"><code class="docutils literal notranslate"><span class="pre">M_geoIntersects()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geowithin"><code class="docutils literal notranslate"><span class="pre">M_geoWithin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geowithinbox"><code class="docutils literal notranslate"><span class="pre">M_geoWithinBox()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geowithincircle"><code class="docutils literal notranslate"><span class="pre">M_geoWithinCircle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geowithinsphere"><code class="docutils literal notranslate"><span class="pre">M_geoWithinSphere()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-geowithinpolygon"><code class="docutils literal notranslate"><span class="pre">M_geoWithinPolygon()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-near"><code class="docutils literal notranslate"><span class="pre">M_near()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#m-nearsphere"><code class="docutils literal notranslate"><span class="pre">M_nearSphere()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-topoint">M_toPoint()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geointersects">M_geoIntersects()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geowithin">M_geoWithin()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geowithinbox">M_geoWithinBox()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geowithincircle">M_geoWithinCircle()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geowithinsphere">M_geoWithinSphere()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-geowithinpolygon">M_geoWithinPolygon()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-near">M_near()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#m-nearsphere">M_nearSphere()</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#query-operator-examples">Query Operator Examples</a><ul>
@@ -155,6 +163,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
 </ul>
@@ -223,150 +232,411 @@
            <div itemprop="articleBody">
             
   <div class="section" id="json-query-expression-functions">
-<span id="id1"></span><h1>JSON Query Expression Functions<a class="headerlink" href="#json-query-expression-functions" title="Permalink to this headline">¶</a></h1>
+<h1>JSON Query Expression Functions<a class="headerlink" href="#json-query-expression-functions" title="Permalink to this headline">¶</a></h1>
 <p>As many Integration Operation parameters take as input JSON expressions, such as those for filtering MongoDB Documents in <a class="reference internal" href="integrations.html#read-collection-find"><span class="std std-ref">Collection Find</span></a>, we have included a set of Expression Functions to help create these JSON Query expressions without having to construct the strings yourself.</p>
 <div class="figure align-default">
 <img alt="_images/image32.png" src="_images/image32.png" />
 </div>
-<p>In addition to generating the special JSON structures MongoDB expects, these functions make creating MongoDB’s non-standard JSON alterations much easier in Appian. The functions also handle converting Appian primitive types to their necessary JSON representations. For example, this expression:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="n">M_eq</span><span class="p">(</span><span class="n">now</span><span class="p">())</span>
+<p>In addition to generating the special JSON structures MongoDB expects, these functions make creating MongoDB’s non-standard JSON alterations much easier in Appian. The functions also handle converting Appian primitive types to their necessary JSON representations.</p>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
+    <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;createdOn&quot;: {
-    &quot;$eq&quot;: ISODate(&quot;2020-07-01T20:32:20.900Z&quot;)
-  }
-}
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note the MongoDB-specific JSON <code class="docutils literal notranslate"><span class="pre">ISODate()</span></code> function call. Also note the field names that begin with <code class="docutils literal notranslate"><span class="pre">$</span></code>. It is not easy (and, in some cases such as this one, not possible) to generate JSON in this manner by constructing Dictionaries and using Appian’s built-in <code class="docutils literal notranslate"><span class="pre">a!toJson()</span></code> function.</p>
 <p>More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please <a class="reference internal" href="introduction.html#project-info"><span class="std std-ref">contact the project authors</span></a> or on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Community App Market</a> entry.</p>
-<div class="section" id="top-level-functions">
-<h2>Top-Level Functions<a class="headerlink" href="#top-level-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="top-level-query-functions">
+<h2>Top-Level Query Functions<a class="headerlink" href="#top-level-query-functions" title="Permalink to this headline">¶</a></h2>
+<p>These functions are used to set up the structure of a MongoDB query. The subsequent sections provide functions called within the top-level functions to produce a complete query.</p>
 <div class="section" id="m-query">
-<h3><code class="docutils literal notranslate"><span class="pre">M_query()</span></code><a class="headerlink" href="#m-query" title="Permalink to this headline">¶</a></h3>
-<p>This function begins a MongoDB query. It should be the top-level function call whose output is sent to one of the JSON filter parameters. Essentially this wraps the contents provided in braces <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> to ensure a complete query JSON string.</p>
-<p><strong>queryClauses</strong> <em>(List of Text String)</em>: The list of expressions (often created with <a class="reference internal" href="#m-field">M_field()</a>) you wish to evaluate</p>
-<p>For example, this expression:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>M_query(
-  M_field(&quot;createdOn&quot;, M_eq(fn!datetime(2019,4,26,10,28,57,0)))
-)
+<h3>M_query()<a class="headerlink" href="#m-query" title="Permalink to this headline">¶</a></h3>
+<p>This function begins a MongoDB query. It should be the top-level function call whose output is sent to one of the JSON filter parameters. While this simply wraps the contents provided in braces <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> to ensure a complete query JSON string, it makes for a very clean and readable expression structure.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 20%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryClauses</p></td>
+<td><p><em>List of Text String</em></p></td>
+<td><p>The list of expressions (often created with <a class="reference internal" href="#m-field">M_field()</a>) you wish to evaluate</p></td>
+</tr>
+</tbody>
+</table>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">fn!datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>Would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;createdOn&quot;: {
-    &quot;$eq&quot;: ISODate(&quot;2019-04-26T10:28:57.000Z&quot;)
-  }
-}
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="m-field">
-<h3><code class="docutils literal notranslate"><span class="pre">M_field()</span></code><a class="headerlink" href="#m-field" title="Permalink to this headline">¶</a></h3>
+<h3>M_field()<a class="headerlink" href="#m-field" title="Permalink to this headline">¶</a></h3>
 <p>This function begins a query expression on a field, in the form of <code class="docutils literal notranslate"><span class="pre">fieldName:</span> <span class="pre">...</span></code> where the passed in queryClauses are joined to complete the expression. To be used within <a class="reference internal" href="#m-query">M_query()</a> or one of the other Expression Functions that take in a complete field, such as <a class="reference internal" href="#m-and">M_and()</a>.</p>
-<p><strong>field</strong> <em>(Text)</em>: The name of the field in the MongoDB Document you wish to filter on</p>
-<p><strong>queryClauses</strong> <em>(List of Text String)</em>: The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">m_*</span></code> functions) you wish to evaluate</p>
-<p>For example, this expression:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>M_field(&quot;createdOn&quot;, M_eq(fn!datetime(2019,4,26,10,28,57,0)))
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>field</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The name of the field in the MongoDB Document you wish to filter on</p></td>
+</tr>
+<tr class="row-odd"><td><p>queryClauses</p></td>
+<td><p><em>List of Text</em></p></td>
+<td><p>The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">m_*</span></code> functions) you wish to evaluate</p></td>
+</tr>
+</tbody>
+</table>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">fn!datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>Would produce this portion of JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>&quot;createdOn&quot;: { &quot;$eq&quot;: ISODate(&quot;2019-04-26T10:28:57.000Z&quot;) }
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
+<p>This section covers the general purpose or utility functions that don’t relate to a specific query language grouping.</p>
+<div class="section" id="m-objectid">
+<h3>M_objectId()<a class="headerlink" href="#m-objectid" title="Permalink to this headline">¶</a></h3>
+<p>Returns a properly formed ObjectId JSON snippet. Most often used when filtering by a MongoDB Document’s <code class="docutils literal notranslate"><span class="pre">_id</span></code> field.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hexadecimal</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>Hexadecimal string value for the ObjectId.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;_id&quot;</span><span class="p">,</span>
+    <span class="nf">M_eq</span><span class="p">(</span>
+      <span class="nf">M_objectId</span><span class="p">(</span><span class="s">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Which Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ObjectId(</span><span class="s2">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="m-validobjectid">
+<h3>M_validObjectId()<a class="headerlink" href="#m-validobjectid" title="Permalink to this headline">¶</a></h3>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given hexadecimal can be converted to an ObjectId.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hexadecimal</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>Hexadecimal string value for the ObjectId.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="comparison-query-operators">
 <h2>Comparison Query Operators<a class="headerlink" href="#comparison-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-comparison/">Comparison Query Operators</a> provided by the MongoDB Query language.</p>
-<p>These functions handle converting Appian primitive types to their necessary JSON representations. For example, this expression:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="n">M_eq</span><span class="p">(</span><span class="n">now</span><span class="p">())</span>
+<p>These functions handle converting Appian primitive types to their necessary JSON representations.</p>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
+    <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;createdOn&quot;: {
-    &quot;$eq&quot;: ISODate(&quot;2020-07-01T20:32:20.900Z&quot;)
-  }
-}
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note the MongoDB-specific <code class="docutils literal notranslate"><span class="pre">ISODate()</span></code> function call. It is not possible to generate JSON in this manner using Appian’s built-in <code class="docutils literal notranslate"><span class="pre">a!toJson()</span></code> function.</p>
 <div class="section" id="m-eq">
-<h3><code class="docutils literal notranslate"><span class="pre">M_eq()</span></code><a class="headerlink" href="#m-eq" title="Permalink to this headline">¶</a></h3>
+<h3>M_eq()<a class="headerlink" href="#m-eq" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/eq/">$eq</a> operator. Specifies equality condition. The <code class="docutils literal notranslate"><span class="pre">$eq</span></code> operator matches documents where the value of a field equals the specified value.</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;lastName&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="s">&quot;Munroe&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="s2">&quot;Munroe&quot;</span> <span class="p">}</span> <span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="m-gt">
-<h3><code class="docutils literal notranslate"><span class="pre">M_gt()</span></code><a class="headerlink" href="#m-gt" title="Permalink to this headline">¶</a></h3>
+<h3>M_gt()<a class="headerlink" href="#m-gt" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/gt/">$gt</a> operator. Selects those documents where the value of the field is greater than (i.e. <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>) the specified value.</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-gte">
-<h3><code class="docutils literal notranslate"><span class="pre">M_gte()</span></code><a class="headerlink" href="#m-gte" title="Permalink to this headline">¶</a></h3>
+<h3>M_gte()<a class="headerlink" href="#m-gte" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/gte/">$gte</a> operator. Selects the documents where the value of the field is greater than or equal to (i.e. <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>) a specified value (e.g. value.)</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-in">
-<h3><code class="docutils literal notranslate"><span class="pre">M_in()</span></code><a class="headerlink" href="#m-in" title="Permalink to this headline">¶</a></h3>
+<h3>M_in()<a class="headerlink" href="#m-in" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/in/">$in</a> operator. Selects the documents where the value of a field equals any value in the specified array.</p>
-<p><strong>array</strong> <em>(List of Variant)</em>: The array of values to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 27%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>array</p></td>
+<td><p><em>List of Variant</em></p></td>
+<td><p>The array of values to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-lt">
-<h3><code class="docutils literal notranslate"><span class="pre">M_lt()</span></code><a class="headerlink" href="#m-lt" title="Permalink to this headline">¶</a></h3>
+<h3>M_lt()<a class="headerlink" href="#m-lt" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/lt/">$lt</a> operator. Selects the documents where the value of the field is less than (i.e. <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>) the specified value.</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-lte">
-<h3><code class="docutils literal notranslate"><span class="pre">M_lte()</span></code><a class="headerlink" href="#m-lte" title="Permalink to this headline">¶</a></h3>
+<h3>M_lte()<a class="headerlink" href="#m-lte" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/lte/">$lte</a> operator. Selects the documents where the value of the field is less than or equal to (i.e. <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>) the specified value.</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-ne">
-<h3><code class="docutils literal notranslate"><span class="pre">M_ne()</span></code><a class="headerlink" href="#m-ne" title="Permalink to this headline">¶</a></h3>
+<h3>M_ne()<a class="headerlink" href="#m-ne" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/ne/">$ne</a> operator. Selects the documents where the value of the field is not equal to the specified value. This includes documents that do not contain the field.</p>
-<p><strong>value</strong> <em>(Any Type)</em>: The value to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Any Type</em></p></td>
+<td><p>The value to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-nin">
-<h3><code class="docutils literal notranslate"><span class="pre">M_nin()</span></code><a class="headerlink" href="#m-nin" title="Permalink to this headline">¶</a></h3>
+<h3>M_nin()<a class="headerlink" href="#m-nin" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nin/">$nin</a> operator. Selects the documents where the field value is not in the specified array or the field does not exist.</p>
-<p><strong>array</strong> <em>(List of Variant)</em>: The array of values to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 27%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>array</p></td>
+<td><p><em>List of Variant</em></p></td>
+<td><p>The array of values to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="logical-query-operators">
 <h2>Logical Query Operators<a class="headerlink" href="#logical-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-logical/">Logical Query Operators</a> provided by the MongoDB Query language.</p>
-<p>For example, this expression:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_and</span><span class="p">(</span>
-    <span class="n">M_field</span><span class="p">(</span>
-      <span class="s2">&quot;lastName&quot;</span><span class="p">,</span>
-      <span class="n">M_in</span><span class="p">(</span>
-        <span class="s2">&quot;McIlraith&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Orcott&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Toulch&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Jemmett&quot;</span>
+<p>This Appian expression:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_and</span><span class="p">(</span>
+    <span class="nf">M_field</span><span class="p">(</span>
+      <span class="s">&quot;lastName&quot;</span><span class="p">,</span>
+      <span class="nf">M_in</span><span class="p">(</span>
+        <span class="s">&quot;McIlraith&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Orcott&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Toulch&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Jemmett&quot;</span>
       <span class="p">)</span>
     <span class="p">),</span>
-    <span class="n">M_field</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">M_ne</span><span class="p">(</span><span class="n">true</span><span class="p">))</span>
+    <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;disabled&quot;</span><span class="p">,</span> <span class="nf">M_ne</span><span class="p">(</span><span class="kt">true</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;$and&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
       <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -388,101 +658,332 @@
 </pre></div>
 </div>
 <div class="section" id="m-and">
-<h3><code class="docutils literal notranslate"><span class="pre">M_and()</span></code><a class="headerlink" href="#m-and" title="Permalink to this headline">¶</a></h3>
+<h3>M_and()<a class="headerlink" href="#m-and" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/and/">$and</a> operator. Performs a logical <strong>AND</strong> operation on an array of one or more expressions (e.g. expression1, expression2, etc.) and selects the documents that satisfy all the expressions in the array. The <code class="docutils literal notranslate"><span class="pre">$and</span></code> operator uses short-circuit evaluation. If the first expression (e.g.  expression1) evaluates to false, MongoDB will not evaluate the remaining expressions.</p>
-<p><strong>queryExpressions</strong> <em>(List of Text String)</em>: The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpressions</p></td>
+<td><p><em>List of Text</em></p></td>
+<td><p>The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-nor">
-<h3><code class="docutils literal notranslate"><span class="pre">M_nor()</span></code><a class="headerlink" href="#m-nor" title="Permalink to this headline">¶</a></h3>
+<h3>M_nor()<a class="headerlink" href="#m-nor" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nor/">$nor</a> operator. Performs a logical <strong>NOR</strong> operation on an array of one or more query expressions and selects the documents that fail all the query expressions in the array.</p>
-<p><strong>queryExpressions</strong> <em>(List of Text String)</em>: The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpressions</p></td>
+<td><p><em>List of Text</em></p></td>
+<td><p>The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-not">
-<h3><code class="docutils literal notranslate"><span class="pre">M_not()</span></code><a class="headerlink" href="#m-not" title="Permalink to this headline">¶</a></h3>
+<h3>M_not()<a class="headerlink" href="#m-not" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/not/">$not</a> operator. Performs a logical <strong>NOT</strong> operation on the specified operator-expression and selects the documents that do not match the operator-expression. This includes documents that do not contain the field.</p>
-<p><strong>queryExpression</strong> <em>(Text)</em>: The expression (often created with other <a href="#id16"><span class="problematic" id="id17">M_</span></a>* functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 9%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpression</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The expression (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-or">
-<h3><code class="docutils literal notranslate"><span class="pre">M_or()</span></code><a class="headerlink" href="#m-or" title="Permalink to this headline">¶</a></h3>
+<h3>M_or()<a class="headerlink" href="#m-or" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/or/">$or</a> operator. Performs a logical <strong>OR</strong> operation on an array of two or more expressions and selects the documents that satisfy at least one of the expressions.</p>
-<p><strong>queryExpressions</strong> <em>(List of Text String)</em>: The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpressions</p></td>
+<td><p><em>List of Text</em></p></td>
+<td><p>The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="element-query-operators">
 <h2>Element Query Operators<a class="headerlink" href="#element-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-element/">Element Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-exists">
-<h3><code class="docutils literal notranslate"><span class="pre">M_exists()</span></code><a class="headerlink" href="#m-exists" title="Permalink to this headline">¶</a></h3>
+<h3>M_exists()<a class="headerlink" href="#m-exists" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/exists/">$exists</a> operator. When value is <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">$exists</span></code> matches the documents that contain the field, including documents where the field value is <code class="docutils literal notranslate"><span class="pre">null</span></code>. If value is <code class="docutils literal notranslate"><span class="pre">false</span></code>, the query returns only the documents that do not contain the field.</p>
-<p><strong>value</strong> <em>(Boolean)</em>: Whether it should exist or not.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 21%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>Whether it should exist or not</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-type">
-<h3><code class="docutils literal notranslate"><span class="pre">M_type()</span></code><a class="headerlink" href="#m-type" title="Permalink to this headline">¶</a></h3>
+<h3>M_type()<a class="headerlink" href="#m-type" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/type/">$type</a> operator. Selects documents where the value of the field is an instance of the specified BSON type(s). Querying by data type is useful when dealing with highly unstructured data where data types are not predictable.</p>
-<p><strong>types</strong> <em>(List of Variant)</em>: Either the BSON type numbers (integer) or aliases (string).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>types</p></td>
+<td><p><em>List of Variant</em></p></td>
+<td><p>Either the BSON type numbers (integer) or aliases (string)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="evaluation-query-operators">
 <h2>Evaluation Query Operators<a class="headerlink" href="#evaluation-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-evaluation/">Evaluation Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-expr">
-<h3><code class="docutils literal notranslate"><span class="pre">M_expr()</span></code><a class="headerlink" href="#m-expr" title="Permalink to this headline">¶</a></h3>
+<h3>M_expr()<a class="headerlink" href="#m-expr" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/expr/">$expr</a> operator. Allows the use of aggregation expressions within the query language.</p>
-<p><strong>queryExpression</strong> <em>(Dictionary or Text)</em>: The expression (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpression</p></td>
+<td><p><em>Dictionary</em> or <em>Text</em></p></td>
+<td><p>The expression (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-jsonschema">
-<h3><code class="docutils literal notranslate"><span class="pre">M_jsonSchema()</span></code><a class="headerlink" href="#m-jsonschema" title="Permalink to this headline">¶</a></h3>
+<h3>M_jsonSchema()<a class="headerlink" href="#m-jsonschema" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/jsonSchema/">$jsonSchema</a> operator. Matches documents that satisfy the specified JSON Schema.</p>
-<p><strong>jsonSchema</strong> <em>(Dictionary or Text)</em>: The JSON Schema object as an Appian Dictionary or a JSON string, formatted according to <a class="reference external" href="https://tools.ietf.org/html/draft-zyp-json-schema-04">draft 4 of the JSON Schema standard</a>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>jsonSchema</p></td>
+<td><p><em>Dictionary</em> OR <em>Text</em></p></td>
+<td><p>The JSON Schema object as an Appian Dictionary or a JSON string, formatted according to <a class="reference external" href="https://tools.ietf.org/html/draft-zyp-json-schema-04">draft 4 of the JSON Schema standard</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-mod">
-<h3><code class="docutils literal notranslate"><span class="pre">M_mod()</span></code><a class="headerlink" href="#m-mod" title="Permalink to this headline">¶</a></h3>
+<h3>M_mod()<a class="headerlink" href="#m-mod" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/mod/">$mod</a> operator. Select documents where the value of a field divided by a divisor has the specified remainder (i.e. perform a modulo operation to select documents).</p>
-<p><strong>divisor</strong> <em>(Number (Integer))</em>: The divisor value.</p>
-<p><strong>remainder</strong> <em>(Number (Integer))</em>: The remainder value.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 38%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>divisor</p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The divisor value</p></td>
+</tr>
+<tr class="row-odd"><td><p>remainder</p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The remainder value</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-regex">
-<h3><code class="docutils literal notranslate"><span class="pre">M_regex()</span></code><a class="headerlink" href="#m-regex" title="Permalink to this headline">¶</a></h3>
+<h3>M_regex()<a class="headerlink" href="#m-regex" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/regex/">$regex</a> operator. Provides regular expression capabilities for pattern matching strings in queries. MongoDB uses Perl compatible regular expressions (i.e. “PCRE”) version 8.42 with UTF-8 support.</p>
-<p><strong>regex</strong> <em>(Text)</em>: The regular expression (without enclosing slashes), e.g. <code class="docutils literal notranslate"><span class="pre">&quot;^foo.\*bar$&quot;</span></code></p>
-<p><strong>options</strong> <em>(Text)</em>: The regular expression options modifiers (<code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">&quot;x&quot;</span></code>), e.g. <code class="docutils literal notranslate"><span class="pre">&quot;im&quot;</span></code> for ‘ignore case’ and ‘multiline’ searches</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 87%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>regex</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The regular expression (without enclosing slashes), e.g. <code class="docutils literal notranslate"><span class="pre">&quot;^foo.\*bar$&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>options</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>The regular expression options modifiers (<code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">&quot;x&quot;</span></code>), e.g. <code class="docutils literal notranslate"><span class="pre">&quot;im&quot;</span></code> for ‘ignore case’ and ‘multiline’ searches</p></td>
+</tr>
+</tbody>
+</table>
 <p>This example would match all MongoDB Documents where the last name begins with “St”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;lastName&quot;</span><span class="p">,</span>
-    <span class="n">M_regex</span><span class="p">(</span><span class="s2">&quot;^St&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">)</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;lastName&quot;</span><span class="p">,</span>
+    <span class="nf">M_regex</span><span class="p">(</span><span class="s">&quot;^St&quot;</span><span class="p">,</span> <span class="s">&quot;i&quot;</span><span class="p">)</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;lastName&quot;: {
-    &quot;$regex&quot;: /^St/i
-  }
-}
+<p>Which would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$regex&quot;</span><span class="p">:</span> <span class="sr">/^St/i</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="m-text">
-<h3><code class="docutils literal notranslate"><span class="pre">M_text()</span></code><a class="headerlink" href="#m-text" title="Permalink to this headline">¶</a></h3>
+<h3>M_text()<a class="headerlink" href="#m-text" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/text/">$text</a> operator. Performs a text search on the content of the fields indexed with a text index.</p>
-<p><strong>search</strong> <em>(Text)</em>: A string of terms that MongoDB parses and uses to query the text index. MongoDB performs a logical <strong>OR</strong> search of the terms unless specified as a phrase.</p>
-<p><strong>language</strong> <em>(Text)</em>: Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). The language that determines the list of stop words for the search and the rules for the stemmer and tokenizer. If not specified, the search uses the default language of the index.</p>
-<p><strong>caseSensitive</strong> <em>(Boolean)</em>: Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). A boolean flag to enable or disable case sensitive search. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>; i.e. the search defers to the case insensitivity of the text index.</p>
-<p><strong>diacriticSensitive</strong> <em>(Boolean)</em>: Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). A boolean flag to enable or disable diacritic sensitive search against version 3 text indexes. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>; i.e. the search defers to the diacritic insensitivity of the text index.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 4%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>search</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>A string of terms that MongoDB parses and uses to query the text index. MongoDB performs a logical <strong>OR</strong> search of the terms unless specified as a phrase.</p></td>
+</tr>
+<tr class="row-odd"><td><p>language</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). The language that determines the list of stop words for the search and the rules for the stemmer and tokenizer. If not specified, the search uses the default language of the index.</p></td>
+</tr>
+<tr class="row-even"><td><p>caseSensitive</p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). A boolean flag to enable or disable case sensitive search. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>; i.e. the search defers to the case insensitivity of the text index.</p></td>
+</tr>
+<tr class="row-odd"><td><p>diacriticSensitive</p></td>
+<td><p><em>Boolean</em></p></td>
+<td><p>Optional (use <code class="docutils literal notranslate"><span class="pre">null</span></code> to omit). A boolean flag to enable or disable diacritic sensitive search against version 3 text indexes. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>; i.e. the search defers to the diacritic insensitivity of the text index.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-where">
-<h3><code class="docutils literal notranslate"><span class="pre">M_where()</span></code><a class="headerlink" href="#m-where" title="Permalink to this headline">¶</a></h3>
+<h3>M_where()<a class="headerlink" href="#m-where" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/where/">$where</a> operator. Use the <code class="docutils literal notranslate"><span class="pre">$where</span></code> operator to pass either a string containing a JavaScript expression or a full JavaScript function to the query system.  The <code class="docutils literal notranslate"><span class="pre">$where</span></code> provides greater flexibility but requires that the database processes the JavaScript expression or function for each document in the collection. Reference the document in the JavaScript expression or function using either <code class="docutils literal notranslate"><span class="pre">this</span></code> or <code class="docutils literal notranslate"><span class="pre">obj</span></code>. Please see <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/where/">full documentation</a> for caveats and performance topics.</p>
-<p><strong>javaScript</strong> <em>(Text)</em>: A JavaScript expression or a full JavaScript function.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>javaScript</p></td>
+<td><p><em>Text</em></p></td>
+<td><p>A JavaScript expression or a full JavaScript function</p></td>
+</tr>
+</tbody>
+</table>
 <p>This example would match all MongoDB Documents where the last name equals “Gudgen”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_where</span><span class="p">(</span><span class="s2">&quot;function() { return (hex_md5(this.lastName) == &#39;9af26c4c8b156852e86d49566d96a0d1&#39;) }&quot;</span><span class="p">)</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_where</span><span class="p">(</span><span class="s">&quot;function() { return (hex_md5(this.lastName) == &#39;9af26c4c8b156852e86d49566d96a0d1&#39;) }&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this JSON:</p>
+<p>Which would produce this MongoDB JSON:</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;$where&quot;</span><span class="p">:</span> <span class="s2">&quot;function() { return (hex_md5(this.lastName) == \&#39;9af26c4c8b156852e86d49566d96a0d1\&#39;) }&quot;</span>
 <span class="p">}</span>
@@ -494,19 +995,73 @@
 <h2>Array Query Operators<a class="headerlink" href="#array-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-array/">Array Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-all">
-<h3><code class="docutils literal notranslate"><span class="pre">M_all()</span></code><a class="headerlink" href="#m-all" title="Permalink to this headline">¶</a></h3>
+<h3>M_all()<a class="headerlink" href="#m-all" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/all/">$all</a> operator. Selects the documents where the value of a field is an array that contains all of the specified elements.</p>
-<p><strong>array</strong> <em>(List of Variant)</em>: The array of values to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 27%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>array</p></td>
+<td><p><em>List of Variant</em></p></td>
+<td><p>The array of values to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-elemmatch">
-<h3><code class="docutils literal notranslate"><span class="pre">M_elemMatch()</span></code><a class="headerlink" href="#m-elemmatch" title="Permalink to this headline">¶</a></h3>
+<h3>M_elemMatch()<a class="headerlink" href="#m-elemmatch" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/elemMatch/">$elemMatch</a> operator. Matches documents that contain an array field with at least one element that matches all the specified query criteria.</p>
-<p><strong>queryExpressions</strong> <em>(List of Text String)</em>: The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queryExpressions</p></td>
+<td><p><em>List of Text</em></p></td>
+<td><p>The list of expressions (often created with other <code class="docutils literal notranslate"><span class="pre">M_*</span></code> functions) you wish to evaluate against</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-size">
-<h3><code class="docutils literal notranslate"><span class="pre">M_size()</span></code><a class="headerlink" href="#m-size" title="Permalink to this headline">¶</a></h3>
+<h3>M_size()<a class="headerlink" href="#m-size" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/size/">$size</a> operator. Matches any array with the number of elements specified by the argument.</p>
-<p><strong>value</strong> <em>(Number (Integer))</em>: The number of elements to evaluate for.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 29%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p><em>Number (Integer)</em></p></td>
+<td><p>The number of elements to evaluate for</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="geospatial-query-operators">
@@ -520,62 +1075,167 @@
 <p>Many of the following geospatial query operators require that a geospatial index be added to the fields you wish to query. See <a class="reference external" href="https://docs.mongodb.com/manual/geospatial-queries/#geospatial-indexes">MongoDB documentation</a> for more information.</p>
 </div>
 <div class="section" id="m-topoint">
-<h3><code class="docutils literal notranslate"><span class="pre">M_toPoint()</span></code><a class="headerlink" href="#m-topoint" title="Permalink to this headline">¶</a></h3>
+<h3>M_toPoint()<a class="headerlink" href="#m-topoint" title="Permalink to this headline">¶</a></h3>
 <p>Returns a Point CDT instance with the given coordinates. Used any time a <code class="docutils literal notranslate"><span class="pre">[longitude,</span> <span class="pre">latitude]</span></code> pair is required in the following Expression Functions.</p>
-<p><strong>longitude</strong> <em>(Number (Decimal))</em>: The longitude of the point.</p>
-<p><strong>latitude</strong> <em>(Number (Decimal))</em>: The latitude of the point.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 34%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>longitude</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>The longitude of the point</p></td>
+</tr>
+<tr class="row-odd"><td><p>latitude</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>The latitude of the point</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This plugin adopts MongoDB’s preference of specifying longitude before latitude.</p>
+</div>
 </div>
 <div class="section" id="m-geointersects">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoIntersects()</span></code><a class="headerlink" href="#m-geointersects" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoIntersects()<a class="headerlink" href="#m-geointersects" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/">$geoIntersects</a> operator. Selects documents whose geospatial data intersects with a specified <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object; i.e. where the intersection of the data and the specified object is non-empty.</p>
-<p><strong>geoJson</strong> <em>(Dictionary or Text)</em>: A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>geoJson</p></td>
+<td><p><em>Dictionary</em> or <em>Text</em></p></td>
+<td><p>A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-geowithin">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoWithin()</span></code><a class="headerlink" href="#m-geowithin" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoWithin()<a class="headerlink" href="#m-geowithin" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator. Selects documents with geospatial data that exists entirely within a specified shape.</p>
-<p><strong>geoJson</strong> <em>(Dictionary or Text)</em>: A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>geoJson</p></td>
+<td><p><em>Dictionary</em> or <em>Text</em></p></td>
+<td><p>A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-geowithinbox">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoWithinBox()</span></code><a class="headerlink" href="#m-geowithinbox" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoWithinBox()<a class="headerlink" href="#m-geowithinbox" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/box/">$box</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given rectangle, according to their point-based location data.</p>
-<p><strong>bottomLeft</strong> <em>(Point)</em>: Point with the coordinates of the bottom-left corner of the box.</p>
-<p><strong>topRight</strong> <em>(Point)</em>: Point with the coordinates of the top-right corner of the box.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bottomLeft</p></td>
+<td><p><em>Point</em></p></td>
+<td><p>Point with the coordinates of the bottom-left corner of the box</p></td>
+</tr>
+<tr class="row-odd"><td><p>topRight</p></td>
+<td><p><em>Point</em></p></td>
+<td><p>Point with the coordinates of the top-right corner of the box</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-geowithincircle">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoWithinCircle()</span></code><a class="headerlink" href="#m-geowithincircle" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoWithinCircle()<a class="headerlink" href="#m-geowithincircle" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/center/">$center</a> (circle) to search within. Selects documents with geospatial data that exists entirely the bounds of the given circle, defined by a center point and radius.</p>
 <p><strong>centerPoint</strong> <em>(Point)</em>: Point with the coordinates of the center of the circle.</p>
 <p><strong>radius</strong> <em>(Number (Decimal))</em>: The radius of the circle, as measured in the units used by the coordinate system.</p>
 </div>
 <div class="section" id="m-geowithinsphere">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoWithinSphere()</span></code><a class="headerlink" href="#m-geowithinsphere" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoWithinSphere()<a class="headerlink" href="#m-geowithinsphere" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/centerSphere/">$centerSphere</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given sphere, defined by a center point and radius.</p>
-<p><strong>centerPoint</strong> <em>(Point)</em>: Point with the coordinates of the center of the sphere.</p>
-<p><strong>radius</strong> <em>(Number (Decimal))</em>: The radius of the sphere, as measured in the units used by the coordinate system.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>centerPoint</p></td>
+<td><p><em>Point</em></p></td>
+<td><p>Point with the coordinates of the center of the sphere</p></td>
+</tr>
+<tr class="row-odd"><td><p>radius</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>The radius of the sphere, as measured in the units used by the coordinate system</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-geowithinpolygon">
-<h3><code class="docutils literal notranslate"><span class="pre">M_geoWithinPolygon()</span></code><a class="headerlink" href="#m-geowithinpolygon" title="Permalink to this headline">¶</a></h3>
+<h3>M_geoWithinPolygon()<a class="headerlink" href="#m-geowithinpolygon" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/polygon/">$polygon</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given polygon, defined by an array of GeoPoints.</p>
 <p>This example would match all MongoDB Documents where the address’s <code class="docutils literal notranslate"><span class="pre">loc</span></code> field (a <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/#point">Point</a>) is within an area roughly outlining McLean, VA:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;address.loc&quot;</span><span class="p">,</span>
-    <span class="n">m_geoWithinPolygon</span><span class="p">({</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.210903</span><span class="p">,</span> <span class="mf">38.970481</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.145100</span><span class="p">,</span> <span class="mf">38.964342</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.118225</span><span class="p">,</span> <span class="mf">38.935857</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.172360</span><span class="p">,</span> <span class="mf">38.893213</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.189069</span><span class="p">,</span> <span class="mf">38.896396</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.198767</span><span class="p">,</span> <span class="mf">38.926490</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.233222</span><span class="p">,</span> <span class="mf">38.933877</span><span class="p">),</span>
-      <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.226622</span><span class="p">,</span> <span class="mf">38.962158</span><span class="p">)</span>
-    <span class="p">})</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;address.loc&quot;</span><span class="p">,</span>
+    <span class="nf">M_geoWithinPolygon</span><span class="p">(</span>
+      <span class="p">{</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">210903</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">970481</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">145100</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">964342</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">118225</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">935857</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">172360</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">893213</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">189069</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">896396</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">198767</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">926490</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">233222</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">933877</span><span class="p">),</span>
+        <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">226622</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">962158</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">)</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
+<p>Which Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
   <span class="nt">&quot;address.loc&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;$geoWithin&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;$polygon&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -593,19 +1253,37 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>polygonPoints</strong> <em>(List of Point)</em>: Array of GeoPoints representing the polygon to search within. Be sure to pass an actual Appian Array here inside of brackets ({}).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>polygonPoints</p></td>
+<td><p><em>List of Points</em></p></td>
+<td><p>Array of GeoPoints representing the polygon to search within. Be sure to pass an actual Appian Array here inside of brackets <code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-near">
-<h3><code class="docutils literal notranslate"><span class="pre">M_near()</span></code><a class="headerlink" href="#m-near" title="Permalink to this headline">¶</a></h3>
+<h3>M_near()<a class="headerlink" href="#m-near" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/near/">$near</a> operator. Specifies a point for which a geospatial query returns the documents from nearest to farthest.</p>
 <p>This example would match all MongoDB Documents where the address’s loc field (a <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/#point">Point</a>) is within 1 km of Appian HQ:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;address.loc&quot;</span><span class="p">,</span>
-    <span class="n">M_near</span><span class="p">(</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;address.loc&quot;</span><span class="p">,</span>
+    <span class="nf">M_near</span><span class="p">(</span>
       <span class="p">{</span>
-        <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-        <span class="n">coordinates</span><span class="p">:</span> <span class="n">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">77.219049</span><span class="p">,</span> <span class="mf">38.932308</span><span class="p">)</span>
+        <span class="nv">type</span><span class="p">:</span> <span class="s">&quot;Point&quot;</span><span class="p">,</span>
+        <span class="nv">coordinates</span><span class="p">:</span> <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">219049</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">932308</span><span class="p">)</span>
       <span class="p">},</span>
       <span class="mi">0</span><span class="p">,</span>
       <span class="mi">1000</span>
@@ -614,8 +1292,8 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>Which Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;address.loc&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;$near&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;$geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -629,16 +1307,64 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>geoJson</strong> <em>(Dictionary or Text)</em>: A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string.</p>
-<p><strong>minDistance</strong> <em>(Number (Decimal))</em>: Minimum distance in meters.</p>
-<p><strong>maxDistance</strong> <em>(Number (Decimal))</em>: Maximum distance in meters.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 16%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>geoJson</p></td>
+<td><p><em>Dictionary</em> or <em>Text</em></p></td>
+<td><p>A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string</p></td>
+</tr>
+<tr class="row-odd"><td><p>minDistance</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>Minimum distance in meters</p></td>
+</tr>
+<tr class="row-even"><td><p>maxDistance</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>Maximum distance in meters</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="m-nearsphere">
-<h3><code class="docutils literal notranslate"><span class="pre">M_nearSphere()</span></code><a class="headerlink" href="#m-nearsphere" title="Permalink to this headline">¶</a></h3>
+<h3>M_nearSphere()<a class="headerlink" href="#m-nearsphere" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nearSphere/">$nearSphere</a> operator. Specifies a point for which a geospatial query returns the documents from nearest to farthest. MongoDB calculates distances for <code class="docutils literal notranslate"><span class="pre">$nearSphere</span></code> using spherical geometry.</p>
-<p><strong>geoJson</strong> <em>(Dictionary or Text)</em>: A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string.</p>
-<p><strong>minDistance</strong> <em>(Number (Decimal))</em>: Minimum distance in meters.</p>
-<p><strong>maxDistance</strong> <em>(Number (Decimal))</em>: Maximum distance in meters.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 16%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>geoJson</p></td>
+<td><p><em>Dictionary</em> or <em>Text</em></p></td>
+<td><p>A <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object, as an Appian Dictionary or a JSON string</p></td>
+</tr>
+<tr class="row-odd"><td><p>minDistance</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>Minimum distance in meters</p></td>
+</tr>
+<tr class="row-even"><td><p>maxDistance</p></td>
+<td><p><em>Number (Decimal)</em></p></td>
+<td><p>Maximum distance in meters</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="query-operator-examples">
@@ -648,44 +1374,44 @@
 <div class="section" id="query-for-dates-in-a-range">
 <h4>Query for Dates in a Range<a class="headerlink" href="#query-for-dates-in-a-range" title="Permalink to this headline">¶</a></h4>
 <p>This expression will produce a query for finding MongoDB Documents with createdOn in the month of December 2019:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="n">M_gte</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
-    <span class="n">M_lt</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
+    <span class="nf">M_gte</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+    <span class="nf">M_lt</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which produces this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;createdOn&quot;: {
-    &quot;$gte&quot;: ISODate(&quot;2019-12-01T00:00:00.000Z&quot;),
-    &quot;$lt&quot;: ISODate(&quot;2020-01-01T00:00:00.000Z&quot;)
-  }
-}
+<p>Which produces this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
+    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="querying-by-date-without-time">
 <h4>Querying by Date Without Time<a class="headerlink" href="#querying-by-date-without-time" title="Permalink to this headline">¶</a></h4>
 <p>As mentioned earlier, MongoDB stores all dates in UTC and does not have a date without time. Similar to above, in order to find all MongoDB Documents with createdOn on a single day, use $gte of that day:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M_query</span><span class="p">(</span>
-  <span class="n">M_field</span><span class="p">(</span>
-    <span class="s2">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="n">M_gte</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
-    <span class="n">M_lt</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
+  <span class="nf">M_field</span><span class="p">(</span>
+    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
+    <span class="nf">M_gte</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+    <span class="nf">M_lt</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which produces this JSON:</p>
-<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
-  &quot;createdOn&quot;: {
-    &quot;$gte&quot;: ISODate(&quot;2019-12-01T00:00:00.000Z&quot;),
-    &quot;$lt&quot;: ISODate(&quot;2020-01-01T00:00:00.000Z&quot;)
-  }
-}
+<p>Which produces this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
+    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>More examples will be added in newer versions of this plugin.</p>
@@ -702,7 +1428,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="demo_application.html" class="btn btn-neutral float-right" title="Demo Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="integrations.html" class="btn btn-neutral float-left" title="Integrations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

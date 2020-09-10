@@ -1,3 +1,5 @@
+.. _Introduction:
+
 ############
 Introduction
 ############
@@ -36,6 +38,8 @@ This project and `its source <https://github.com/rmunroe/appian-mongoDbConnected
 If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via `LinkedIn <https://www.linkedin.com/in/robertmunroe/>`_.
 
 
+.. _Audience:
+
 ********
 Audience
 ********
@@ -44,6 +48,8 @@ Users of this Connected System plugin are expected to be familiar with the `core
 
 Users are also expected to be familiar with Appian, building Applications, and how and why `Connected Systems <https://docs.appian.com/suite/help/latest/Connected_System.html>`__ and `Integration Objects <https://docs.appian.com/suite/help/latest/Integration_Object.html>`__ are used.
 
+
+.. _Compatibility:
 
 *************
 Compatibility
@@ -56,6 +62,8 @@ Version 1.2 of this plugin uses the `MongoDB Java Driver version 3.12.5 <https:/
 This plugin was tested against a `MongoDB Atlas <https://www.mongodb.com/cloud/atlas>`__ a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.
 
 It is expected that your MongoDB instance(s) allow network connections from your Appian instance(s).
+
+.. _Installation:
 
 ************
 Installation
@@ -70,13 +78,15 @@ If installing to a fully-managed Appian Cloud instance, install using the `Plugi
 If installing to a self-managed Appian instance, copy the ``ps-plugin-MongoDbConnectedSystem-X.X.jar`` file to the ``<APPIAN_HOME>/_admin/plugins`` directory.
 
 
+.. _Plugin Design Principles:
+
 ************************
 Plugin Design Principles
 ************************
 
-This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let `me <Project Info>`_ know if there are missing features that you require.
+This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let :ref:`me <Project Info>` know if there are missing features that you require.
 
-Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of `JSON Query Expression Functions <#_JSON_Query_Expression_1>`__ to cleanly and easily generate MongoDB JSON-based queries.
+Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of :doc:`expressions` to cleanly and easily generate MongoDB JSON-based queries.
 
 
 .. _Special Considerations:
@@ -111,7 +121,7 @@ While the `MongoDB Object ID <https://docs.mongodb.com/manual/reference/method/O
 
 A MongoDB Document representing this value:
 
-.. code-block:: JSON
+.. code-block::
 
   {
     _id: ObjectId("5efa0b06fc13ae730e00024a")
@@ -120,19 +130,21 @@ A MongoDB Document representing this value:
 
 Would be returned as an Appian Dictionary like this:
 
-.. code-block:: JSON
+.. code-block:: appian
 
-    {
-      _id: {
-        oid: "5efa0b06fc13ae730e00024a"
-      }
-      ...
+  {
+    _id: {
+      oid: "5efa0b06fc13ae730e00024a"
     }
+    ...
+  }
 
 The key detail here is that Object ID fields will be accessed like this
-in Appian:::
+in Appian:
 
-    local!theObjectId: local!myDocument._id.oid
+.. code-block:: appian
+
+  local!theObjectId: local!myDocument._id.oid
 
 
 Object ID CDT
@@ -155,14 +167,18 @@ MongoDB’s Binary data type allows you to store chunks of binary data in a Mong
 
 .. warning:: Returning large amounts of Base64 encoded binary data to Appian can have severe impacts on the performance of the Appian environment. A best practice would be to use a projection and eliminate the binary field from the MongoDB Document.
 
-A MongoDB Document representing this value: ::
+A MongoDB Document representing this value: 
+
+.. code-block::
 
     {
       binaryField: Binary("... Binary data value ...", 0)
       ...
     }
 
-Would be returned as an Appian Dictionary like this: ::
+Would be returned as an Appian Dictionary like this:
+
+.. code-block:: appian
 
     {
       binaryField: {

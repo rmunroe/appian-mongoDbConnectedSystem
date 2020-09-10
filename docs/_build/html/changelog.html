@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
 
   
@@ -31,6 +32,8 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script src="_static/js/custom.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -162,9 +165,9 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 74%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 81%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Date</strong></p></td>
@@ -191,6 +194,9 @@
 <td><p>1.2</p></td>
 <td><ul class="simple">
 <li><p>Now hashing connection strings with SHA-256 when in memory</p></li>
+<li><p>Fixed an issue with M_eq that was incorrectly converting certain values to JSON</p></li>
+<li><p>Added M_validObjectId to test if a text value is a valid ObjectId hexadecimal</p></li>
+<li><p>Initial release of the Demo Application</p></li>
 </ul>
 </td>
 </tr>

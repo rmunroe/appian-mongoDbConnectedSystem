@@ -28,7 +28,7 @@ Would produce this MongoDB JSON:
 
 Note the MongoDB-specific JSON ``ISODate()`` function call. Also note the field names that begin with ``$``. It is not easy (and, in some cases such as this one, not possible) to generate JSON in this manner by constructing Dictionaries and using Appian’s built-in ``a!toJson()`` function.
 
-More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please :ref:`contact the project authors <Project Info>` or on the `Community App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ entry. 
+More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please :ref:`contact the project authors <ProjectInfo>` or on the `Community App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ entry. 
 
 
 .. _TopLevelQueryFunctions:

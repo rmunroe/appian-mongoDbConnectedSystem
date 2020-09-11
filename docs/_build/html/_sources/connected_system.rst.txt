@@ -2,7 +2,7 @@
 Connected System
 ################
 
-.. figure:: media/image4.png
+.. figure:: media/connectedSystemSetup1.png
 
 This plugin provides a single Connected System Template for connecting to MongoDB named **MongoDB Connected System**. Configuration of the Connected System is very simple and only requires the `MongoDB Connection String <https://docs.mongodb.com/manual/reference/connection-string/>`_.
 
@@ -16,8 +16,12 @@ To add a new MongoDB Connected System in your Application, open the application 
 
 Select the **MongoDB Connected System**
 
-.. figure:: media/image5.png
+.. figure:: media/connectedSystemSetup2.png
+  :width: 600px
 
 Give it a **Name** and **Description**, and then paste your MongoDB **Connection String** in the provided text box and click **Test Connection**. Assuming you see "*Connection successful*" then simply click the **Create** button to finish.
 
-.. figure:: media/image6.png
+.. figure:: media/connectedSystemSetup3.png
+  :width: 600px
+
+Next you will be creating :doc:`integrations` for the specific MongoDB operations your application requires.

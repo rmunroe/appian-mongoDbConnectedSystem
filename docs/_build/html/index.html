@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MongoDB Connected System Plugin for Appian &mdash; MongoDB Connected System 1.2 documentation</title>
+  <title>MongoDB Connected System for Appian &mdash; MongoDB Connected System 1.2 documentation</title>
   
 
   
@@ -51,13 +51,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #eee" >
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+            <a href="#">
           
 
+          
+            
+            <img src="_static/mcsp_logo_full.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -142,7 +145,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>MongoDB Connected System Plugin for Appian</li>
+      <li>MongoDB Connected System for Appian</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,25 +159,40 @@
   </ul>
 
   
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+  </div>
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mongodb-connected-system-plugin-for-appian">
-<h1>MongoDB Connected System Plugin for Appian<a class="headerlink" href="#mongodb-connected-system-plugin-for-appian" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="mongodb-connected-system-for-appian">
+<h1>MongoDB Connected System for Appian<a class="headerlink" href="#mongodb-connected-system-for-appian" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">Rob Munroe</a>, Principal Solutions Architect, <a class="reference external" href="https://appian.com">Appian Corporation</a></p>
 <p>Version 1.2</p>
+<p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode. It provides Appian with a low-code integration to MongoDB without the developer (or <em>designer</em> in Appian parlance) needing to understand or work with the MongoDB REST API. It also includes many conveniences such as date/time and MongoDB custom type handling (ObjectIds, Binary, etc.), as well as a full suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to construct <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Documents</a> (their JSON-based query language) via Appian expressions, instead of tedious, manual string building.</p>
+<p>The official plugin JAR distribution location is <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">this entry in the Appian Community App Market</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is strongly recommended that you read at least the <a class="reference internal" href="introduction.html"><span class="doc">Introduction</span></a> section before attempting to use the plugin in an application.</p>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#how-to-read-this-document">How to Read This Document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#project-info">Project Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#features-and-benefits">Features and Benefits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#audience">Audience</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#compatibility">Compatibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#plugin-design-principles">Plugin Design Principles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#special-considerations">Special Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#installation">Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>

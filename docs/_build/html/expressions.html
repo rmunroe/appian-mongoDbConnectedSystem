@@ -52,13 +52,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #eee" >
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/mcsp_logo_full.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -155,11 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#query-operator-examples">Query Operator Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#date-and-time-examples">Date and Time Examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#query-for-dates-in-a-range">Query for Dates in a Range</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#querying-by-date-without-time">Querying by Date Without Time</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#date-and-time-examples">Date and Time Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -227,6 +226,15 @@
   </ul>
 
   
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="demo_application.html" class="btn btn-neutral float-right" title="Demo Application" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="custom_types.html" class="btn btn-neutral float-left" title="Custom Data Types" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -254,7 +262,7 @@
 </pre></div>
 </div>
 <p>Note the MongoDB-specific JSON <code class="docutils literal notranslate"><span class="pre">ISODate()</span></code> function call. Also note the field names that begin with <code class="docutils literal notranslate"><span class="pre">$</span></code>. It is not easy (and, in some cases such as this one, not possible) to generate JSON in this manner by constructing Dictionaries and using Appian’s built-in <code class="docutils literal notranslate"><span class="pre">a!toJson()</span></code> function.</p>
-<p>More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please <a class="reference internal" href="introduction.html#project-info"><span class="std std-ref">contact the project authors</span></a> or on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Community App Market</a> entry.</p>
+<p>More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please <a class="reference internal" href="introduction.html#projectinfo"><span class="std std-ref">contact the project authors</span></a> or on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Community App Market</a> entry.</p>
 <div class="section" id="top-level-query-functions">
 <span id="toplevelqueryfunctions"></span><h2>Top-Level Query Functions<a class="headerlink" href="#top-level-query-functions" title="Permalink to this headline">¶</a></h2>
 <p>These functions are used to set up the structure of a MongoDB query. The subsequent sections provide functions called within the top-level functions to produce a complete query.</p>

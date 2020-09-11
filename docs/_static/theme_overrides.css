@@ -1,3 +1,41 @@
+
+
+h1 { font-size: 200%; }
+h2 { 
+   font-size: 175%;
+   margin-top: 30px;
+}
+h3 { font-size: 135%; }
+/* h4 { font-size: 125%; } */
+/* h5 { font-size: 100%; } */
+
+/* code block */
+.rst-content pre {
+    font-size: 14px !important;
+}
+
+/* inline code ``literal`` */
+.rst-content code.literal {
+   color: #4756a4 !important;
+   border: 1px solid #e4e4ee;
+   background: #f2f2f8;
+   font-size: 13.5px;
+   font-weight: 300;
+   padding: 2px 4px;
+}
+/* inside notes, warnings, etc */
+.rst-content .admonition code.literal {
+   color: #404040 !important;
+   border: 1px solid #e4e4e4;
+   background: #f2f2f2;
+}
+
+/*  increase max page width */
+.wy-nav-content {
+   max-width: 1200px !important;
+}
+
+/* style figure images */
 .figure img {
    border: 1px solid #999 !important;
    box-shadow: 5px 5px 5px #ccc !important;

@@ -52,13 +52,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #eee" >
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/mcsp_logo_full.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -92,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -156,6 +160,15 @@
   </ul>
 
   
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="integrations.html" class="btn btn-neutral float-right" title="Integrations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -164,7 +177,7 @@
   <div class="section" id="connected-system">
 <h1>Connected System<a class="headerlink" href="#connected-system" title="Permalink to this headline">¶</a></h1>
 <div class="figure align-default">
-<img alt="_images/image4.png" src="_images/image4.png" />
+<img alt="_images/connectedSystemSetup1.png" src="_images/connectedSystemSetup1.png" />
 </div>
 <p>This plugin provides a single Connected System Template for connecting to MongoDB named <strong>MongoDB Connected System</strong>. Configuration of the Connected System is very simple and only requires the <a class="reference external" href="https://docs.mongodb.com/manual/reference/connection-string/">MongoDB Connection String</a>.</p>
 <div class="admonition important">
@@ -176,12 +189,13 @@
 <p>To add a new MongoDB Connected System in your Application, open the application in Designer, and click <strong>New &gt; Connected System</strong>.</p>
 <p>Select the <strong>MongoDB Connected System</strong></p>
 <div class="figure align-default">
-<img alt="_images/image5.png" src="_images/image5.png" />
+<a class="reference internal image-reference" href="_images/connectedSystemSetup2.png"><img alt="_images/connectedSystemSetup2.png" src="_images/connectedSystemSetup2.png" style="width: 600px;" /></a>
 </div>
 <p>Give it a <strong>Name</strong> and <strong>Description</strong>, and then paste your MongoDB <strong>Connection String</strong> in the provided text box and click <strong>Test Connection</strong>. Assuming you see “<em>Connection successful</em>” then simply click the <strong>Create</strong> button to finish.</p>
 <div class="figure align-default">
-<img alt="_images/image6.png" src="_images/image6.png" />
+<a class="reference internal image-reference" href="_images/connectedSystemSetup3.png"><img alt="_images/connectedSystemSetup3.png" src="_images/connectedSystemSetup3.png" style="width: 600px;" /></a>
 </div>
+<p>Next you will be creating <a class="reference internal" href="integrations.html"><span class="doc">Integrations</span></a> for the specific MongoDB operations your application requires.</p>
 </div>
 
 

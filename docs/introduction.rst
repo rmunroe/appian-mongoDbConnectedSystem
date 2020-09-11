@@ -4,12 +4,22 @@
 Introduction
 ############
 
-This plugin implements an Appian `Connected System <https://docs.appian.com/suite/help/latest/Connected_System.html>`__ for `MongoDB <https://www.mongodb.com>`__ using the `MongoDB Java Driver <https://mongodb.github.io/mongo-java-driver/3.12/>`__ in synchronous mode.
 
-Its official distribution location is this entry in the `Appian Community App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_.
+.. include:: description.rst
 
 
-.. _Project Info:
+.. _HowToReadThisDocument:
+
+*************************
+How to Read This Document
+*************************
+
+Firstly, I am not a big fan of reading documentation -- I prefer to roll my sleeves up and dive right in. And while I have strived greatly to make this plugin clear, concise, and a pleasure to use there are several things about it that can only be known or understood if you read this documentation. As much as I dislike reading the docs, I like writing them even less, so rest assured there is very worthwhile information provided here.
+
+At the very minimum I recommended reading this entire page, and at least the intro paragraphs of each subsequent pages. You can then refer to each individual feature (Integration, Expression Function, etc.) as needed. Still, it won't hurt to skim everything to know what I've provided that isn't striking clear just by using the Design Objects.
+
+
+.. _ProjectInfo:
 
 ************
 Project Info
@@ -18,6 +28,18 @@ Project Info
 This plugin was created by me, `Rob Munroe <https://www.linkedin.com/in/robertmunroe/>`_, Principal Solutions Architect at `Appian <https://appian.com>`_. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer. At my core I am a `programmer <http://threevirtues.com>`_ and I absolutely love to build things that others find useful, interesting, and saves them time.
 
 I have also been a fan of MongoDB since it first arrived in the late-00s. I feel that the speed and power of both Appian and MongoDB are a potent combination, and that both platforms pair very well given the strong support for JSON and dynamic data structures. Many customers have already integrated the two platforms using the standard `HTTP/REST Connected System <https://docs.appian.com/suite/help/latest/Integration_Object.html>`_, however I wanted to make it even easier to use MongoDB inside of Appian as well as take advantage of what the MongoDB Java Driver had to offer.
+
+This project and `its source <https://github.com/rmunroe/appian-mongoDbConnectedSystem>`_ are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the `Appian App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.
+
+If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via `LinkedIn <https://www.linkedin.com/in/robertmunroe/>`_.
+
+
+
+.. _FeaturesAndBenefits:
+
+*********************
+Features and Benefits
+*********************
 
 The benefits of using this plugin versus MongoDB’s REST API include:
 
@@ -35,9 +57,7 @@ The benefits of using this plugin versus MongoDB’s REST API include:
 
 -  Includes a suite of :doc:`expressions` to assist in constructing MongoDB JSON queries
 
-This project and `its source <https://github.com/rmunroe/appian-mongoDbConnectedSystem>`_ are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the `Appian App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.
-
-If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via `LinkedIn <https://www.linkedin.com/in/robertmunroe/>`_.
+-  Includes a :doc:`demo_application` that exercises most features of the Connected System and provides examples and reusable Design Objects to begin with
 
 
 .. _Audience:
@@ -67,33 +87,19 @@ This plugin was tested against a `MongoDB Atlas <https://www.mongodb.com/cloud/a
 
 It is expected that your MongoDB instance(s) allow network connections from your Appian instance(s).
 
-.. _Installation:
 
-************
-Installation
-************
-
-If installing to a fully-managed Appian Cloud instance, install using the `Plugins <https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins>`__ panel of the `Administration Console <https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html>`__.
-
-.. figure:: media/image2.png
-
-.. figure:: media/image3.png
-
-If installing to a self-managed Appian instance, copy the ``ps-plugin-MongoDbConnectedSystem-X.X.jar`` file to the ``<APPIAN_HOME>/_admin/plugins`` directory.
-
-
-.. _Plugin Design Principles:
+.. _PluginDesignPrinciples:
 
 ************************
 Plugin Design Principles
-************************
+************************ 
 
-This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let :ref:`me <Project Info>` know if there are missing features that you require.
+This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let :ref:`me <ProjectInfo>` know if there are missing features that you require.
 
 Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of :doc:`expressions` to cleanly and easily generate MongoDB JSON-based queries.
 
 
-.. _Special Considerations:
+.. _SpecialConsiderations:
 
 **********************
 Special Considerations
@@ -208,3 +214,17 @@ It is highly recommended that you use this CDT when creating your own CDTs that 
 ..
   Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
 
+
+.. _Installation:
+
+************
+Installation
+************
+
+If installing to a fully-managed Appian Cloud instance, install using the `Plugins <https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins>`__ panel of the `Administration Console <https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html>`__.
+
+.. figure:: media/image2.png
+
+.. figure:: media/image3.png
+
+If installing to a self-managed Appian instance, copy the ``appian-mongoDbConnectedSystem-X.X.jar`` file to the ``<APPIAN_HOME>/_admin/plugins`` directory.

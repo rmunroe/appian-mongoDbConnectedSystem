@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Future Enhancements &mdash; MongoDB Connected System 1.2 documentation</title>
+  <title>&lt;no title&gt; &mdash; MongoDB Connected System 1.2 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
 
   
@@ -31,6 +32,9 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/js/custom.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -46,13 +50,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #eee" >
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/mcsp_logo_full.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -86,9 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="expressions.html#changelog">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="expressions.html#future-enhancements">Future Enhancements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
 </ul>
 
             
@@ -135,13 +144,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Future Enhancements</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/fututres.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/description.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -154,24 +163,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="future-enhancements">
-<h1>Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permalink to this headline">¶</a></h1>
-<p>As of this release, this list comprises the next known enhancements to this plugin. If you do not see an enhancement here that is needed, please comment on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Community App Market</a> entry.</p>
-<ul class="simple">
-<li><p>An example Appian Application that uses the MongoDB Connected System in Expression-Backed records, plus other examples such as using Aggregates for producing charts or other reports.</p></li>
-<li><p>More Query Operator Examples</p></li>
-<li><p>Support for Write Concern in all supported operations</p></li>
-<li><p>Add support for UpdateOptions in Update One and Update Many</p></li>
-<li><p>Add support of Aggregate Pipelines in Update operations</p></li>
-<li><p>More JSON operator Expression Functions:</p>
-<ul>
-<li><p>All remaining MongoDB Query Operators</p></li>
-<li><p>Update Operators</p></li>
-<li><p>Aggregate Pipelines</p></li>
-</ul>
-</li>
-</ul>
-</div>
+  <p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode. It provides Appian with a low-code integration to MongoDB without the developer (or <em>designer</em> in Appian parlance) needing to understand or work with the MongoDB REST API. It also includes many conveniences such as date/time and MongoDB custom type handling (ObjectIds, Binary, etc.), as well as a full suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to construct <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Documents</a> (their JSON-based query language) via Appian expressions, instead of tedious, manual string building.</p>
+<p>The official plugin JAR distribution location is <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">this entry in the Appian Community App Market</a>.</p>
 
 
            </div>

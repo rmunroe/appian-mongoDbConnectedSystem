@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Connected System" href="connected_system.html" />
-    <link rel="prev" title="MongoDB Connected System Plugin for Appian" href="index.html" /> 
+    <link rel="prev" title="MongoDB Connected System for Appian" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -52,13 +52,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #eee" >
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> MongoDB Connected System
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/mcsp_logo_full.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -90,23 +93,19 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-read-this-document">How to Read This Document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#project-info">Project Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features-and-benefits">Features and Benefits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audience">Audience</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compatibility">Compatibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plugin-design-principles">Plugin Design Principles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#special-considerations">Special Considerations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dates-and-times">Dates and Times</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#object-ids">Object IDs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#object-id-cdt">Object ID CDT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object-ids">Object IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary">Binary</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#binary">Binary</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#binary-cdt">Binary CDT</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
@@ -176,6 +175,15 @@
   </ul>
 
   
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="connected_system.html" class="btn btn-neutral float-right" title="Connected System" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="MongoDB Connected System for Appian" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -183,12 +191,22 @@
             
   <div class="section" id="introduction">
 <span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode.</p>
-<p>Its official distribution location is this entry in the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian Community App Market</a>.</p>
+<p>This plugin implements an Appian <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected System</a> for <a class="reference external" href="https://www.mongodb.com">MongoDB</a> using the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver</a> in synchronous mode. It provides Appian with a low-code integration to MongoDB without the developer (or <em>designer</em> in Appian parlance) needing to understand or work with the MongoDB REST API. It also includes many conveniences such as date/time and MongoDB custom type handling (ObjectIds, Binary, etc.), as well as a full suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to construct <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/query-documents/">MongoDB Query Documents</a> (their JSON-based query language) via Appian expressions, instead of tedious, manual string building.</p>
+<p>The official plugin JAR distribution location is <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">this entry in the Appian Community App Market</a>.</p>
+<div class="section" id="how-to-read-this-document">
+<span id="howtoreadthisdocument"></span><h2>How to Read This Document<a class="headerlink" href="#how-to-read-this-document" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, I am not a big fan of reading documentation – I prefer to roll my sleeves up and dive right in. And while I have strived greatly to make this plugin clear, concise, and a pleasure to use there are several things about it that can only be known or understood if you read this documentation. As much as I dislike reading the docs, I like writing them even less, so rest assured there is very worthwhile information provided here.</p>
+<p>At the very minimum I recommended reading this entire page, and at least the intro paragraphs of each subsequent pages. You can then refer to each individual feature (Integration, Expression Function, etc.) as needed. Still, it won’t hurt to skim everything to know what I’ve provided that isn’t striking clear just by using the Design Objects.</p>
+</div>
 <div class="section" id="project-info">
-<span id="id2"></span><h2>Project Info<a class="headerlink" href="#project-info" title="Permalink to this headline">¶</a></h2>
+<span id="projectinfo"></span><h2>Project Info<a class="headerlink" href="#project-info" title="Permalink to this headline">¶</a></h2>
 <p>This plugin was created by me, <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">Rob Munroe</a>, Principal Solutions Architect at <a class="reference external" href="https://appian.com">Appian</a>. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer. At my core I am a <a class="reference external" href="http://threevirtues.com">programmer</a> and I absolutely love to build things that others find useful, interesting, and saves them time.</p>
 <p>I have also been a fan of MongoDB since it first arrived in the late-00s. I feel that the speed and power of both Appian and MongoDB are a potent combination, and that both platforms pair very well given the strong support for JSON and dynamic data structures. Many customers have already integrated the two platforms using the standard <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">HTTP/REST Connected System</a>, however I wanted to make it even easier to use MongoDB inside of Appian as well as take advantage of what the MongoDB Java Driver had to offer.</p>
+<p>This project and <a class="reference external" href="https://github.com/rmunroe/appian-mongoDbConnectedSystem">its source</a> are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian App Market</a> page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.</p>
+<p>If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">LinkedIn</a>.</p>
+</div>
+<div class="section" id="features-and-benefits">
+<span id="featuresandbenefits"></span><h2>Features and Benefits<a class="headerlink" href="#features-and-benefits" title="Permalink to this headline">¶</a></h2>
 <p>The benefits of using this plugin versus MongoDB’s REST API include:</p>
 <ul class="simple">
 <li><p>Most common MongoDB operations are provided as low-code <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">Integration objects</a>, making it very easy to quickly integrate Appian and MongoDB</p></li>
@@ -198,41 +216,29 @@
 <li><p>Can import from and export to Appian Documents containing JSON</p></li>
 <li><p>Configured using a single <a class="reference external" href="https://docs.mongodb.com/manual/reference/connection-string/">Connection String</a>, which is masked and encrypted</p></li>
 <li><p>Includes a suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to assist in constructing MongoDB JSON queries</p></li>
+<li><p>Includes a <a class="reference internal" href="demo_application.html"><span class="doc">Demo Application</span></a> that exercises most features of the Connected System and provides examples and reusable Design Objects to begin with</p></li>
 </ul>
-<p>This project and <a class="reference external" href="https://github.com/rmunroe/appian-mongoDbConnectedSystem">its source</a> are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Appian App Market</a> page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.</p>
-<p>If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via <a class="reference external" href="https://www.linkedin.com/in/robertmunroe/">LinkedIn</a>.</p>
 </div>
 <div class="section" id="audience">
-<span id="id3"></span><h2>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h2>
 <p>Users of this Connected System plugin are expected to be familiar with the <a class="reference external" href="https://docs.mongodb.com/manual/introduction/">core concepts of MongoDB</a>, including topics such as querying and aggregation syntax. Additionally, it is expected that you are familiar with your own Databases, Collections, Document schemas, and MongoDB server infrastructure.</p>
 <p>Users are also expected to be familiar with Appian, building Applications, and how and why <a class="reference external" href="https://docs.appian.com/suite/help/latest/Connected_System.html">Connected Systems</a> and <a class="reference external" href="https://docs.appian.com/suite/help/latest/Integration_Object.html">Integration Objects</a> are used.</p>
 </div>
 <div class="section" id="compatibility">
-<span id="id4"></span><h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
 <p>Version 1.2 of this plugin was built and tested on Appian versions 20.2 and 20.3, however it should be compatible back to at least 19.4.</p>
 <p>The <a class="reference internal" href="demo_application.html"><span class="doc">Demo Application</span></a> was built on and requires Appian 20.3.</p>
 <p>This plugin uses the <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/">MongoDB Java Driver version 3.12.5</a> and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this <a class="reference external" href="https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility">compatibility chart</a> for full details.</p>
 <p>This plugin was tested against a <a class="reference external" href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.</p>
 <p>It is expected that your MongoDB instance(s) allow network connections from your Appian instance(s).</p>
 </div>
-<div class="section" id="installation">
-<span id="id5"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>If installing to a fully-managed Appian Cloud instance, install using the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins">Plugins</a> panel of the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html">Administration Console</a>.</p>
-<div class="figure align-default">
-<img alt="_images/image2.png" src="_images/image2.png" />
-</div>
-<div class="figure align-default">
-<img alt="_images/image3.png" src="_images/image3.png" />
-</div>
-<p>If installing to a self-managed Appian instance, copy the <code class="docutils literal notranslate"><span class="pre">ps-plugin-MongoDbConnectedSystem-X.X.jar</span></code> file to the <code class="docutils literal notranslate"><span class="pre">&lt;APPIAN_HOME&gt;/_admin/plugins</span></code> directory.</p>
-</div>
 <div class="section" id="plugin-design-principles">
-<span id="id6"></span><h2>Plugin Design Principles<a class="headerlink" href="#plugin-design-principles" title="Permalink to this headline">¶</a></h2>
-<p>This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let <a class="reference internal" href="#project-info"><span class="std std-ref">me</span></a> know if there are missing features that you require.</p>
+<span id="plugindesignprinciples"></span><h2>Plugin Design Principles<a class="headerlink" href="#plugin-design-principles" title="Permalink to this headline">¶</a></h2>
+<p>This plugin was designed to mirror the functionality provided by MongoDB’s Java Driver. We have implemented the most common functionality as individual Integration Operations and are striving for 100% feature completeness over time. Please let <a class="reference internal" href="#projectinfo"><span class="std std-ref">me</span></a> know if there are missing features that you require.</p>
 <p>Many of the operations of the MongoDB Java Driver take as arguments MongoDB BSON Documents. As such, Integration Operations that require BSON Documents will instead accept JSON strings, which the plugin handles converting to BSON. We have included a full suite of <a class="reference internal" href="expressions.html"><span class="doc">JSON Query Expression Functions</span></a> to cleanly and easily generate MongoDB JSON-based queries.</p>
 </div>
 <div class="section" id="special-considerations">
-<span id="id7"></span><h2>Special Considerations<a class="headerlink" href="#special-considerations" title="Permalink to this headline">¶</a></h2>
+<span id="specialconsiderations"></span><h2>Special Considerations<a class="headerlink" href="#special-considerations" title="Permalink to this headline">¶</a></h2>
 <p>Due to how the MongoDB Java Driver returns Object IDs and Binary data types, special handling must be performed by the Connected System as described below.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -314,13 +320,24 @@ in Appian:</p>
 <div class="section" id="binary-cdt">
 <h4>Binary CDT<a class="headerlink" href="#binary-cdt" title="Permalink to this headline">¶</a></h4>
 <p>Similarly to Object ID, this plugin contains a CDT named <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MongoDB}Binary</span></code> that can be used to represent these values in a consistent manner. MongoDB Document properties in Dictionaries can be cast directly to this CDT.</p>
-<div class="admonition-todo admonition" id="id8">
+<div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">Todo</p>
 <p>Add expression example of using Binary CDT</p>
 </div>
 <p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.</p>
 </div>
 </div>
+</div>
+<div class="section" id="installation">
+<span id="id5"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>If installing to a fully-managed Appian Cloud instance, install using the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html#plug-ins">Plugins</a> panel of the <a class="reference external" href="https://docs.appian.com/suite/help/latest/Appian_Administration_Console.html">Administration Console</a>.</p>
+<div class="figure align-default">
+<img alt="_images/image2.png" src="_images/image2.png" />
+</div>
+<div class="figure align-default">
+<img alt="_images/image3.png" src="_images/image3.png" />
+</div>
+<p>If installing to a self-managed Appian instance, copy the <code class="docutils literal notranslate"><span class="pre">appian-mongoDbConnectedSystem-X.X.jar</span></code> file to the <code class="docutils literal notranslate"><span class="pre">&lt;APPIAN_HOME&gt;/_admin/plugins</span></code> directory.</p>
 </div>
 </div>
 
@@ -335,7 +352,7 @@ in Appian:</p>
         <a href="connected_system.html" class="btn btn-neutral float-right" title="Connected System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="MongoDB Connected System Plugin for Appian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="MongoDB Connected System for Appian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

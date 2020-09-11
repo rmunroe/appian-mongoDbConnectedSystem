@@ -119,7 +119,7 @@ Also note that unlike Appian, there is no date *without time* data type in Mongo
 Object IDs
 ==========
 
-While the `MongoDB Object ID <https://docs.mongodb.com/manual/reference/method/ObjectId/>`__ data type is most often represented as a string (e.g.  "5efa0b06fc13ae730e00024a"), it is stored internally as 12-byte values broken down into several data points. It is far easier to work with the string value in Appian, so this Connected System will return a sub-Dictionary of the below form for each Object ID in the resulting dataset.
+While the `MongoDB Object ID <https://docs.mongodb.com/manual/reference/method/ObjectId/>`__ data type is most often represented as a string (e.g. ``"5efa0b06fc13ae730e00024a"``), it is stored internally as 12-byte values broken down into several data points. It is far easier to work with the string value in Appian, so this Connected System will return a sub-Dictionary of the below form for each Object ID in the resulting dataset.
 
 .. note:: This transformation only applies to results returned as Appian Dictionaries. JSON results use the MongoDB JSON notation.
 

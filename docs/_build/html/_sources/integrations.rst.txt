@@ -153,7 +153,7 @@ A JSON string representing the sort order for a ``Collection.Find()`` query.  So
 
 A JSON string representing a `Projection <https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/>`_ for a ``Collection.Find()`` query. Projections limit the amount of data that MongoDB returns.
 
-Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the \_id (which is always projected unless omitted):
+Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the ``_id`` (which is always projected unless omitted):
 
 .. code-block:: mongo
 

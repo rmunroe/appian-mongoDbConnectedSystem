@@ -111,6 +111,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -256,7 +257,7 @@
 </div>
 <p>A MongoDB Document representing this value:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="fm">ObjectId(</span><span class="s2">&quot;5efa0b06fc13ae730e00024a&quot;</span><span class="p">)</span>
+  <span class="nt">_id</span><span class="p">:</span> <span class="fm">ObjectId(</span><span class="s2">&quot;5efa0b06fc13ae730e00024a&quot;</span><span class="p">)</span>
   <span class="c1">...</span>
 <span class="p">}</span>
 </pre></div>
@@ -278,7 +279,7 @@ in Appian:</p>
 <div class="section" id="object-id-cdt">
 <h4>Object ID CDT<a class="headerlink" href="#object-id-cdt" title="Permalink to this headline">¶</a></h4>
 <p>This plugin contains a CDT named <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MongoDB}ObjectId</span></code> that can be used to represent these values in a consistent manner.  MongoDB Document properties in Dictionaries can be cast directly to this CDT.</p>
-<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function will return this value as well.</p>
+<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.</p>
 <p>See the <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MCSD}MCSD_Customer</span></code> CDT in the demo application for example.</p>
 </div>
 </div>
@@ -317,8 +318,7 @@ in Appian:</p>
 <p class="admonition-title">Todo</p>
 <p>Add expression example of using Binary CDT</p>
 </div>
-<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">mdb_tojson</span></code> function will return this value as well.</p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">{urn:com:appian:types:MCSD}MCSD_Customer</span></code> CDT in the demo application for example.</p>
+<p>It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.</p>
 </div>
 </div>
 </div>

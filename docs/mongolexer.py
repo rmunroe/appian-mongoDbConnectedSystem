@@ -63,6 +63,9 @@ class MongoJsonLexer(RegexLexer):
         # a json object - { attr, attr, ... }
         'objectvalue': [
             include('whitespace'),
+
+            (r'_id', Name.Tag, 'objectattribute'), # Added for MongoDB's bare _id attribute
+
             (r'"(\\(["\\/bfnrt]|u[a-fA-F0-9]]{4})|[^\\"])*"', Name.Tag, 'objectattribute'),
             (r'\}', Punctuation, '#pop'),
         ],

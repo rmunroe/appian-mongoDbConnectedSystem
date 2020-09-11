@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="JSON Query Expression Functions" href="expressions.html" />
+    <link rel="next" title="Custom Data Types" href="custom_types.html" />
     <link rel="prev" title="Connected System" href="connected_system.html" /> 
 </head>
 
@@ -200,6 +200,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -407,8 +408,8 @@
 <div class="section" id="projection-json">
 <h5><em>Projection JSON</em><a class="headerlink" href="#projection-json" title="Permalink to this headline">¶</a></h5>
 <p>A JSON string representing a <a class="reference external" href="https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/">Projection</a> for a <code class="docutils literal notranslate"><span class="pre">Collection.Find()</span></code> query. Projections limit the amount of data that MongoDB returns.</p>
-<p>Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the _id (which is always projected unless omitted):</p>
-<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;address.postalCode&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="err">_id:</span> <span class="err">0</span> <span class="p">}</span>
+<p>Example, returning MongoDB Documents that only contain first name, last name, and postal code, and omits the <code class="docutils literal notranslate"><span class="pre">_id</span></code> (which is always projected unless omitted):</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;address.postalCode&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">_id</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -1541,7 +1542,7 @@ Parameters.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="expressions.html" class="btn btn-neutral float-right" title="JSON Query Expression Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="custom_types.html" class="btn btn-neutral float-right" title="Custom Data Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="connected_system.html" class="btn btn-neutral float-left" title="Connected System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

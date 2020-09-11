@@ -128,7 +128,7 @@ A MongoDB Document representing this value:
 .. code-block:: mongo
 
   {
-    "_id": ObjectId("5efa0b06fc13ae730e00024a")
+    _id: ObjectId("5efa0b06fc13ae730e00024a")
     ...
   }
 
@@ -157,7 +157,10 @@ Object ID CDT
 
 This plugin contains a CDT named ``{urn:com:appian:types:MongoDB}ObjectId`` that can be used to represent these values in a consistent manner.  MongoDB Document properties in Dictionaries can be cast directly to this CDT.
 
-It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
+It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.
+
+..
+  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
 
 See the ``{urn:com:appian:types:MCSD}MCSD_Customer`` CDT in the demo application for example.
 
@@ -200,6 +203,8 @@ Similarly to Object ID, this plugin contains a CDT named ``{urn:com:appian:types
 
 .. todo:: Add expression example of using Binary CDT
 
-It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
+It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.
 
-See the ``{urn:com:appian:types:MCSD}MCSD_Customer`` CDT in the demo application for example.
+..
+  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
+

@@ -31,12 +31,16 @@ Note the MongoDB-specific JSON ``ISODate()`` function call. Also note the field 
 More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please :ref:`contact the project authors <Project Info>` or on the `Community App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ entry. 
 
 
+.. _TopLevelQueryFunctions:
+
 *************************
 Top-Level Query Functions
 *************************
 
 These functions are used to set up the structure of a MongoDB query. The subsequent sections provide functions called within the top-level functions to produce a complete query.
 
+
+.. _M_query:
 
 M_query()
 =========
@@ -68,6 +72,8 @@ Would produce this MongoDB JSON:
   }
 
 
+.. _M_field:
+
 M_field()
 =========
 
@@ -94,12 +100,16 @@ Would produce this portion of JSON:
   "createdOn": { "$eq": ISODate("2019-04-26T10:28:57.000Z") }
 
 
+.. _UtilityFunctions:
+
 *****************
 Utility Functions
 *****************
 
 This section covers the general purpose or utility functions that don't relate to a specific query language grouping.
 
+
+.. _M_objectId:
 
 M_objectId()
 =================
@@ -127,6 +137,8 @@ Would produce this MongoDB JSON:
   { "_id": { "$eq": ObjectId("5efa0b04fc13ae730e000064") } }
 
 
+.. _M_validObjectId:
+
 M_validObjectId()
 =================
 
@@ -150,6 +162,8 @@ This is useful when a value may be an ObjectId, but you need to test to ensure i
     ... do something else ...
   )
 
+
+.. _ComparisonQueryOperators:
 
 **************************
 Comparison Query Operators
@@ -180,6 +194,8 @@ Would produce this MongoDB JSON:
 Note the MongoDB-specific ``ISODate()`` function call. It is not possible to generate JSON in this manner using Appian’s built-in ``a!toJson()`` function.
 
 
+.. _M_eq:
+
 M_eq()
 ======
 
@@ -206,6 +222,8 @@ Would produce this MongoDB JSON:
   { "lastName": { "$eq": "Munroe" } }
 
 
+.. _M_gt:
+
 M_gt()
 ======
 
@@ -217,6 +235,8 @@ Implements the `$gt <https://docs.mongodb.com/manual/reference/operator/query/gt
 | value    | *Any Type* | The value to evaluate against |
 +----------+------------+-------------------------------+
 
+
+.. _M_gte:
 
 M_gte()
 =======
@@ -230,6 +250,8 @@ Implements the `$gte <https://docs.mongodb.com/manual/reference/operator/query/g
 +----------+------------+-------------------------------+
 
 
+.. _M_in:
+
 M_in()
 ======
 
@@ -241,6 +263,8 @@ Implements the `$in <https://docs.mongodb.com/manual/reference/operator/query/in
 | array    | *List of Variant* | The array of values to evaluate against |
 +----------+-------------------+-----------------------------------------+
 
+
+.. _M_lt:
 
 M_lt()
 ======
@@ -254,6 +278,8 @@ Implements the `$lt <https://docs.mongodb.com/manual/reference/operator/query/lt
 +----------+------------+-------------------------------+
 
 
+.. _M_lte:
+
 M_lte()
 =======
 
@@ -265,6 +291,8 @@ Implements the `$lte <https://docs.mongodb.com/manual/reference/operator/query/l
 | value    | *Any Type* | The value to evaluate against |
 +----------+------------+-------------------------------+
 
+
+.. _M_ne:
 
 M_ne()
 ======
@@ -278,6 +306,8 @@ Implements the `$ne <https://docs.mongodb.com/manual/reference/operator/query/ne
 +----------+------------+-------------------------------+
 
 
+.. _M_nin:
+
 M_nin()
 =======
 
@@ -289,6 +319,8 @@ Implements the `$nin <https://docs.mongodb.com/manual/reference/operator/query/n
 | array    | *List of Variant* | The array of values to evaluate against |
 +----------+-------------------+-----------------------------------------+
 
+
+.. _LogicalQueryOperators:
 
 ***********************
 Logical Query Operators
@@ -339,6 +371,8 @@ Would produce this MongoDB JSON:
     ]
   }
 
+.. _M_and:
+
 M_and()
 =======
 
@@ -350,6 +384,8 @@ Implements the `$and <https://docs.mongodb.com/manual/reference/operator/query/a
 | queryExpressions | *List of Text* | The list of expressions (often created with other ``M_*`` functions) you wish to evaluate against |
 +------------------+----------------+---------------------------------------------------------------------------------------------------+
 
+
+.. _M_nor:
 
 M_nor()
 =======
@@ -363,6 +399,8 @@ Implements the `$nor <https://docs.mongodb.com/manual/reference/operator/query/n
 +------------------+----------------+---------------------------------------------------------------------------------------------------+
 
 
+.. _M_not:
+
 M_not()
 =======
 
@@ -374,6 +412,8 @@ Implements the `$not <https://docs.mongodb.com/manual/reference/operator/query/n
 | queryExpression | *Text*    | The expression (often created with other ``M_*`` functions) you wish to evaluate against |
 +-----------------+-----------+------------------------------------------------------------------------------------------+
 
+
+.. _M_or:
 
 M_or()
 ======
@@ -387,12 +427,16 @@ Implements the `$or <https://docs.mongodb.com/manual/reference/operator/query/or
 +------------------+----------------+---------------------------------------------------------------------------------------------------+
 
 
+.. _ElementQueryOperators:
+
 ***********************
 Element Query Operators
 ***********************
 
 These functions correspond directly to the `Element Query Operators <https://docs.mongodb.com/manual/reference/operator/query-element/>`_ provided by the MongoDB Query language.
 
+
+.. _M_exists:
 
 M_exists()
 ==========
@@ -406,6 +450,8 @@ Implements the `$exists <https://docs.mongodb.com/manual/reference/operator/quer
 +----------+-----------+--------------------------------+
 
 
+.. _M_type:
+
 M_type()
 ========
 
@@ -418,12 +464,16 @@ Implements the `$type <https://docs.mongodb.com/manual/reference/operator/query/
 +----------+-------------------+------------------------------------------------------------+
 
 
+.. _EvaluationQueryOperators:
+
 **************************
 Evaluation Query Operators
 **************************
 
 These functions correspond directly to the `Evaluation Query Operators <https://docs.mongodb.com/manual/reference/operator/query-evaluation/>`_ provided by the MongoDB Query language.
 
+
+.. _M_expr:
 
 M_expr()
 ========
@@ -437,6 +487,8 @@ Implements the `$expr <https://docs.mongodb.com/manual/reference/operator/query/
 +-----------------+------------------------+-------------------------------------------------------------------------------------------+
 
 
+.. _M_jsonSchema:
+
 M_jsonSchema()
 ==============
 
@@ -448,6 +500,8 @@ Implements the `$jsonSchema <https://docs.mongodb.com/manual/reference/operator/
 | jsonSchema | *Dictionary* OR *Text* | The JSON Schema object as an Appian Dictionary or a JSON string, formatted according to `draft 4 of the JSON Schema standard <https://tools.ietf.org/html/draft-zyp-json-schema-04>`_ |
 +------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+
+.. _M_mod:
 
 M_mod()
 =======
@@ -462,6 +516,8 @@ Implements the `$mod <https://docs.mongodb.com/manual/reference/operator/query/m
 | remainder | *Number (Integer)* | The remainder value |
 +-----------+--------------------+---------------------+
 
+
+.. _M_regex:
 
 M_regex()
 =========
@@ -495,6 +551,8 @@ Would produce this MongoDB JSON:
   }
 
 
+.. _M_text:
+
 M_text()
 ========
 
@@ -512,6 +570,8 @@ Implements the `$text <https://docs.mongodb.com/manual/reference/operator/query/
 | diacriticSensitive | *Boolean* | Optional (use ``null`` to omit). A boolean flag to enable or disable diacritic sensitive search against version 3 text indexes. Defaults to ``false``; i.e. the search defers to the diacritic insensitivity of the text index. |
 +--------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+
+.. _M_where:
 
 M_where()
 =========
@@ -540,12 +600,17 @@ Would produce this MongoDB JSON:
     "$where": "function() { return (hex_md5(this.lastName) == \'9af26c4c8b156852e86d49566d96a0d1\') }"
   }
 
+
+.. _ArrayQueryOperators:
+
 *********************
 Array Query Operators
 *********************
 
 These functions correspond directly to the `Array Query Operators <https://docs.mongodb.com/manual/reference/operator/query-array/>`_ provided by the MongoDB Query language.
 
+
+.. _M_all:
 
 M_all()
 =======
@@ -559,6 +624,8 @@ Implements the `$all <https://docs.mongodb.com/manual/reference/operator/query/a
 +----------+-------------------+-----------------------------------------+
 
 
+.. _M_elemMatch:
+
 M_elemMatch()
 =============
 
@@ -570,6 +637,8 @@ Implements the `$elemMatch <https://docs.mongodb.com/manual/reference/operator/q
 | queryExpressions | *List of Text* | The list of expressions (often created with other ``M_*`` functions) you wish to evaluate against |
 +------------------+----------------+---------------------------------------------------------------------------------------------------+
 
+
+.. _M_size:
 
 M_size()
 ========
@@ -583,6 +652,8 @@ Implements the `$size <https://docs.mongodb.com/manual/reference/operator/query/
 +----------+--------------------+----------------------------------------+
 
 
+.. _GeospatialQueryOperators:
+
 **************************
 Geospatial Query Operators
 **************************
@@ -593,6 +664,8 @@ These functions correspond directly to the `Geospatial Query Operators <https://
 
 .. note:: Many of the following geospatial query operators require that a geospatial index be added to the fields you wish to query. See `MongoDB documentation <https://docs.mongodb.com/manual/geospatial-queries/#geospatial-indexes>`_ for more information.
 
+
+.. _M_toPoint:
 
 M_toPoint()
 ===========
@@ -610,6 +683,8 @@ Returns a Point CDT instance with the given coordinates. Used any time a ``[long
 .. important:: This plugin adopts MongoDB's preference of specifying longitude before latitude.
 
 
+.. _M_geoIntersects:
+
 M_geoIntersects()
 =================
 
@@ -622,6 +697,8 @@ Implements the `$geoIntersects <https://docs.mongodb.com/manual/reference/operat
 +----------+------------------------+--------------------------------------------------------------------------------------------------------------------+
 
 
+.. _M_geoWithin:
+
 M_geoWithin()
 =============
 
@@ -633,6 +710,8 @@ Implements the `$geoWithin <https://docs.mongodb.com/manual/reference/operator/q
 | geoJson  | *Dictionary* or *Text* | A `GeoJSON <https://docs.mongodb.com/manual/reference/geojson/>`_ object, as an Appian Dictionary or a JSON string |
 +----------+------------------------+--------------------------------------------------------------------------------------------------------------------+
 
+
+.. _M_geoWithinBox:
 
 M_geoWithinBox()
 ================
@@ -648,6 +727,8 @@ Implements the `$geoWithin <https://docs.mongodb.com/manual/reference/operator/q
 +------------+-----------+-----------------------------------------------------------------+
 
 
+.. _M_geoWithinCircle:
+
 M_geoWithinCircle()
 ===================
 
@@ -657,6 +738,8 @@ Implements the `$geoWithin <https://docs.mongodb.com/manual/reference/operator/q
 
 **radius** *(Number (Decimal))*: The radius of the circle, as measured in the units used by the coordinate system.
 
+
+.. _M_geoWithinSphere:
 
 M_geoWithinSphere()
 ===================
@@ -671,6 +754,8 @@ Implements the `$geoWithin <https://docs.mongodb.com/manual/reference/operator/q
 | radius      | *Number (Decimal)* | The radius of the sphere, as measured in the units used by the coordinate system |
 +-------------+--------------------+----------------------------------------------------------------------------------+
 
+
+.. _M_geoWithinPolygon:
 
 M_geoWithinPolygon()
 ====================
@@ -727,6 +812,8 @@ Would produce this MongoDB JSON:
 +---------------+------------------+-------------------------------------------------------------------------------------------------------------------------------------+
 
 
+.. _M_near:
+
 M_near()
 ========
 
@@ -778,6 +865,8 @@ Would produce this MongoDB JSON:
 +-------------+------------------------+--------------------------------------------------------------------------------------------------------------------+
 
 
+.. _M_nearSphere:
+
 M_nearSphere()
 ==============
 
@@ -794,6 +883,7 @@ Implements the `$nearSphere <https://docs.mongodb.com/manual/reference/operator/
 +-------------+------------------------+--------------------------------------------------------------------------------------------------------------------+
 
 
+.. _QueryOperatorExamples:
 
 ***********************
 Query Operator Examples

@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Demo Application" href="demo_application.html" />
-    <link rel="prev" title="Integrations" href="integrations.html" /> 
+    <link rel="prev" title="Custom Data Types" href="custom_types.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">JSON Query Expression Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#top-level-query-functions">Top-Level Query Functions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#m-query">M_query()</a></li>
@@ -255,10 +256,10 @@
 <p>Note the MongoDB-specific JSON <code class="docutils literal notranslate"><span class="pre">ISODate()</span></code> function call. Also note the field names that begin with <code class="docutils literal notranslate"><span class="pre">$</span></code>. It is not easy (and, in some cases such as this one, not possible) to generate JSON in this manner by constructing Dictionaries and using Appian’s built-in <code class="docutils literal notranslate"><span class="pre">a!toJson()</span></code> function.</p>
 <p>More MongoDB query functions may be added in later versions of this plugin. If there are any you would like to see added, please <a class="reference internal" href="introduction.html#project-info"><span class="std std-ref">contact the project authors</span></a> or on the <a class="reference external" href="https://community.appian.com/b/appmarket/posts/mongodb-connected-system">Community App Market</a> entry.</p>
 <div class="section" id="top-level-query-functions">
-<h2>Top-Level Query Functions<a class="headerlink" href="#top-level-query-functions" title="Permalink to this headline">¶</a></h2>
+<span id="toplevelqueryfunctions"></span><h2>Top-Level Query Functions<a class="headerlink" href="#top-level-query-functions" title="Permalink to this headline">¶</a></h2>
 <p>These functions are used to set up the structure of a MongoDB query. The subsequent sections provide functions called within the top-level functions to produce a complete query.</p>
 <div class="section" id="m-query">
-<h3>M_query()<a class="headerlink" href="#m-query" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>M_query()<a class="headerlink" href="#m-query" title="Permalink to this headline">¶</a></h3>
 <p>This function begins a MongoDB query. It should be the top-level function call whose output is sent to one of the JSON filter parameters. While this simply wraps the contents provided in braces <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> to ensure a complete query JSON string, it makes for a very clean and readable expression structure.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -275,7 +276,7 @@
 <tbody>
 <tr class="row-even"><td><p>queryClauses</p></td>
 <td><p><em>List of Text String</em></p></td>
-<td><p>The list of expressions (often created with <a class="reference internal" href="#m-field">M_field()</a>) you wish to evaluate</p></td>
+<td><p>The list of expressions (often created with <a class="reference internal" href="#id2">M_field()</a>) you wish to evaluate</p></td>
 </tr>
 </tbody>
 </table>
@@ -295,8 +296,8 @@
 </div>
 </div>
 <div class="section" id="m-field">
-<h3>M_field()<a class="headerlink" href="#m-field" title="Permalink to this headline">¶</a></h3>
-<p>This function begins a query expression on a field, in the form of <code class="docutils literal notranslate"><span class="pre">fieldName:</span> <span class="pre">...</span></code> where the passed in queryClauses are joined to complete the expression. To be used within <a class="reference internal" href="#m-query">M_query()</a> or one of the other Expression Functions that take in a complete field, such as <a class="reference internal" href="#m-and">M_and()</a>.</p>
+<span id="id2"></span><h3>M_field()<a class="headerlink" href="#m-field" title="Permalink to this headline">¶</a></h3>
+<p>This function begins a query expression on a field, in the form of <code class="docutils literal notranslate"><span class="pre">fieldName:</span> <span class="pre">...</span></code> where the passed in queryClauses are joined to complete the expression. To be used within <a class="reference internal" href="#id1">M_query()</a> or one of the other Expression Functions that take in a complete field, such as <a class="reference internal" href="#id15">M_and()</a>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 14%" />
@@ -331,10 +332,10 @@
 </div>
 </div>
 <div class="section" id="utility-functions">
-<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
+<span id="utilityfunctions"></span><h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
 <p>This section covers the general purpose or utility functions that don’t relate to a specific query language grouping.</p>
 <div class="section" id="m-objectid">
-<h3>M_objectId()<a class="headerlink" href="#m-objectid" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>M_objectId()<a class="headerlink" href="#m-objectid" title="Permalink to this headline">¶</a></h3>
 <p>Returns a properly formed ObjectId JSON snippet. Most often used when filtering by a MongoDB Document’s <code class="docutils literal notranslate"><span class="pre">_id</span></code> field.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -367,7 +368,7 @@
 </div>
 </div>
 <div class="section" id="m-validobjectid">
-<h3>M_validObjectId()<a class="headerlink" href="#m-validobjectid" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>M_validObjectId()<a class="headerlink" href="#m-validobjectid" title="Permalink to this headline">¶</a></h3>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the given hexadecimal can be converted to an ObjectId.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -401,7 +402,7 @@
 </div>
 </div>
 <div class="section" id="comparison-query-operators">
-<h2>Comparison Query Operators<a class="headerlink" href="#comparison-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="comparisonqueryoperators"></span><h2>Comparison Query Operators<a class="headerlink" href="#comparison-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-comparison/">Comparison Query Operators</a> provided by the MongoDB Query language.</p>
 <p>These functions handle converting Appian primitive types to their necessary JSON representations.</p>
 <p>This Appian expression:</p>
@@ -420,7 +421,7 @@
 </div>
 <p>Note the MongoDB-specific <code class="docutils literal notranslate"><span class="pre">ISODate()</span></code> function call. It is not possible to generate JSON in this manner using Appian’s built-in <code class="docutils literal notranslate"><span class="pre">a!toJson()</span></code> function.</p>
 <div class="section" id="m-eq">
-<h3>M_eq()<a class="headerlink" href="#m-eq" title="Permalink to this headline">¶</a></h3>
+<span id="id6"></span><h3>M_eq()<a class="headerlink" href="#m-eq" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/eq/">$eq</a> operator. Specifies equality condition. The <code class="docutils literal notranslate"><span class="pre">$eq</span></code> operator matches documents where the value of a field equals the specified value.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -453,7 +454,7 @@
 </div>
 </div>
 <div class="section" id="m-gt">
-<h3>M_gt()<a class="headerlink" href="#m-gt" title="Permalink to this headline">¶</a></h3>
+<span id="id7"></span><h3>M_gt()<a class="headerlink" href="#m-gt" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/gt/">$gt</a> operator. Selects those documents where the value of the field is greater than (i.e. <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>) the specified value.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -476,7 +477,7 @@
 </table>
 </div>
 <div class="section" id="m-gte">
-<h3>M_gte()<a class="headerlink" href="#m-gte" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3>M_gte()<a class="headerlink" href="#m-gte" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/gte/">$gte</a> operator. Selects the documents where the value of the field is greater than or equal to (i.e. <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>) a specified value (e.g. value.)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -499,7 +500,7 @@
 </table>
 </div>
 <div class="section" id="m-in">
-<h3>M_in()<a class="headerlink" href="#m-in" title="Permalink to this headline">¶</a></h3>
+<span id="id9"></span><h3>M_in()<a class="headerlink" href="#m-in" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/in/">$in</a> operator. Selects the documents where the value of a field equals any value in the specified array.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -522,7 +523,7 @@
 </table>
 </div>
 <div class="section" id="m-lt">
-<h3>M_lt()<a class="headerlink" href="#m-lt" title="Permalink to this headline">¶</a></h3>
+<span id="id10"></span><h3>M_lt()<a class="headerlink" href="#m-lt" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/lt/">$lt</a> operator. Selects the documents where the value of the field is less than (i.e. <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>) the specified value.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -545,7 +546,7 @@
 </table>
 </div>
 <div class="section" id="m-lte">
-<h3>M_lte()<a class="headerlink" href="#m-lte" title="Permalink to this headline">¶</a></h3>
+<span id="id11"></span><h3>M_lte()<a class="headerlink" href="#m-lte" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/lte/">$lte</a> operator. Selects the documents where the value of the field is less than or equal to (i.e. <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>) the specified value.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -568,7 +569,7 @@
 </table>
 </div>
 <div class="section" id="m-ne">
-<h3>M_ne()<a class="headerlink" href="#m-ne" title="Permalink to this headline">¶</a></h3>
+<span id="id12"></span><h3>M_ne()<a class="headerlink" href="#m-ne" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/ne/">$ne</a> operator. Selects the documents where the value of the field is not equal to the specified value. This includes documents that do not contain the field.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -591,7 +592,7 @@
 </table>
 </div>
 <div class="section" id="m-nin">
-<h3>M_nin()<a class="headerlink" href="#m-nin" title="Permalink to this headline">¶</a></h3>
+<span id="id13"></span><h3>M_nin()<a class="headerlink" href="#m-nin" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nin/">$nin</a> operator. Selects the documents where the field value is not in the specified array or the field does not exist.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -615,7 +616,7 @@
 </div>
 </div>
 <div class="section" id="logical-query-operators">
-<h2>Logical Query Operators<a class="headerlink" href="#logical-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="logicalqueryoperators"></span><h2>Logical Query Operators<a class="headerlink" href="#logical-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-logical/">Logical Query Operators</a> provided by the MongoDB Query language.</p>
 <p>An example Appian expression, which would find people with one of four last names, and where the <code class="docutils literal notranslate"><span class="pre">disabled</span></code> field is not <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
@@ -657,7 +658,7 @@
 </pre></div>
 </div>
 <div class="section" id="m-and">
-<h3>M_and()<a class="headerlink" href="#m-and" title="Permalink to this headline">¶</a></h3>
+<span id="id15"></span><h3>M_and()<a class="headerlink" href="#m-and" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/and/">$and</a> operator. Performs a logical <strong>AND</strong> operation on an array of one or more expressions (e.g. expression1, expression2, etc.) and selects the documents that satisfy all the expressions in the array. The <code class="docutils literal notranslate"><span class="pre">$and</span></code> operator uses short-circuit evaluation. If the first expression (e.g.  expression1) evaluates to false, MongoDB will not evaluate the remaining expressions.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -680,7 +681,7 @@
 </table>
 </div>
 <div class="section" id="m-nor">
-<h3>M_nor()<a class="headerlink" href="#m-nor" title="Permalink to this headline">¶</a></h3>
+<span id="id16"></span><h3>M_nor()<a class="headerlink" href="#m-nor" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nor/">$nor</a> operator. Performs a logical <strong>NOR</strong> operation on an array of one or more query expressions and selects the documents that fail all the query expressions in the array.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -703,7 +704,7 @@
 </table>
 </div>
 <div class="section" id="m-not">
-<h3>M_not()<a class="headerlink" href="#m-not" title="Permalink to this headline">¶</a></h3>
+<span id="id17"></span><h3>M_not()<a class="headerlink" href="#m-not" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/not/">$not</a> operator. Performs a logical <strong>NOT</strong> operation on the specified operator-expression and selects the documents that do not match the operator-expression. This includes documents that do not contain the field.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -726,7 +727,7 @@
 </table>
 </div>
 <div class="section" id="m-or">
-<h3>M_or()<a class="headerlink" href="#m-or" title="Permalink to this headline">¶</a></h3>
+<span id="id18"></span><h3>M_or()<a class="headerlink" href="#m-or" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/or/">$or</a> operator. Performs a logical <strong>OR</strong> operation on an array of two or more expressions and selects the documents that satisfy at least one of the expressions.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -750,10 +751,10 @@
 </div>
 </div>
 <div class="section" id="element-query-operators">
-<h2>Element Query Operators<a class="headerlink" href="#element-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="elementqueryoperators"></span><h2>Element Query Operators<a class="headerlink" href="#element-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-element/">Element Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-exists">
-<h3>M_exists()<a class="headerlink" href="#m-exists" title="Permalink to this headline">¶</a></h3>
+<span id="id20"></span><h3>M_exists()<a class="headerlink" href="#m-exists" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/exists/">$exists</a> operator. When value is <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">$exists</span></code> matches the documents that contain the field, including documents where the field value is <code class="docutils literal notranslate"><span class="pre">null</span></code>. If value is <code class="docutils literal notranslate"><span class="pre">false</span></code>, the query returns only the documents that do not contain the field.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -776,7 +777,7 @@
 </table>
 </div>
 <div class="section" id="m-type">
-<h3>M_type()<a class="headerlink" href="#m-type" title="Permalink to this headline">¶</a></h3>
+<span id="id21"></span><h3>M_type()<a class="headerlink" href="#m-type" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/type/">$type</a> operator. Selects documents where the value of the field is an instance of the specified BSON type(s). Querying by data type is useful when dealing with highly unstructured data where data types are not predictable.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -800,10 +801,10 @@
 </div>
 </div>
 <div class="section" id="evaluation-query-operators">
-<h2>Evaluation Query Operators<a class="headerlink" href="#evaluation-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="evaluationqueryoperators"></span><h2>Evaluation Query Operators<a class="headerlink" href="#evaluation-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-evaluation/">Evaluation Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-expr">
-<h3>M_expr()<a class="headerlink" href="#m-expr" title="Permalink to this headline">¶</a></h3>
+<span id="id23"></span><h3>M_expr()<a class="headerlink" href="#m-expr" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/expr/">$expr</a> operator. Allows the use of aggregation expressions within the query language.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -826,7 +827,7 @@
 </table>
 </div>
 <div class="section" id="m-jsonschema">
-<h3>M_jsonSchema()<a class="headerlink" href="#m-jsonschema" title="Permalink to this headline">¶</a></h3>
+<span id="id24"></span><h3>M_jsonSchema()<a class="headerlink" href="#m-jsonschema" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/jsonSchema/">$jsonSchema</a> operator. Matches documents that satisfy the specified JSON Schema.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -849,7 +850,7 @@
 </table>
 </div>
 <div class="section" id="m-mod">
-<h3>M_mod()<a class="headerlink" href="#m-mod" title="Permalink to this headline">¶</a></h3>
+<span id="id25"></span><h3>M_mod()<a class="headerlink" href="#m-mod" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/mod/">$mod</a> operator. Select documents where the value of a field divided by a divisor has the specified remainder (i.e. perform a modulo operation to select documents).</p>
 <table class="docutils align-default">
 <colgroup>
@@ -876,7 +877,7 @@
 </table>
 </div>
 <div class="section" id="m-regex">
-<h3>M_regex()<a class="headerlink" href="#m-regex" title="Permalink to this headline">¶</a></h3>
+<span id="id26"></span><h3>M_regex()<a class="headerlink" href="#m-regex" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/regex/">$regex</a> operator. Provides regular expression capabilities for pattern matching strings in queries. MongoDB uses Perl compatible regular expressions (i.e. “PCRE”) version 8.42 with UTF-8 support.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -917,7 +918,7 @@
 </div>
 </div>
 <div class="section" id="m-text">
-<h3>M_text()<a class="headerlink" href="#m-text" title="Permalink to this headline">¶</a></h3>
+<span id="id27"></span><h3>M_text()<a class="headerlink" href="#m-text" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/text/">$text</a> operator. Performs a text search on the content of the fields indexed with a text index.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -952,7 +953,7 @@
 </table>
 </div>
 <div class="section" id="m-where">
-<h3>M_where()<a class="headerlink" href="#m-where" title="Permalink to this headline">¶</a></h3>
+<span id="id28"></span><h3>M_where()<a class="headerlink" href="#m-where" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/where/">$where</a> operator. Use the <code class="docutils literal notranslate"><span class="pre">$where</span></code> operator to pass either a string containing a JavaScript expression or a full JavaScript function to the query system.  The <code class="docutils literal notranslate"><span class="pre">$where</span></code> provides greater flexibility but requires that the database processes the JavaScript expression or function for each document in the collection. Reference the document in the JavaScript expression or function using either <code class="docutils literal notranslate"><span class="pre">this</span></code> or <code class="docutils literal notranslate"><span class="pre">obj</span></code>. Please see <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/where/">full documentation</a> for caveats and performance topics.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -988,10 +989,10 @@
 </div>
 </div>
 <div class="section" id="array-query-operators">
-<h2>Array Query Operators<a class="headerlink" href="#array-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="arrayqueryoperators"></span><h2>Array Query Operators<a class="headerlink" href="#array-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-array/">Array Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="section" id="m-all">
-<h3>M_all()<a class="headerlink" href="#m-all" title="Permalink to this headline">¶</a></h3>
+<span id="id30"></span><h3>M_all()<a class="headerlink" href="#m-all" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/all/">$all</a> operator. Selects the documents where the value of a field is an array that contains all of the specified elements.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1014,7 +1015,7 @@
 </table>
 </div>
 <div class="section" id="m-elemmatch">
-<h3>M_elemMatch()<a class="headerlink" href="#m-elemmatch" title="Permalink to this headline">¶</a></h3>
+<span id="id31"></span><h3>M_elemMatch()<a class="headerlink" href="#m-elemmatch" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/elemMatch/">$elemMatch</a> operator. Matches documents that contain an array field with at least one element that matches all the specified query criteria.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1037,7 +1038,7 @@
 </table>
 </div>
 <div class="section" id="m-size">
-<h3>M_size()<a class="headerlink" href="#m-size" title="Permalink to this headline">¶</a></h3>
+<span id="id32"></span><h3>M_size()<a class="headerlink" href="#m-size" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/size/">$size</a> operator. Matches any array with the number of elements specified by the argument.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1061,7 +1062,7 @@
 </div>
 </div>
 <div class="section" id="geospatial-query-operators">
-<h2>Geospatial Query Operators<a class="headerlink" href="#geospatial-query-operators" title="Permalink to this headline">¶</a></h2>
+<span id="geospatialqueryoperators"></span><h2>Geospatial Query Operators<a class="headerlink" href="#geospatial-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-geospatial/">Geospatial Query Operators</a> provided by the MongoDB Query language.</p>
 <div class="figure align-default">
 <img alt="_images/image33.png" src="_images/image33.png" />
@@ -1071,7 +1072,7 @@
 <p>Many of the following geospatial query operators require that a geospatial index be added to the fields you wish to query. See <a class="reference external" href="https://docs.mongodb.com/manual/geospatial-queries/#geospatial-indexes">MongoDB documentation</a> for more information.</p>
 </div>
 <div class="section" id="m-topoint">
-<h3>M_toPoint()<a class="headerlink" href="#m-topoint" title="Permalink to this headline">¶</a></h3>
+<span id="id34"></span><h3>M_toPoint()<a class="headerlink" href="#m-topoint" title="Permalink to this headline">¶</a></h3>
 <p>Returns a Point CDT instance with the given coordinates. Used any time a <code class="docutils literal notranslate"><span class="pre">[longitude,</span> <span class="pre">latitude]</span></code> pair is required in the following Expression Functions.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1102,7 +1103,7 @@
 </div>
 </div>
 <div class="section" id="m-geointersects">
-<h3>M_geoIntersects()<a class="headerlink" href="#m-geointersects" title="Permalink to this headline">¶</a></h3>
+<span id="id35"></span><h3>M_geoIntersects()<a class="headerlink" href="#m-geointersects" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/">$geoIntersects</a> operator. Selects documents whose geospatial data intersects with a specified <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/">GeoJSON</a> object; i.e. where the intersection of the data and the specified object is non-empty.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1125,7 +1126,7 @@
 </table>
 </div>
 <div class="section" id="m-geowithin">
-<h3>M_geoWithin()<a class="headerlink" href="#m-geowithin" title="Permalink to this headline">¶</a></h3>
+<span id="id37"></span><h3>M_geoWithin()<a class="headerlink" href="#m-geowithin" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator. Selects documents with geospatial data that exists entirely within a specified shape.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1148,7 +1149,7 @@
 </table>
 </div>
 <div class="section" id="m-geowithinbox">
-<h3>M_geoWithinBox()<a class="headerlink" href="#m-geowithinbox" title="Permalink to this headline">¶</a></h3>
+<span id="id39"></span><h3>M_geoWithinBox()<a class="headerlink" href="#m-geowithinbox" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/box/">$box</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given rectangle, according to their point-based location data.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1175,13 +1176,13 @@
 </table>
 </div>
 <div class="section" id="m-geowithincircle">
-<h3>M_geoWithinCircle()<a class="headerlink" href="#m-geowithincircle" title="Permalink to this headline">¶</a></h3>
+<span id="id40"></span><h3>M_geoWithinCircle()<a class="headerlink" href="#m-geowithincircle" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/center/">$center</a> (circle) to search within. Selects documents with geospatial data that exists entirely the bounds of the given circle, defined by a center point and radius.</p>
 <p><strong>centerPoint</strong> <em>(Point)</em>: Point with the coordinates of the center of the circle.</p>
 <p><strong>radius</strong> <em>(Number (Decimal))</em>: The radius of the circle, as measured in the units used by the coordinate system.</p>
 </div>
 <div class="section" id="m-geowithinsphere">
-<h3>M_geoWithinSphere()<a class="headerlink" href="#m-geowithinsphere" title="Permalink to this headline">¶</a></h3>
+<span id="id42"></span><h3>M_geoWithinSphere()<a class="headerlink" href="#m-geowithinsphere" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/centerSphere/">$centerSphere</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given sphere, defined by a center point and radius.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1208,7 +1209,7 @@
 </table>
 </div>
 <div class="section" id="m-geowithinpolygon">
-<h3>M_geoWithinPolygon()<a class="headerlink" href="#m-geowithinpolygon" title="Permalink to this headline">¶</a></h3>
+<span id="id44"></span><h3>M_geoWithinPolygon()<a class="headerlink" href="#m-geowithinpolygon" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/">$geoWithin</a> operator, using a <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/polygon/">$polygon</a> to search within. Selects documents with geospatial data that exists entirely the bounds of the given polygon, defined by an array of GeoPoints.</p>
 <p>This example would match all MongoDB Documents where the address’s <code class="docutils literal notranslate"><span class="pre">loc</span></code> field (a <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/#point">Point</a>) is within an area roughly outlining McLean, VA:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
@@ -1270,7 +1271,7 @@
 </table>
 </div>
 <div class="section" id="m-near">
-<h3>M_near()<a class="headerlink" href="#m-near" title="Permalink to this headline">¶</a></h3>
+<span id="id46"></span><h3>M_near()<a class="headerlink" href="#m-near" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/near/">$near</a> operator. Specifies a point for which a geospatial query returns the documents from nearest to farthest.</p>
 <p>This example would match all MongoDB Documents where the address’s loc field (a <a class="reference external" href="https://docs.mongodb.com/manual/reference/geojson/#point">Point</a>) is within 1 km of Appian HQ:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
@@ -1332,7 +1333,7 @@
 </table>
 </div>
 <div class="section" id="m-nearsphere">
-<h3>M_nearSphere()<a class="headerlink" href="#m-nearsphere" title="Permalink to this headline">¶</a></h3>
+<span id="id49"></span><h3>M_nearSphere()<a class="headerlink" href="#m-nearsphere" title="Permalink to this headline">¶</a></h3>
 <p>Implements the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query/nearSphere/">$nearSphere</a> operator. Specifies a point for which a geospatial query returns the documents from nearest to farthest. MongoDB calculates distances for <code class="docutils literal notranslate"><span class="pre">$nearSphere</span></code> using spherical geometry.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1364,7 +1365,7 @@
 </div>
 </div>
 <div class="section" id="query-operator-examples">
-<h2>Query Operator Examples<a class="headerlink" href="#query-operator-examples" title="Permalink to this headline">¶</a></h2>
+<span id="queryoperatorexamples"></span><h2>Query Operator Examples<a class="headerlink" href="#query-operator-examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="date-and-time-examples">
 <h3>Date and Time Examples<a class="headerlink" href="#date-and-time-examples" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="query-for-dates-in-a-range">
@@ -1427,7 +1428,7 @@
         <a href="demo_application.html" class="btn btn-neutral float-right" title="Demo Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="integrations.html" class="btn btn-neutral float-left" title="Integrations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="custom_types.html" class="btn btn-neutral float-left" title="Custom Data Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

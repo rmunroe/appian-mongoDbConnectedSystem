@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; MongoDB Connected System 1.2 documentation</title>
+  <title>Custom Data Types &mdash; MongoDB Connected System 1.2 documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Future Enhancements" href="futures.html" />
-    <link rel="prev" title="Demo Application" href="demo_application.html" /> 
+    <link rel="next" title="JSON Query Expression Functions" href="expressions.html" />
+    <link rel="prev" title="Integrations" href="integrations.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,10 +92,10 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connected_system.html">Connected System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="custom_types.html">Custom Data Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Custom Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">JSON Query Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo_application.html">Demo Application</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">Future Enhancements</a></li>
 </ul>
 
@@ -143,13 +143,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Changelog</li>
+      <li>Custom Data Types</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/custom_types.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,63 +162,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 10%" />
-<col style="width: 81%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Date</strong></p></td>
-<td><p><strong>Version</strong></p></td>
-<td><p><strong>Description</strong></p></td>
-</tr>
-<tr class="row-even"><td><p>2020-07-14</p></td>
-<td><p>1.0</p></td>
-<td><ul class="simple">
-<li><p>Initial version</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>2020-07-17</p></td>
-<td><p>1.1</p></td>
-<td><ul class="simple">
-<li><p>Added <a class="reference internal" href="expressions.html#arrayqueryoperators"><span class="std std-ref">Array Query Operators</span></a></p></li>
-<li><p>Added <a class="reference internal" href="expressions.html#geospatialqueryoperators"><span class="std std-ref">Geospatial Query Operators</span></a>, including new Point CDT</p></li>
-<li><p>Modified several Expression Functions to take a Dictionary as well as JSON</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>1.2</p></td>
-<td><ul class="simple">
-<li><p>Now hashing connection strings with SHA-256 when in memory</p></li>
-<li><p>Fixed an issue with <a class="reference internal" href="expressions.html#m-eq"><span class="std std-ref">M_eq()</span></a> that was incorrectly converting certain values to JSON</p></li>
-<li><p>Added <a class="reference internal" href="expressions.html#m-validobjectid"><span class="std std-ref">M_validObjectId()</span></a> to test if a text value is a valid ObjectId hexadecimal</p></li>
-<li><p>Initial release of the <a class="reference internal" href="demo_application.html"><span class="doc">Demo Application</span></a></p></li>
-<li><p>Added documentation on <a class="reference internal" href="custom_types.html"><span class="doc">Custom Data Types</span></a></p></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition-todo admonition">
-<p class="admonition-title">Todo</p>
-<p>Add expression example of using Binary CDT</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="introduction.html#id8"><em>original entry</em></a> is located in /Users/robert/Development/GitHub/appian-mongoDbConnectedSystem/docs/introduction.rst, line 201.)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">Todo</p>
-<p>Create and then document the Demo Application</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="demo_application.html#id1"><em>original entry</em></a> is located in /Users/robert/Development/GitHub/appian-mongoDbConnectedSystem/docs/demo_application.rst, line 7.)</p>
-<div class="admonition-todo admonition">
+  <div class="section" id="custom-data-types">
+<span id="id1"></span><h1>Custom Data Types<a class="headerlink" href="#custom-data-types" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Document the CDTs included</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="custom_types.html#id2"><em>original entry</em></a> is located in /Users/robert/Development/GitHub/appian-mongoDbConnectedSystem/docs/custom_types.rst, line 7.)</p>
 </div>
 
 
@@ -229,10 +178,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="futures.html" class="btn btn-neutral float-right" title="Future Enhancements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="expressions.html" class="btn btn-neutral float-right" title="JSON Query Expression Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="demo_application.html" class="btn btn-neutral float-left" title="Demo Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="integrations.html" class="btn btn-neutral float-left" title="Integrations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -15,7 +15,7 @@ Its official distribution location is this entry in the `Appian Community App Ma
 Project Info
 ************
 
-This plugin was created by me, `Rob Munroe <https://www.linkedin.com/in/robertmunroe/>`_, Principal Solutions Architect at `Appian <https://appian.com>`_. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer.
+This plugin was created by me, `Rob Munroe <https://www.linkedin.com/in/robertmunroe/>`_, Principal Solutions Architect at `Appian <https://appian.com>`_. I have been in software development since the late 90s, have been at Appian for nearly a decade now, and before joining was an Appian customer. At my core I am a `programmer <http://threevirtues.com>`_ and I absolutely love to build things that others find useful, interesting, and saves them time.
 
 I have also been a fan of MongoDB since it first arrived in the late-00s. I feel that the speed and power of both Appian and MongoDB are a potent combination, and that both platforms pair very well given the strong support for JSON and dynamic data structures. Many customers have already integrated the two platforms using the standard `HTTP/REST Connected System <https://docs.appian.com/suite/help/latest/Integration_Object.html>`_, however I wanted to make it even easier to use MongoDB inside of Appian as well as take advantage of what the MongoDB Java Driver had to offer.
 
@@ -57,9 +57,11 @@ Users are also expected to be familiar with Appian, building Applications, and h
 Compatibility
 *************
 
-This plugin was built and tested on Appian versions 19.4 and 20.2.
+Version 1.2 of this plugin was built and tested on Appian versions 20.2 and 20.3, however it should be compatible back to at least 19.4.
 
-Version 1.2 of this plugin uses the `MongoDB Java Driver version 3.12.5 <https://mongodb.github.io/mongo-java-driver/3.12/>`__ and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this `compatibility chart <https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility>`__ for full details.
+The :doc:`demo_application` was built on and requires Appian 20.3.
+
+This plugin uses the `MongoDB Java Driver version 3.12.5 <https://mongodb.github.io/mongo-java-driver/3.12/>`__ and should be compatible with any version of MongoDB from version 2.6 to 4.2 (the latest as of this writing). See this `compatibility chart <https://mongodb.github.io/mongo-java-driver/3.12/upgrading/#compatibility>`__ for full details.
 
 This plugin was tested against a `MongoDB Atlas <https://www.mongodb.com/cloud/atlas>`__ a 3-node Replica Set instance running version 4.2.8 as well as a Standalone MongoDB 4.2.8 Community instance running on Ubuntu 20.04.
 

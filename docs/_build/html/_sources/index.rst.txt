@@ -13,6 +13,7 @@ Version 1.2
    introduction
    connected_system
    integrations
+   custom_types
    expressions
    demo_application
    changelog

@@ -240,17 +240,14 @@
 <p>In addition to generating the special JSON structures MongoDB expects, these functions make creating MongoDB’s non-standard JSON alterations much easier in Appian. The functions also handle converting Appian primitive types to their necessary JSON representations.</p>
 <p>This Appian expression:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
-  <span class="nf">M_field</span><span class="p">(</span>
-    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">))</span>
-  <span class="p">)</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">)))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -284,14 +281,14 @@
 </table>
 <p>This Appian expression:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
-  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">fn!datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">datetime(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -328,7 +325,7 @@
 </pre></div>
 </div>
 <p>Would produce this portion of JSON:</p>
-<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2019-04-26T10:28:57.000Z&quot;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -360,17 +357,12 @@
 </table>
 <p>This Appian expression:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
-  <span class="nf">M_field</span><span class="p">(</span>
-    <span class="s">&quot;_id&quot;</span><span class="p">,</span>
-    <span class="nf">M_eq</span><span class="p">(</span>
-      <span class="nf">M_objectId</span><span class="p">(</span><span class="s">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
-  <span class="p">)</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;_id&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">M_objectId</span><span class="p">(</span><span class="s">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which Would produce this MongoDB JSON:</p>
-<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ObjectId(</span><span class="s2">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="p">}</span>
+<p>Would produce this MongoDB JSON:</p>
+<div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="fm">ObjectId(</span><span class="s2">&quot;5efa0b04fc13ae730e000064&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -396,6 +388,16 @@
 </tr>
 </tbody>
 </table>
+<p>This is useful when a value may be an ObjectId, but you need to test to ensure it’s a valid hexadecimal before querying by ObjectId:</p>
+<div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">if(</span>
+  <span class="nf">M_validObjectId</span><span class="p">(</span><span class="nv">ri!id</span><span class="p">),</span>
+  <span class="nf">M_query</span><span class="p">(</span>
+    <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;_id&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">M_objectId</span><span class="p">(</span><span class="nv">ri!id</span><span class="p">)))</span>
+  <span class="p">),</span>
+  <span class="c1">... do something else ...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="comparison-query-operators">
@@ -404,17 +406,14 @@
 <p>These functions handle converting Appian primitive types to their necessary JSON representations.</p>
 <p>This Appian expression:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
-  <span class="nf">M_field</span><span class="p">(</span>
-    <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">))</span>
-  <span class="p">)</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;createdOn&quot;</span><span class="p">,</span> <span class="nf">M_eq</span><span class="p">(</span><span class="nf">now(</span><span class="p">)))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
+    <span class="nt">&quot;$eq&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2020-07-01T20:32:20.900Z&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -618,7 +617,7 @@
 <div class="section" id="logical-query-operators">
 <h2>Logical Query Operators<a class="headerlink" href="#logical-query-operators" title="Permalink to this headline">¶</a></h2>
 <p>These functions correspond directly to the <a class="reference external" href="https://docs.mongodb.com/manual/reference/operator/query-logical/">Logical Query Operators</a> provided by the MongoDB Query language.</p>
-<p>This Appian expression:</p>
+<p>An example Appian expression, which would find people with one of four last names, and where the <code class="docutils literal notranslate"><span class="pre">disabled</span></code> field is not <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
   <span class="nf">M_and</span><span class="p">(</span>
     <span class="nf">M_field</span><span class="p">(</span>
@@ -904,14 +903,11 @@
 </table>
 <p>This example would match all MongoDB Documents where the last name begins with “St”:</p>
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
-  <span class="nf">M_field</span><span class="p">(</span>
-    <span class="s">&quot;lastName&quot;</span><span class="p">,</span>
-    <span class="nf">M_regex</span><span class="p">(</span><span class="s">&quot;^St&quot;</span><span class="p">,</span> <span class="s">&quot;i&quot;</span><span class="p">)</span>
-  <span class="p">)</span>
+  <span class="nf">M_field</span><span class="p">(</span><span class="s">&quot;lastName&quot;</span><span class="p">,</span> <span class="nf">M_regex</span><span class="p">(</span><span class="s">&quot;^St&quot;</span><span class="p">,</span> <span class="s">&quot;i&quot;</span><span class="p">))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this MongoDB JSON:</p>
+<p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;$regex&quot;</span><span class="p">:</span> <span class="sr">/^St/i</span>
@@ -983,7 +979,7 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which would produce this MongoDB JSON:</p>
+<p>Would produce this MongoDB JSON:</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;$where&quot;</span><span class="p">:</span> <span class="s2">&quot;function() { return (hex_md5(this.lastName) == \&#39;9af26c4c8b156852e86d49566d96a0d1\&#39;) }&quot;</span>
 <span class="p">}</span>
@@ -1234,7 +1230,7 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which Would produce this MongoDB JSON:</p>
+<p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
   <span class="nt">&quot;address.loc&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;$geoWithin&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1282,8 +1278,8 @@
     <span class="s">&quot;address.loc&quot;</span><span class="p">,</span>
     <span class="nf">M_near</span><span class="p">(</span>
       <span class="p">{</span>
-        <span class="nv">type</span><span class="p">:</span> <span class="s">&quot;Point&quot;</span><span class="p">,</span>
-        <span class="nv">coordinates</span><span class="p">:</span> <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">219049</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">932308</span><span class="p">)</span>
+        <span class="na">type:</span> <span class="s">&quot;Point&quot;</span><span class="p">,</span>
+        <span class="na">coordinates:</span> <span class="nf">M_toPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">77</span><span class="p">.</span><span class="mi">219049</span><span class="p">,</span> <span class="mi">38</span><span class="p">.</span><span class="mi">932308</span><span class="p">)</span>
       <span class="p">},</span>
       <span class="mi">0</span><span class="p">,</span>
       <span class="mi">1000</span>
@@ -1292,7 +1288,7 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Which Would produce this MongoDB JSON:</p>
+<p>Would produce this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;address.loc&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;$near&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1377,8 +1373,8 @@
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
   <span class="nf">M_field</span><span class="p">(</span>
     <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="nf">M_gte</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
-    <span class="nf">M_lt</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="nf">M_gte</span><span class="p">(</span><span class="nf">date(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+    <span class="nf">M_lt</span><span class="p">(</span><span class="nf">date(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -1386,8 +1382,8 @@
 <p>Which produces this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
-    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
+    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
+    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1399,8 +1395,8 @@
 <div class="highlight-appian notranslate"><div class="highlight"><pre><span></span><span class="nf">M_query</span><span class="p">(</span>
   <span class="nf">M_field</span><span class="p">(</span>
     <span class="s">&quot;createdOn&quot;</span><span class="p">,</span>
-    <span class="nf">M_gte</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
-    <span class="nf">M_lt</span><span class="p">(</span><span class="nv">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="nf">M_gte</span><span class="p">(</span><span class="nf">date(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+    <span class="nf">M_lt</span><span class="p">(</span><span class="nf">date(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
   <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -1408,8 +1404,8 @@
 <p>Which produces this MongoDB JSON:</p>
 <div class="highlight-mongo notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
-    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="nf">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
+    <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2019-12-01T00:00:00.000Z&quot;</span><span class="p">),</span>
+    <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="fm">ISODate(</span><span class="s2">&quot;2020-01-01T00:00:00.000Z&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

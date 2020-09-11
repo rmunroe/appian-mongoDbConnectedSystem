@@ -145,6 +145,8 @@ A JSON string representing the sort order for a ``Collection.Find()`` query.  So
 
     { "lastName": 1, "firstName": 1 }
 
+.. note:: An Expression Rule included in the :doc:`demo_application` called ``MCSD_getSortJsonFromPagingInfo()`` will construct a Sort JSON string from an ``a!pagingInfo()`` instance.
+
 
 *Projection JSON*
 ^^^^^^^^^^^^^^^^^
@@ -380,6 +382,8 @@ WRITE Integration Operations
 
 This section details all Integration Operations supported by the Connected System in a **WRITE** context. These Integrations can only be used in the `Call Integration Smart Service <https://docs.appian.com/suite/help/latest/Call_Integration_Smart_Service.html>`_, in a `Web API <https://docs.appian.com/suite/help/latest/Designing_Web_APIs.html>`_ that uses a **POST**, **PUT**, or **DELETE** Request, or in a SAIL `Save Into <https://docs.appian.com/suite/help/latest/enabling_user_interaction.html#saving-modified-or-alternative-values>`_ event.
 
+
+.. _Collection Find to JSON File:
 
 Collection Find to JSON File
 ============================
@@ -1164,7 +1168,7 @@ For READ operations such as Find, this will determine which MongoDB Documents ar
 
 For WRITE operations such as Update, this will determine which MongoDB Documents are modified, so it is critical your Filter JSON matches only those to be modified. It is therefore a good idea to test your Filter JSON values for WRITE operations before performing them (e.g. by performing a Find first and validating that only the documents to be updated are returned).
 
-This JSON string value can be hard-coded, constructed via Expressions or Expression Rules, or constructed using the :ref:`JSON Query Expression Functions` as shown:
+This JSON string value can be hard-coded, constructed via Expressions or Expression Rules, or constructed using the :doc:`expressions` as shown:
 
 .. figure:: media/image29.png
 

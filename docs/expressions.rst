@@ -13,10 +13,7 @@ This Appian expression:
 .. code-block:: appian
 
   M_query(
-    M_field(
-      "createdOn",
-      M_eq(now())
-    )
+    M_field("createdOn", M_eq(now()))
   )
 
 Would produce this MongoDB JSON:
@@ -57,7 +54,7 @@ This Appian expression:
 .. code-block:: appian
 
   M_query(
-    M_field("createdOn", M_eq(fn!datetime(2019,4,26,10,28,57,0)))
+    M_field("createdOn", M_eq(datetime(2019,4,26,10,28,57,0)))
   )
 
 Would produce this MongoDB JSON:
@@ -120,15 +117,10 @@ This Appian expression:
 .. code-block:: appian
 
   M_query(
-    M_field(
-      "_id",
-      M_eq(
-        M_objectId("5efa0b04fc13ae730e000064")
-      )
-    )
+    M_field("_id", M_eq(M_objectId("5efa0b04fc13ae730e000064")))
   )
 
-Which Would produce this MongoDB JSON:
+Would produce this MongoDB JSON:
 
 .. code-block:: mongo
 
@@ -146,6 +138,18 @@ Returns ``true`` if the given hexadecimal can be converted to an ObjectId.
 | hexadecimal | *Text*    | Hexadecimal string value for the ObjectId. |
 +-------------+-----------+--------------------------------------------+
 
+This is useful when a value may be an ObjectId, but you need to test to ensure it's a valid hexadecimal before querying by ObjectId:
+
+.. code-block:: appian
+
+  if(
+    M_validObjectId(ri!id),
+    M_query(
+      M_field("_id", M_eq(M_objectId(ri!id)))
+    ),
+    ... do something else ...
+  )
+
 
 **************************
 Comparison Query Operators
@@ -160,10 +164,7 @@ This Appian expression:
 .. code-block:: appian
 
   M_query(
-    M_field(
-      "createdOn",
-      M_eq(now())
-    )
+    M_field("createdOn", M_eq(now()))
   )
 
 Would produce this MongoDB JSON:
@@ -295,7 +296,7 @@ Logical Query Operators
 
 These functions correspond directly to the `Logical Query Operators <https://docs.mongodb.com/manual/reference/operator/query-logical/>`_ provided by the MongoDB Query language.
 
-This Appian expression:
+An example Appian expression, which would find people with one of four last names, and where the ``disabled`` field is not ``true``:
 
 .. code-block:: appian
 
@@ -480,13 +481,10 @@ This example would match all MongoDB Documents where the last name begins with "
 .. code-block:: appian
 
   M_query(
-    M_field(
-      "lastName",
-      M_regex("^St", "i")
-    )
+    M_field("lastName", M_regex("^St", "i"))
   )
 
-Which would produce this MongoDB JSON:
+Would produce this MongoDB JSON:
 
 .. code-block:: mongo
 
@@ -534,7 +532,7 @@ This example would match all MongoDB Documents where the last name equals "Gudge
     M_where("function() { return (hex_md5(this.lastName) == '9af26c4c8b156852e86d49566d96a0d1') }")
   )
 
-Which would produce this MongoDB JSON:
+Would produce this MongoDB JSON:
 
 .. code-block:: JSON
 
@@ -701,7 +699,7 @@ This example would match all MongoDB Documents where the address’s ``loc`` fie
     )
   )
 
-Which Would produce this MongoDB JSON:
+Would produce this MongoDB JSON:
 
 .. code-block:: mongo
 
@@ -752,7 +750,7 @@ This example would match all MongoDB Documents where the address’s loc field (
     )
   )
 
-Which Would produce this MongoDB JSON:
+Would produce this MongoDB JSON:
 
 .. code-block:: mongo
 

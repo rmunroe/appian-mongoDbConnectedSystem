@@ -33,6 +33,8 @@ The benefits of using this plugin versus MongoDB’s REST API include:
 
 -  Configured using a single `Connection String <https://docs.mongodb.com/manual/reference/connection-string/>`__, which is masked and encrypted
 
+-  Includes a suite of :doc:`expressions` to assist in constructing MongoDB JSON queries
+
 This project and `its source <https://github.com/rmunroe/appian-mongoDbConnectedSystem>`_ are open to all, however it is best that any enhancements or bug fixes are submitted to me, so that I may update the released version on the `Appian App Market <https://community.appian.com/b/appmarket/posts/mongodb-connected-system>`_ page. This will significantly speed up the process of getting your enhancements onto your Appian Cloud instance. Self-managed customers can build and deploy the code themselves, but I hope you will contribute your fixes and enhancements for the greater good.
 
 If you are interested in contributing to this project, contact me via my Appian email address [munroe at appian dot com] or via `LinkedIn <https://www.linkedin.com/in/robertmunroe/>`_.
@@ -121,10 +123,10 @@ While the `MongoDB Object ID <https://docs.mongodb.com/manual/reference/method/O
 
 A MongoDB Document representing this value:
 
-.. code-block::
+.. code-block:: mongo
 
   {
-    _id: ObjectId("5efa0b06fc13ae730e00024a")
+    "_id": ObjectId("5efa0b06fc13ae730e00024a")
     ...
   }
 
@@ -133,7 +135,7 @@ Would be returned as an Appian Dictionary like this:
 .. code-block:: appian
 
   {
-    _id: {
+    '_id': {
       oid: "5efa0b06fc13ae730e00024a"
     }
     ...
@@ -169,10 +171,10 @@ MongoDB’s Binary data type allows you to store chunks of binary data in a Mong
 
 A MongoDB Document representing this value: 
 
-.. code-block::
+.. code-block:: mongo
 
     {
-      binaryField: Binary("... Binary data value ...", 0)
+      "binaryField": Binary("... Binary data value ...", 0)
       ...
     }
 
@@ -193,6 +195,8 @@ Binary CDT
 ----------
 
 Similarly to Object ID, this plugin contains a CDT named ``{urn:com:appian:types:MongoDB}Binary`` that can be used to represent these values in a consistent manner. MongoDB Document properties in Dictionaries can be cast directly to this CDT.
+
+.. todo:: Add expression example of using Binary CDT
 
 It is highly recommended that you use this CDT when creating your own CDTs that represent the MongoDB Documents used in your application.  Using it also helps convert Appian Dictionaries representing MongoDB Documents to Mongo-friendly JSON using the ``mdb_tojson`` function, and the ``mdb_tojson`` function will return this value as well.
 

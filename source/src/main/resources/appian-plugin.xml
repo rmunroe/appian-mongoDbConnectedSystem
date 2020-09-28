@@ -20,6 +20,8 @@
     <function key="M_ObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ObjectId"/>
     <function key="M_ValidObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ValidObjectId"/>
 
+    <function key="M_FormatJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FormatJson"/>
+
     <function key="M_Query" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Query"/>
     <function key="M_Field" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Field"/>
 

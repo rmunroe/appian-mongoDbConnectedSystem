@@ -1,75 +1,80 @@
-version '1.1'
-
-apply plugin: 'java'
+//version '1.2'
 
 
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
-    }
+  repositories {
+//    jcenter()
+  }
+  dependencies {
+    classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
+  }
 }
+
+plugins {
+  id "org.owasp.dependencycheck" version "6.5.3"
+}
+
+apply plugin: 'java'
 
 apply plugin: 'org.hidetake.ssh'
-
 remotes {
-    vmware {
-        host = 'ubuntu-server'
-        user = 'appian'
-        password = 'appian'
-    }
+  vmware {
+    host = 'ubuntu-server'
+    user = 'appian'
+    password = 'appian'
+  }
 }
 
+
+
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 
 dependencies {
-    compileOnly 'com.appian:connected-systems-core:1.2.0'
-    implementation 'com.appian:connected-systems-client:1.1.0'
-    testImplementation 'com.appian:connected-systems-core:1.2.0'
+  compileOnly 'com.appian:connected-systems-core:1.2.0'
+  implementation 'com.appian:connected-systems-client:1.1.0'
+  testImplementation 'com.appian:connected-systems-core:1.2.0'
 
-    // Appian (non-CS) plugin dependencies
-    compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
-    compile fileTree(dir: 'dependencies/lib', include: '*.jar')
+  // Appian (non-CS) plugin dependencies
+  compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
+  compile fileTree(dir: 'dependencies/lib', include: '*.jar')
 
-    compileOnly group: 'log4j', name: 'log4j', version: '1.2.17'
-    compileOnly group: 'commons-lang', name: 'commons-lang', version: '2.4'
+//    compileOnly group: 'log4j', name: 'log4j', version: '1.2.17'
+  compileOnly group: 'commons-lang', name: 'commons-lang', version: '2.4'
 
-    compile group: 'org.mongodb', name: 'mongodb-driver-sync', version: '3.12.5'
+  compile group: 'org.mongodb', name: 'mongodb-driver-sync', version: '3.12.10'
 
-    def withoutSlf4j = { exclude group: 'org.slf4j', module: 'slf4j-api' }
-    compile 'org.mongodb:mongodb-crypt:1.0.1', withoutSlf4j
+  def withoutSlf4j = { exclude group: 'org.slf4j', module: 'slf4j-api' }
+  compile 'org.mongodb:mongodb-crypt:1.0.1', withoutSlf4j
 }
 
 
 jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    into('META-INF/lib') {
-        from(configurations.runtimeClasspath)
-    }
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  into('META-INF/lib') {
+    from(configurations.runtimeClasspath)
+  }
 
-    manifest {
-        attributes("Spring-Context": "*;publish-context:=false")
-    }
+  manifest {
+    attributes("Spring-Context": "*;publish-context:=false")
+  }
 
-    from sourceSets.main.allSource
+  from sourceSets.main.allSource
 
 }
 
 
 task deployToVm {
-    group = 'install'
-    dependsOn jar
+  group = 'install'
+  dependsOn jar
 
-    doLast {
-        ssh.run {
-            session(remotes.vmware) {
-                put from: 'build/libs/ps-plugin-MongoDbConnectedSystem-1.1.jar', into: '/opt/appian/20.2/_admin/plugins/'
-            }
-        }
+  doLast {
+    ssh.run {
+      session(remotes.vmware) {
+        put from: 'build/libs/ps-plugin-MongoDbConnectedSystem-1.2.jar', into: '/opt/appian/19.4/_admin/plugins/'
+      }
     }
+  }
 }

@@ -3,7 +3,7 @@
     <plugin-info>
         <description>MongoDB Connected System for Appian</description>
         <vendor name="Appian Solutions Consulting" url="http://www.appian.com"/>
-        <version>1.1.0.0</version>
+        <version>1.1.0.1</version>
         <application-version min="19.4.0.0"/>
     </plugin-info>
 

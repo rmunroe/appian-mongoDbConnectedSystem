@@ -11,7 +11,7 @@ import com.appiancorp.suiteapi.type.AppianType;
 import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.bson.Document;
 
 import javax.xml.namespace.QName;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @MongoDbCategory
 public class M_FromJson {
-    private static final Logger LOG = Logger.getLogger(M_FromJson.class);
+//    private static final Logger LOG = Logger.getLogger(M_FromJson.class);
 
     /**
      * Copies the values from a BSON Document into an Appian Dictionary
@@ -115,12 +115,12 @@ public class M_FromJson {
         }
 
         // Worst case, return the value as a String
-        return typeFactory.createString("Unsupported data type: " + value.toString());
+        return typeFactory.createString("Unsupported data type: " + value);
     }
 
     @Function
-    public TypedValue m_FromJson(TypeService typeService, @Parameter String json) throws Exception {
-        LOG.debug("m_FromJson was called; create a dictionary and return it");
+    public TypedValue m_FromJson(TypeService typeService, @Parameter String json) {
+//        LOG.debug("m_FromJson was called; create a dictionary and return it");
 
         AppianTypeFactory typeFactory = AppianTypeFactory.newInstance(typeService);
 
@@ -128,7 +128,7 @@ public class M_FromJson {
         try {
             doc = Document.parse(json);
         } catch (Exception e) {
-            LOG.error("Error parsing JSON");
+//            LOG.error("Error parsing JSON");
             return null;
         }
 

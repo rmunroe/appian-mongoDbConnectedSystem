@@ -4,13 +4,13 @@ import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MongoDbConnection {
-    private static final Logger LOG = Logger.getLogger(MongoDbConnection.class);
+//    private static final Logger LOG = Logger.getLogger(MongoDbConnection.class);
     // MongoClient instances are stored in a singleton HashMap, tied to unique connection string
     private static final Map<String, MongoClient> mongoMap = new HashMap<>();
     public static MongoDbConnection instance = new MongoDbConnection();
@@ -28,7 +28,7 @@ public class MongoDbConnection {
     }
 
     public MongoClient get(String connectionString) throws RuntimeException {
-        MongoClient mongo = null;
+        MongoClient mongo;
 
         if (mongoMap.containsKey(connectionString))
             return mongoMap.get(connectionString);

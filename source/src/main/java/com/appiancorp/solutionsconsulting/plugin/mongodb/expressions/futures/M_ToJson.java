@@ -15,7 +15,7 @@ import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
 import com.appiancorp.type.AppianTypeLong;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.bson.Document;
 
 import javax.xml.bind.JAXBException;
@@ -31,12 +31,12 @@ import java.util.Map;
 
 @MongoDbCategory
 public class M_ToJson {
-    private static final Logger LOG = Logger.getLogger(M_ToJson.class);
+//    private static final Logger LOG = Logger.getLogger(M_ToJson.class);
 
 
     @Function
     public String m_ToJson(TypeService typeService, ContentService contentService, @Parameter TypedValue value) throws Exception {
-        LOG.debug("m_ToJson was called");
+//        LOG.debug("m_ToJson was called");
 
         try {
             return MongoDbJsonHelper.typedValueToDocument(typeService, value).toJson();

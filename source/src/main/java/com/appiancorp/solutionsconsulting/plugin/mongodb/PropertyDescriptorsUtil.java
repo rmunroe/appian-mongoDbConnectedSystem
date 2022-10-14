@@ -263,7 +263,7 @@ public class PropertyDescriptorsUtil {
 
 
     public void buildCollectionFindProperties() {
-        buildFilterJsonProperty(true);
+        buildFilterJsonProperty(false);
 
         propertyDescriptors.add(TextPropertyDescriptor.builder()
                 .key(MongoDbConnectedSystemConstants.SORT_JSON)

@@ -3,11 +3,11 @@
     <plugin-info>
         <description>MongoDB Connected System for Appian</description>
         <vendor name="Appian Solutions Consulting" url="http://www.appian.com"/>
-        <version>1.1.0.2</version>
+        <version>1.2.0.0</version>
         <application-version min="19.4.0.0"/>
     </plugin-info>
 
-    <function-category key="MongoDbCategory" name="MongoDb CS Helper"/>
+    <function-category key="MongoDbCategory" name="MongoDB CS Helper"/>
 
     <datatype key="MongoDb" name="Mongo DB Data Types">
         <class>com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId</class>
@@ -18,6 +18,9 @@
 
     <function key="M_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_Now"/>
     <function key="M_ObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ObjectId"/>
+
+    <function key="M_FormatJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FormatJson"/>
+    <function key="M_GetSortJson" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_GetSortJson"/>
 
     <function key="M_Query" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Query"/>
     <function key="M_Field" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.M_Field"/>

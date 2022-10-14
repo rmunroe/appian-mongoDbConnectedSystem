@@ -127,7 +127,14 @@ public class MongoDbUtility {
             collection = collection.withReadConcern(getReadConcern(op.getReadConcern()));
         }
 
-        FindIterable<Document> results = collection.find(op.getFilterDocument());
+        Document filterDoc = op.getFilterDocument();
+
+        FindIterable<Document> results;
+        if (filterDoc == null) {
+            results = collection.find();
+        } else {
+            results = collection.find(filterDoc);
+        }
 
         if (op.getSortDocument() != null) results.sort(op.getSortDocument());
         if (op.getProjectionDocument() != null) results.projection(op.getProjectionDocument());
@@ -158,9 +165,6 @@ public class MongoDbUtility {
 
     public List<Map<String, Object>> aggregate(CollectionAggregateOperation op) throws MissingDatabaseException, MissingCollectionException {
         List<Map<String, Object>> results = new ArrayList<>();
-//        Consumer<Document> documentConsumer = results::add;
-
-//        aggregateExec(op).forEach(documentConsumer);
 
         for (Document doc : aggregateExec(op)) {
             results.add(MongoDocumentUtil.prepDocumentForOutput(doc, true, false));

@@ -18,8 +18,8 @@ apply plugin: 'java'
 
 apply plugin: 'org.hidetake.ssh'
 remotes {
-  vmware {
-    host = 'ubuntu-server'
+  appian {
+    host = '10.0.0.26'
     user = 'appian'
     password = 'appian'
   }
@@ -72,9 +72,17 @@ task deployToVm {
 
   doLast {
     ssh.run {
-      session(remotes.vmware) {
-        put from: 'build/libs/ps-plugin-MongoDbConnectedSystem-1.2.jar', into: '/opt/appian/19.4/_admin/plugins/'
+      session(remotes.appian) {
+        put from: "$projectDir/build/libs/appian-mongoDbConnectedSystem-1.1.0.1.jar", into: '/opt/appian/22.2/_admin/plugins/'
       }
     }
   }
 }
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+// If this shows as an error in IntelliJ, simply ignore
+//version = new groovy.xml.XmlSlurper().parse(file('src/main/resources/appian-plugin.xml')).'plugin-info'.version
+version = "1.1.0.1"

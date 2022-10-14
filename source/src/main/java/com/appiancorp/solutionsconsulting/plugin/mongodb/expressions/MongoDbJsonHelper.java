@@ -102,8 +102,6 @@ public class MongoDbJsonHelper {
      * @param typeService
      * @param typedValue
      * @return
-     * @throws JAXBException
-     * @throws ParseException
      */
     public static String getJsonValueFromDictOrString(TypeService typeService, TypedValue typedValue) throws JAXBException, ParseException {
         if (AppianTypeHelper.isListDictOrCdt(typeService, typedValue)) {
@@ -127,6 +125,11 @@ public class MongoDbJsonHelper {
 
     public static String getJsonValueFromObject(Object valObject, Boolean noQuotes) {
         String valString;
+
+        // If we get here with a TypedValue, pull the value out into valObject
+        if (valObject instanceof TypedValue) {
+            valObject = ((TypedValue) valObject).getValue();
+        }
 
         if (valObject == null || (valObject instanceof String && StringUtils.isEmpty(valObject.toString()))) {
             valString = "null";

@@ -1,88 +1,82 @@
-//version '1.2'
-
-
 buildscript {
-  repositories {
-//    jcenter()
-  }
-  dependencies {
-    classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
-  }
+    dependencies {
+        classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
+    }
 }
 
 plugins {
-  id "org.owasp.dependencycheck" version "6.5.3"
+    id 'java'
+    id 'groovy'
+    id 'org.owasp.dependencycheck' version '7.1.2'
 }
-
-apply plugin: 'java'
-
-apply plugin: 'org.hidetake.ssh'
-remotes {
-  appian {
-    host = '10.0.0.26'
-    user = 'appian'
-    password = 'appian'
-  }
-}
-
-
 
 repositories {
-  mavenCentral()
+    mavenCentral()
+    flatDir {
+        dirs 'lib-compile'
+    }
 }
 
-
 dependencies {
-  compileOnly 'com.appian:connected-systems-core:1.2.0'
-  implementation 'com.appian:connected-systems-client:1.1.0'
-  testImplementation 'com.appian:connected-systems-core:1.2.0'
+    compileOnly 'com.appian:connected-systems-core:1.2.0'
+    implementation 'com.appian:connected-systems-client:1.1.0'
+    testImplementation 'com.appian:connected-systems-core:1.2.0'
 
-  // Appian (non-CS) plugin dependencies
-  compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
-  compile fileTree(dir: 'dependencies/lib', include: '*.jar')
+    compileOnly fileTree(dir: 'dependencies/lib-compile', include: '*.jar')
+    implementation fileTree(dir: 'dependencies/lib', include: '*.jar')
 
-//    compileOnly group: 'log4j', name: 'log4j', version: '1.2.17'
-  compileOnly group: 'commons-lang', name: 'commons-lang', version: '2.4'
+    implementation 'org.mongodb:mongodb-driver-sync:3.12.10'
+    implementation 'org.mongodb:mongodb-crypt:1.0.1', { exclude group: 'org.slf4j', module: 'slf4j-api' }
 
-  compile group: 'org.mongodb', name: 'mongodb-driver-sync', version: '3.12.10'
-
-  def withoutSlf4j = { exclude group: 'org.slf4j', module: 'slf4j-api' }
-  compile 'org.mongodb:mongodb-crypt:1.0.1', withoutSlf4j
+    // These are found in Appian's classpath (<APPIAN_HOME>/deployment/web.war/WEB-INF/lib)
+    compileOnly 'org.apache.logging.log4j:log4j-1.2-api:2.17.1'
+    compileOnly 'commons-codec:commons-codec:1.13'
+    compileOnly 'commons-io:commons-io:2.9.0'
+    compileOnly 'commons-lang:commons-lang:2.4'
 }
 
 
 jar {
-  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  into('META-INF/lib') {
-    from(configurations.runtimeClasspath)
-  }
-
-  manifest {
-    attributes("Spring-Context": "*;publish-context:=false")
-  }
-
-  from sourceSets.main.allSource
-
-}
-
-
-task deployToVm {
-  group = 'install'
-  dependsOn jar
-
-  doLast {
-    ssh.run {
-      session(remotes.appian) {
-        put from: "$projectDir/build/libs/appian-mongoDbConnectedSystem-1.1.0.1.jar", into: '/opt/appian/22.2/_admin/plugins/'
-      }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    into('META-INF/lib') {
+        from(configurations.runtimeClasspath)
     }
-  }
+
+    into('src') {
+        from(sourceSets.main.allJava)
+    }
+
+    manifest {
+        attributes("Spring-Context": "*;publish-context:=false")
+    }
 }
+
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 
-// If this shows as an error in IntelliJ, simply ignore
-//version = new groovy.xml.XmlSlurper().parse(file('src/main/resources/appian-plugin.xml')).'plugin-info'.version
-version = "1.1.0.1"
+version = new groovy.xml.XmlSlurper().parse(file('src/main/resources/appian-plugin.xml')).'plugin-info'.version
+
+
+apply plugin: 'org.hidetake.ssh'
+remotes {
+    appian {
+        host = '10.0.0.26'
+        user = 'appian'
+        password = 'appian'
+    }
+}
+
+task deployToVm {
+    group = 'install'
+    dependsOn jar
+
+    doLast {
+        ssh.run {
+            session(remotes.appian) {
+                put from: "$projectDir/build/libs/${rootProject.name}-${version}.jar", into: '/opt/appian/22.2/_admin/plugins/'
+            }
+        }
+    }
+}

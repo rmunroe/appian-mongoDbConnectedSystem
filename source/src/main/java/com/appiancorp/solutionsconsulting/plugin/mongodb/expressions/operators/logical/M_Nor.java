@@ -5,12 +5,16 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MongoDbJson
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @MongoDbCategory
 public class M_Nor {
     @Function
     public String m_Nor(@Parameter String... queryExpressions) {
-        return MongoDbJsonHelper.buildArrayOperator("$nor", Arrays.asList(queryExpressions), true);
+        List<String> list = new ArrayList<String>(Arrays.asList(queryExpressions));
+        list.removeAll(Arrays.asList("", null));
+        return MongoDbJsonHelper.buildArrayOperator("$nor", list, true);
     }
 }

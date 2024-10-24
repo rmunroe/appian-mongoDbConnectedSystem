@@ -8,6 +8,6 @@ import com.appiancorp.suiteapi.expression.annotations.Parameter;
 public class M_ObjectId {
     @Function
     public String m_ObjectId(@Parameter String hexadecimal) {
-        return "{ \"$oid\": \"" + hexadecimal + "\" }";
+        return "ObjectId(\"" + hexadecimal + "\")";
     }
 }

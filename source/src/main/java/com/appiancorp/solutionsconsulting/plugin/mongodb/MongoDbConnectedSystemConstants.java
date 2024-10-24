@@ -60,6 +60,11 @@ public class MongoDbConnectedSystemConstants {
     public final static String INSERT_MANY_JSON = "INSERT_MANY_JSON";
     public final static String INSERT_ONE_JSON = "INSERT_ONE_JSON";
 
+    //EDITED: bulk-write
+    public final static String BULK_WRITE_JSON = "BULK_WRITE_JSON";
+    public final static String BULK_WRITE_IS_ORDERED = "BULK_WRITE_IS_ORDERED";
+    public final static String BULK_WRITE_CONCERN = "BULK_WRITE_CONCERN";
+
     public final static String INSERT_SKIP_DATETIME_CONVERSION = "INSERT_SKIP_DATETIME_CONVERSION";
 
     public final static String UPDATE_JSON = "UPDATE_JSON";

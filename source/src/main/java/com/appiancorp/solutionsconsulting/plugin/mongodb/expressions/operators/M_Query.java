@@ -8,6 +8,13 @@ import com.appiancorp.suiteapi.expression.annotations.Parameter;
 public class M_Query {
     @Function
     public String m_Query(@Parameter String... queryClauses) {
-        return "{ " + String.join(", ", queryClauses) + " }";
+        String clauses = String.join(", ", queryClauses)
+                .replaceAll("^\\s*", "")
+                .replaceAll("\\s*$", "");
+
+        if (!clauses.startsWith("{") && !clauses.endsWith("}"))
+            return "{ " + clauses + " }";
+        else
+            return clauses;
     }
 }

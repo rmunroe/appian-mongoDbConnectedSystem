@@ -11,7 +11,6 @@ import com.appiancorp.suiteapi.type.AppianType;
 import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
-//import org.apache.log4j.Logger;
 import org.bson.Document;
 
 import javax.xml.namespace.QName;
@@ -24,7 +23,6 @@ import java.util.List;
 
 @MongoDbCategory
 public class M_FromJson {
-//    private static final Logger LOG = Logger.getLogger(M_FromJson.class);
 
     /**
      * Copies the values from a BSON Document into an Appian Dictionary

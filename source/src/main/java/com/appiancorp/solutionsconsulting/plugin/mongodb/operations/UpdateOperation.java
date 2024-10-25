@@ -28,11 +28,17 @@ public class UpdateOperation extends CollectionWriteOperation {
 
         try {
             setFilterDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getFilterJson()), getSkipDateTimeConversion()));
+        } catch (Exception ex) {
+            throw new InvalidJsonException(
+                    "Update JSON: Invalid Filter JSON provided.",
+                    getFilterJson());
+        }
+        try {
             setUpdateDocument(MongoDocumentUtil.prepDocumentForInsert(Document.parse(getUpdateJson()), getSkipDateTimeConversion()));
         } catch (Exception ex) {
             throw new InvalidJsonException(
-                    "Update JSON: Invalid JSON provided.",
-                    getFilterJson());
+                    "Update JSON: Invalid Update Instructions JSON provided.",
+                    getUpdateJson());
         }
     }
 

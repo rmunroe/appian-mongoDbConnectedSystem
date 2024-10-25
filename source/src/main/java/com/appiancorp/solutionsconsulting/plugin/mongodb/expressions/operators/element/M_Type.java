@@ -6,6 +6,7 @@ import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
+import com.appiancorp.suiteapi.type.exceptions.InvalidTypeException;
 
 import javax.xml.bind.JAXBException;
 import java.text.ParseException;
@@ -15,10 +16,14 @@ public class M_Type {
     @Function
     public String m_Type(TypeService typeService, @Parameter TypedValue... types) throws JAXBException, ParseException {
         if (types.length == 1) {
-            if (typeService.getDatatypeProperties(types[0].getInstanceType()).getName().matches("^List of .*")) {
-                return MongoDbJsonHelper.buildArrayOperator("$type", MongoDbJsonHelper.getJsonValuesFromArray(typeService, types), false);
-            } else {
-                return MongoDbJsonHelper.buildBasicOperator(typeService, "$type", types[0]);
+            try {
+                if (typeService.getDatatypeProperties(types[0].getInstanceType()).getName().matches("^List of .*")) {
+                    return MongoDbJsonHelper.buildArrayOperator("$type", MongoDbJsonHelper.getJsonValuesFromArray(typeService, types), false);
+                } else {
+                    return MongoDbJsonHelper.buildBasicOperator(typeService, "$type", types[0]);
+                }
+            } catch (InvalidTypeException e) {
+                throw new RuntimeException(e);
             }
         } else {
             return MongoDbJsonHelper.buildArrayOperator("$type", MongoDbJsonHelper.getJsonValuesFromArray(typeService, types), false);

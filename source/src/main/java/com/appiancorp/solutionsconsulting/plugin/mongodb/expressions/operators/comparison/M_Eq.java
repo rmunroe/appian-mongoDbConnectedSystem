@@ -15,7 +15,7 @@ import java.text.ParseException;
 public class M_Eq {
     @Function
     public String m_Eq(TypeService typeService, @Parameter TypedValue value) throws JAXBException, ParseException {
-        if (value.getInstanceType() == AppianType.STRING && value.getValue().toString().startsWith("{ \"$oid\": \""))
+        if (value.getInstanceType() == AppianType.STRING && value.getValue().toString().startsWith("ObjectId(\""))
             return MongoDbJsonHelper.buildBasicOperator(typeService, "$eq", value, true);
         else
             return MongoDbJsonHelper.buildBasicOperator(typeService, "$eq", value);

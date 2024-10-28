@@ -11,6 +11,8 @@ import com.mongodb.client.MongoClient;
 public class MongoDbConnectedSystemTemplate extends SimpleTestableConnectedSystemTemplate {
 
     public static final String CONNECTION_STRING = "CONNECTION_STRING";
+//    public static final String MASTER_KEY = "MASTER_KEY";
+//    public static final String KEY_VAULT_NAMESPACE = "KEY_VAULT_NAMESPACE";
 
     @Override
     protected SimpleConfiguration getConfiguration(
@@ -26,6 +28,23 @@ public class MongoDbConnectedSystemTemplate extends SimpleTestableConnectedSyste
                         .masked(true)
                         .isRequired(true)
                         .build()
+
+//                encryptedTextProperty(MASTER_KEY)
+//                        .label("Encryption Master Key")
+//                        .description("Optional. This is the Master Key that was used to create the encryption key on your MongoDB instance.")
+//                        .isImportCustomizable(true)
+//                        .masked(true)
+//                        .isRequired(false)
+//                        .build(),
+//
+//                encryptedTextProperty(KEY_VAULT_NAMESPACE)
+//                        .label("Key Vault Namespace")
+//                        .description("Optional. This is the Key Vault Namespace for the encryption key on your MongoDB instance.")
+//                        .placeholder("admin.datakeys")
+//                        .isImportCustomizable(true)
+//                        .masked(true)
+//                        .isRequired(false)
+//                        .build()
         );
     }
 
@@ -33,16 +52,14 @@ public class MongoDbConnectedSystemTemplate extends SimpleTestableConnectedSyste
     @Override
     protected TestConnectionResult testConnection(SimpleConfiguration configuration, ExecutionContext executionContext) {
         try {
-            MongoClient mongoClient = MongoDbConnection.get(configuration.getValue(CONNECTION_STRING));
-            if (MongoDbConnection.testMongoDbConnection(mongoClient))
-                return TestConnectionResult.success();
-
+            MongoClient mongoClient = MongoDbConnection.instance.get(configuration.getValue(CONNECTION_STRING));
+            assert MongoDbConnection.testMongoDbConnection(mongoClient);
         } catch (Exception e) {
             String message = e.getClass().getSimpleName() + "\n\n" + e.getMessage();
             if (e.getCause() != null)
                 message += "\n\nCaused by: " + e.getCause().getMessage();
             return TestConnectionResult.error(message);
         }
-        return TestConnectionResult.error("Could not connect to MongoDB");
+        return TestConnectionResult.success();
     }
 }

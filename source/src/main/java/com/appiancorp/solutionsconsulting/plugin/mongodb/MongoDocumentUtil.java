@@ -38,9 +38,9 @@ public class MongoDocumentUtil {
             } else if (val instanceof Binary) {
                 Document binary = new Document();
                 binary.put("binary", Base64.getEncoder().encodeToString(
-                        ((Binary) val).getData()
+                        ((org.bson.types.Binary) val).getData()
                 ));
-                binary.put("type", "" + ((Binary) val).getType());
+                binary.put("type", "" + ((org.bson.types.Binary) val).getType());
                 document.put(key, binary);
 
             } else if (uuidAsString != null && uuidAsString && val instanceof UUID) {
@@ -58,6 +58,7 @@ public class MongoDocumentUtil {
 
             if (val instanceof Document) {
                 document.put(key, prepDocumentForInsert((Document) val, skipDateTimeConversion)); // recurse
+
             } else if (!skipDateTimeConversion && val instanceof String && ((String) val).matches(isoDateTimePattern)) {
                 // Value matches an ISO date time. Convert it.
                 document.put(key, Document.parse("{ \"" + key + "\": ISODate(\"" + val + "\") }").get(key));

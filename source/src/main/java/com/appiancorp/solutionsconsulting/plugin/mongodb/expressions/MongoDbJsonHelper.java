@@ -5,14 +5,13 @@ import com.appiancorp.core.data.TimestampWithTimezone;
 import com.appiancorp.ps.plugins.typetransformer.AppianTypeFactory;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.AppianTypeHelper;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Binary;
-import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Point;
+import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId;
 import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
-import com.appiancorp.suiteapi.type.exceptions.InvalidTypeException;
 import com.appiancorp.type.AppianTypeLong;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
 
 import javax.xml.bind.JAXBException;
@@ -23,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MongoDbJsonHelper {
-
 
     public static Document typedValueToDocument(TypeService typeService, TypedValue typedValue) throws JAXBException, ParseException {
         AppianTypeFactory typeFactory = AppianTypeFactory.newInstance(typeService);
@@ -176,19 +174,15 @@ public class MongoDbJsonHelper {
     }
 
     public static String getJsonValueFromTypedValue(TypeService typeService, TypedValue value, Boolean noQuotes) {
-        try {
-            if (typeService.getDatatypeProperties(value.getInstanceType()).getName().equals("Boolean")) {
-                // Special case for handling booleans. Appian returns them as a Long, 1 if true.
-                return value.getValue().equals(1L) ? getJsonValueFromObject(true) : getJsonValueFromObject(false);
+        if (typeService.getDatatypeProperties(value.getInstanceType()).getName().equals("Boolean")) {
+            // Special case for handling booleans. Appian returns them as a Long, 1 if true.
+            return value.getValue().equals(1L) ? getJsonValueFromObject(true) : getJsonValueFromObject(false);
 
-            } else if (value.getValue() instanceof String) {
-                // Special handling for string values
-                if (((String) value.getValue()).matches("^ObjectId\\(\".*\"\\)$")) {
-                    return value.getValue().toString();
-                }
+        } else if (value.getValue() instanceof String) {
+            // Special handling for string values
+            if (((String) value.getValue()).matches("^ObjectId\\(\".*\"\\)$")) {
+                return value.getValue().toString();
             }
-        } catch (InvalidTypeException e) {
-            throw new RuntimeException(e);
         }
 
         // No special case matched
@@ -199,28 +193,24 @@ public class MongoDbJsonHelper {
     public static List<String> getJsonValuesFromArray(TypeService typeService, TypedValue[] array) {
         List<String> jsonValues = new ArrayList<>();
 
-        try {
-            if (array.length == 1 &&
-                    typeService.getDatatypeProperties(array[0].getInstanceType()).getName().matches("^List of .*")) {
-                for (Object object : (Object[]) array[0].getValue())
-                    jsonValues.add(getJsonValueFromObject(object));
-            } else {
-                for (TypedValue typedValue : array)
-                    jsonValues.add(getJsonValueFromObject(typedValue.getValue()));
-            }
-        } catch (InvalidTypeException e) {
-            throw new RuntimeException(e);
+        if (array.length == 1 &&
+                typeService.getDatatypeProperties(array[0].getInstanceType()).getName().matches("^List of .*")) {
+            for (Object object : (Object[]) array[0].getValue())
+                jsonValues.add(getJsonValueFromObject(object));
+        } else {
+            for (TypedValue typedValue : array)
+                jsonValues.add(getJsonValueFromObject(typedValue.getValue()));
         }
 
         return jsonValues;
     }
 
     public static String buildBasicOperator(String operator, Object value, Boolean noQuotes) {
-        return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes) + " }";
+        return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes);
     }
 
     public static String buildBasicOperator(String operator, Object value) {
-        return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value) + " }";
+        return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value);
     }
 
 
@@ -230,20 +220,20 @@ public class MongoDbJsonHelper {
 
     public static String buildBasicOperator(TypeService typeService, String operator, TypedValue value, Boolean noQuotes) throws JAXBException, ParseException {
         if (AppianTypeHelper.isListDictOrCdt(typeService, value))
-            return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value) + " }";
+            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value);
         else
-            return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes) + " }";
+            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes);
     }
 
 
     public static String buildArrayOperator(String operator, List<String> jsonValues, Boolean encloseEachInBraces) {
         if (encloseEachInBraces)
             for (int i = 0; i < jsonValues.size(); i++) {
-                if (!jsonValues.get(i).matches("^\\s*\\{.*}$"))
+                if (!jsonValues.get(i).matches("/^\\{.*}$"))
                     jsonValues.set(i, "{ " + jsonValues.get(i) + " }");
             }
 
-        return "{ \"" + operator + "\": [ " + String.join(", ", jsonValues) + " ] }";
+        return "\"" + operator + "\": [ " + String.join(", ", jsonValues) + " ]";
     }
 
 

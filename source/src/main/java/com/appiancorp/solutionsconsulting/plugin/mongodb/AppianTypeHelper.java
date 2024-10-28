@@ -1,5 +1,6 @@
 package com.appiancorp.solutionsconsulting.plugin.mongodb;
 
+import com.appiancorp.ps.plugins.typetransformer.AppianElement;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidCdtException;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidDictionaryException;
 import com.appiancorp.suiteapi.type.Datatype;

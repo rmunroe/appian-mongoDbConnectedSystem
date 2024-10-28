@@ -9,6 +9,6 @@ import com.appiancorp.suiteapi.expression.annotations.Parameter;
 public class M_Regex {
     @Function
     public String m_Regex(@Parameter String regex, @Parameter String options) {
-        return MongoDbJsonHelper.buildBasicOperator("$regex", "/" + regex + "/" + options, true);
+        return MongoDbJsonHelper.buildBasicOperator("$regex", "/" + regex + "/" + options);
     }
 }

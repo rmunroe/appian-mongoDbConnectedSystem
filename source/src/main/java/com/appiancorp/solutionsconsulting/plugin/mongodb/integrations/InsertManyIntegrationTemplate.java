@@ -8,7 +8,7 @@ import com.appian.connectedsystems.templateframework.sdk.configuration.*;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateRequestPolicy;
 import com.appian.connectedsystems.templateframework.sdk.metadata.IntegrationTemplateType;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.InsertManyOperation;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

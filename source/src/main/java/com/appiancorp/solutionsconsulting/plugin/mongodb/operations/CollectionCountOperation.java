@@ -2,7 +2,7 @@ package com.appiancorp.solutionsconsulting.plugin.mongodb.operations;
 
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
 import com.mongodb.client.model.Collation;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
 
 import java.util.Map;

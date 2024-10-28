@@ -5,6 +5,7 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Point;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MongoDbJsonHelper;
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
+import com.appiancorp.suiteapi.type.Type;
 
 @MongoDbCategory
 public class M_GeoWithinBox {

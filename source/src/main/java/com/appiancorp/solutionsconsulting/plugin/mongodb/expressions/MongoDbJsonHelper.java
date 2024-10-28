@@ -12,6 +12,7 @@ import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
 import com.appiancorp.type.AppianTypeLong;
 import org.apache.commons.lang.StringUtils;
+import org.bson.BsonDocument;
 import org.bson.Document;
 
 import javax.xml.bind.JAXBException;
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MongoDbJsonHelper {
+
 
     public static Document typedValueToDocument(TypeService typeService, TypedValue typedValue) throws JAXBException, ParseException {
         AppianTypeFactory typeFactory = AppianTypeFactory.newInstance(typeService);
@@ -125,10 +127,15 @@ public class MongoDbJsonHelper {
 
     public static String getJsonValueFromObject(Object valObject, Boolean noQuotes) {
         String valString;
+        Long typeNum;
 
         // If we get here with a TypedValue, pull the value out into valObject
         if (valObject instanceof TypedValue) {
-            valObject = ((TypedValue) valObject).getValue();
+            // Special handling for Boolean TypedValues
+            if (Objects.equals(((TypedValue) valObject).getInstanceType(), AppianTypeLong.BOOLEAN))
+                valObject = ((Long) ((TypedValue) valObject).getValue()) == 1;
+            else
+                valObject = ((TypedValue) valObject).getValue();
         }
 
         if (valObject == null || (valObject instanceof String && StringUtils.isEmpty(valObject.toString()))) {
@@ -206,11 +213,11 @@ public class MongoDbJsonHelper {
     }
 
     public static String buildBasicOperator(String operator, Object value, Boolean noQuotes) {
-        return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes);
+        return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes) + " }";
     }
 
     public static String buildBasicOperator(String operator, Object value) {
-        return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value);
+        return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value) + " }";
     }
 
 
@@ -220,20 +227,20 @@ public class MongoDbJsonHelper {
 
     public static String buildBasicOperator(TypeService typeService, String operator, TypedValue value, Boolean noQuotes) throws JAXBException, ParseException {
         if (AppianTypeHelper.isListDictOrCdt(typeService, value))
-            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value);
+            return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value) + " }";
         else
-            return "\"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes);
+            return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes) + " }";
     }
 
 
     public static String buildArrayOperator(String operator, List<String> jsonValues, Boolean encloseEachInBraces) {
         if (encloseEachInBraces)
             for (int i = 0; i < jsonValues.size(); i++) {
-                if (!jsonValues.get(i).matches("/^\\{.*}$"))
+                if (!jsonValues.get(i).matches("^\\s*\\{.*}$"))
                     jsonValues.set(i, "{ " + jsonValues.get(i) + " }");
             }
 
-        return "\"" + operator + "\": [ " + String.join(", ", jsonValues) + " ]";
+        return "{ \"" + operator + "\": [ " + String.join(", ", jsonValues) + " ] }";
     }
 
 
@@ -243,5 +250,15 @@ public class MongoDbJsonHelper {
             pointStrings.add(point.toString());
         }
         return "[ " + String.join(", ", pointStrings) + " ]";
+    }
+
+
+    public static boolean isValidJson(String json) {
+        try {
+            BsonDocument bsonDocument = BsonDocument.parse(json);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

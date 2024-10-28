@@ -5,9 +5,9 @@ import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 
 @MongoDbCategory
-public class M_ObjectId {
+public class M_FindByObjectId {
     @Function
-    public String m_ObjectId(@Parameter String hexadecimal) {
-        return "ObjectId(\"" + hexadecimal + "\")";
+    public String m_FindByObjectId(@Parameter String hexadecimal) {
+        return "{ \"_id\": ObjectId(\"" + hexadecimal + "\") }";
     }
 }

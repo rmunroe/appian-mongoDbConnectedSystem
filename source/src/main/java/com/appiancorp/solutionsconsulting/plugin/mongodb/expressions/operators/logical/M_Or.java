@@ -5,12 +5,16 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.MongoDbJson
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @MongoDbCategory
 public class M_Or {
     @Function
     public String m_Or(@Parameter String... queryExpressions) {
-        return MongoDbJsonHelper.buildArrayOperator("$or", Arrays.asList(queryExpressions), true);
+        List<String> list = new ArrayList<String>(Arrays.asList(queryExpressions));
+        list.removeAll(Arrays.asList("", null));
+        return MongoDbJsonHelper.buildArrayOperator("$or", list, true);
     }
 }

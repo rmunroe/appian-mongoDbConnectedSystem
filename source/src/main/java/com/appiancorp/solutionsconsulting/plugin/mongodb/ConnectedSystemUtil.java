@@ -4,6 +4,7 @@ import com.appian.connectedsystems.templateframework.sdk.IntegrationError;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.diagnostics.IntegrationDesignerDiagnostic;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
+import com.mongodb.internal.build.MongoDriverVersion;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class ConnectedSystemUtil {
     public ConnectedSystemUtil(String method) {
         requestDiagnostics = new HashMap<>();
         responseDiagnostics = new HashMap<>();
-        responseDiagnostics.put("MongoDB Java Driver API", "org.mongodb:mongodb-driver-sync:3.12.5");
+        responseDiagnostics.put("MongoDB Java Sync Driver Version", MongoDriverVersion.VERSION);
         responseDiagnostics.put("Method Used", method);
         response = new HashMap<>();
     }
@@ -37,7 +38,6 @@ public class ConnectedSystemUtil {
 
     public long getTiming() {
         if (startTime == null || endTime == null) {
-            System.out.println("Start or End was never called, timing is invalid");
             return -1;
         }
         return endTime - startTime;

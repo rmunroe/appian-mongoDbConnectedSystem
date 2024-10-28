@@ -3,8 +3,8 @@
     <plugin-info>
         <description>MongoDB Connected System for Appian</description>
         <vendor name="Appian Solutions Consulting" url="http://www.appian.com"/>
-        <version>1.2.0</version>
-        <application-version min="19.4.0.0"/>
+        <version>1.3.3</version>
+        <application-version min="22.2"/>
     </plugin-info>
 
     <function-category key="MongoDbCategory" name="MongoDB CS Helper"/>
@@ -16,6 +16,7 @@
     </datatype>
 
 
+    <function key="M_FindByObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_FindByObjectId"/>
     <function key="M_Now" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_Now"/>
     <function key="M_ObjectId" class="com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.M_ObjectId"/>
 

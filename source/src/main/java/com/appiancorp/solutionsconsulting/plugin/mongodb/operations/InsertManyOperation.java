@@ -5,6 +5,7 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonE
 import org.bson.Document;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -40,17 +41,16 @@ public class InsertManyOperation extends CollectionWriteOperation {
         setFileIsArray(fileIsArray);
 
         if (getInsertSource().equals(INSERT_SOURCE_DOCUMENT)) {
-            InputStream inputStream = sourceFile.getInputStream();
-            if (getFileIsArray()) {
-                // Read entire file contents into JSON array
-                sourceJsonArray = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                        .lines()
-                        .collect(Collectors.joining(""));
-            } else {
-                // Create a single JSON array from the file contents
-                sourceJsonArray = "[" + new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                        .lines()
-                        .collect(Collectors.joining(", ")) + "]";
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(sourceFile.getInputStream(), StandardCharsets.UTF_8))) {
+                if (getFileIsArray()) {
+                    // Read entire file contents into JSON array
+                    sourceJsonArray = br.lines().collect(Collectors.joining("\n"));
+                } else {
+                    // Create a single JSON array from the file contents
+                    sourceJsonArray = "[" + br.lines().collect(Collectors.joining(", ")) + "]";
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 

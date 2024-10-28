@@ -24,7 +24,7 @@ public class MongoDbUtility {
     private final MongoClient mongoClient;
 
     public MongoDbUtility(SimpleConfiguration connectedSystemConfiguration) {
-        this.mongoClient = MongoDbConnection.instance.get(connectedSystemConfiguration.getValue(MongoDbConnectedSystemTemplate.CONNECTION_STRING));
+        this.mongoClient = MongoDbConnection.get(connectedSystemConfiguration.getValue(MongoDbConnectedSystemTemplate.CONNECTION_STRING));
     }
 
 

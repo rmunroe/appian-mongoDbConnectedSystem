@@ -4,8 +4,9 @@ import com.appian.connectedsystems.templateframework.sdk.IntegrationError;
 import com.appian.connectedsystems.templateframework.sdk.IntegrationResponse;
 import com.appian.connectedsystems.templateframework.sdk.diagnostics.IntegrationDesignerDiagnostic;
 import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidJsonException;
+import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.InvalidMongoOperationException;
 import com.mongodb.internal.build.MongoDriverVersion;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,12 +99,22 @@ public class ConnectedSystemUtil {
                     e.getMessage(),
                     ((InvalidJsonException) e).jsonString
             );
-        } else {
+        }else if (e instanceof InvalidMongoOperationException) {
+            return buildApiExceptionError(
+                    "Invalid Bulk Write Operation",
+                    "An invalid operation was provided in the list of operations JSON.",
+                    e.getMessage()
+            );
+        }else {
             String message = e.getMessage();
             String detail = "";
             if (message.contains("The full response is")) {
                 detail = message.replaceAll("^.* The full response is ", "");
                 message = message.replaceAll(" The full response is .*$", "");
+            }
+            if (detail.isEmpty()) {
+                detail = message;
+                message = "Something went wrong - "+e.getClass().getName();
             }
             return buildApiExceptionError(
                     String.join(" ", StringUtils.splitByCharacterTypeCamelCase(e.getClass().getSimpleName())),

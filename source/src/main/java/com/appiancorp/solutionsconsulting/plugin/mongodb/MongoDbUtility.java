@@ -6,11 +6,14 @@ import com.appiancorp.solutionsconsulting.plugin.mongodb.exceptions.MissingDatab
 import com.appiancorp.solutionsconsulting.plugin.mongodb.operations.*;
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
+import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.*;
+import com.mongodb.client.model.BulkWriteOptions;
 import com.mongodb.client.model.DeleteOptions;
+import com.mongodb.client.model.WriteModel;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -268,6 +271,17 @@ public class MongoDbUtility {
         return getDocumentFromDeleteResult(collection.deleteMany(op.getFilterDocument()));
     }
 
+    /**
+     * bulkWrite - Executes the bulk write operation in the Mongo DB instance.
+     * */
+    public BulkWriteResult bulkWrite(BulkWriteOperation op) throws MissingDatabaseException, MissingCollectionException {
+        MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());
+        MongoCollection<Document> collection = getCollection(database, op.getCollectionName(), op.getValidateCollection());
+
+        List<WriteModel<Document>> operations = op.getBulkWriteOperations();
+        BulkWriteOptions options = new BulkWriteOptions().ordered(op.getIsOrdered());
+        return collection.bulkWrite(operations, options);
+    }
 
     public boolean dropCollection(DropCollectionOperation op) throws MissingDatabaseException, MissingCollectionException {
         MongoDatabase database = getDatabase(op.getDatabaseName(), op.getValidateDatabase());

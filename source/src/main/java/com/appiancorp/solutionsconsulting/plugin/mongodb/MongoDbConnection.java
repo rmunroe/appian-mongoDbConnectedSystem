@@ -4,8 +4,9 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class MongoDbConnection {
-    private static final Logger LOG = Logger.getLogger(MongoDbConnection.class);
+    private static final Logger LOG = (Logger) LogManager.getLogger(MongoDbConnection.class);
     // MongoClient instances are stored in a singleton HashMap, tied to unique connection string
     private static final Map<String, MongoClient> mongoMap = new HashMap<>();
 

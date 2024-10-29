@@ -67,4 +67,9 @@ public class MongoDbConnectedSystemConstants {
     public final static String REPLACE_ONE_JSON = "REPLACE_ONE_JSON";
 
     public final static String INDEX_JSON = "INDEX_JSON";
+
+    //EDITED: bulk-write
+    public final static String BULK_WRITE_JSON = "BULK_WRITE_JSON";
+    public final static String BULK_WRITE_IS_ORDERED = "BULK_WRITE_IS_ORDERED";
+    public final static String BULK_WRITE_CONCERN = "BULK_WRITE_CONCERN";
 }

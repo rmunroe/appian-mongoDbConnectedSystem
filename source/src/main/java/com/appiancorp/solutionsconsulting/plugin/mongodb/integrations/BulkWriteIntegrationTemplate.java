@@ -32,7 +32,7 @@ public class BulkWriteIntegrationTemplate extends MongoDbIntegrationTemplate {
         try {
             this.setupConfiguration(integrationConfiguration, connectedSystemConfiguration, propertyPath, executionContext);
         } catch (Exception e) {
-            LOGGER.error("Failed to setup configurations. "+e.getLocalizedMessage(), e);
+            LOGGER.error("Failed to setup configurations. {}", e.getLocalizedMessage(), e);
         }
 
         //build properties

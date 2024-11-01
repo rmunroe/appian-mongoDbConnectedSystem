@@ -3,7 +3,7 @@ package com.appiancorp.solutionsconsulting.plugin.mongodb.expressions.operators.
 import com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbCategory;
 import com.appiancorp.suiteapi.expression.annotations.Function;
 import com.appiancorp.suiteapi.expression.annotations.Parameter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @MongoDbCategory
 public class M_Text {

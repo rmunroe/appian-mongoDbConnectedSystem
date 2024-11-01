@@ -11,7 +11,7 @@ import com.appiancorp.suiteapi.type.Datatype;
 import com.appiancorp.suiteapi.type.TypeService;
 import com.appiancorp.suiteapi.type.TypedValue;
 import com.appiancorp.type.AppianTypeLong;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.BsonDocument;
 import org.bson.Document;
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="amcs"
+                 name="Appian MongoDB Connected System"
+                 start-page="Introduction.md">
+
+    <toc-element topic="Introduction.md"/>
+    <toc-element topic="Connected-System.md"/>
+    <toc-element topic="Integrations.md"/>
+    <toc-element topic="Expressions.md"/>
+    <toc-element topic="Changelog.md"/>
+</instance-profile>

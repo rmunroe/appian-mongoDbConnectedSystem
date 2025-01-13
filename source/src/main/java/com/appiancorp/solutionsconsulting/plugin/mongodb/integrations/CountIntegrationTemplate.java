@@ -23,9 +23,34 @@ import java.util.Map;
 import static com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemConstants.*;
 
 
+/**
+ * The CountIntegrationTemplate class is an integration template used to count
+ * the number of documents in a specified collection within a MongoDB database.
+ * It extends the SimpleIntegrationTemplate to leverage integration capabilities
+ * such as configuration and execution processing.
+ *
+ * <p>
+ * This template allows users to specify database and collection details, along
+ * with optional parameters such as a filter for query criteria, collation settings,
+ * read preferences, and read concerns during the count operation.
+ * </p>
+ *
+ * @author Rob Munroe
+ * @since 1.0
+ */
 @TemplateId(name = "CountIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.READ)
 public class CountIntegrationTemplate extends SimpleIntegrationTemplate {
+    /**
+     * Configures and returns a SimpleConfiguration object for the integration by building properties
+     * based on the provided configurations and context.
+     *
+     * @param integrationConfiguration the integration configuration provided by the system
+     * @param connectedSystemConfiguration the configuration of the connected system
+     * @param propertyPath the property path related to the integration's properties
+     * @param executionContext the context in which the integration is being executed
+     * @return a configured SimpleConfiguration with the appropriate properties set
+     */
     @Override
     protected SimpleConfiguration getConfiguration(
             SimpleConfiguration integrationConfiguration,
@@ -52,6 +77,15 @@ public class CountIntegrationTemplate extends SimpleIntegrationTemplate {
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
+    /**
+     * Executes the CountIntegrationTemplate operation, performing a collection count based on the provided
+     * configuration and context.
+     *
+     * @param integrationConfiguration the configuration for the integration containing details like database name, collection name, filters, and read options.
+     * @param connectedSystemConfiguration the configuration details for the connected system such as authentication and connection information.
+     * @param executionContext the context of the execution, providing information such as logging and diagnostic utilities.
+     * @return an IntegrationResponse indicating the result of the execution, including success or error state with additional details.
+     */
     @Override
     protected IntegrationResponse execute(
             SimpleConfiguration integrationConfiguration,

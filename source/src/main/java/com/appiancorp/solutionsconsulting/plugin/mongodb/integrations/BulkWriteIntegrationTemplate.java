@@ -19,13 +19,42 @@ import java.util.Map;
 
 import static com.appiancorp.solutionsconsulting.plugin.mongodb.MongoDbConnectedSystemConstants.*;
 
-//EDITED: bulk-write
+/**
+ * A template for performing bulk write operations using the MongoDB `bulkWrite()` API.
+ * This class extends the {@link MongoDbIntegrationTemplate} to provide integrations
+ * for bulk insert, update, delete, and replace operations on MongoDB collections.
+ *
+ * <p>
+ * This integration allows configuration of the database and collection, as well as details
+ * of the bulk write operations to be executed. It supports both ordered and unordered execution
+ * of bulk operations.
+ * </p>
+ *
+ * <p>
+ * This class is annotated with {@code IntegrationTemplateRequestPolicy.WRITE}, indicating
+ * that it performs write operations and potentially modifies data.
+ * </p>
+ *
+ * @author Vuram SWAT
+ * @since 1.4
+ */
 @TemplateId(name = "BulkWriteIntegrationTemplate")
 @IntegrationTemplateType(IntegrationTemplateRequestPolicy.WRITE)
 public class BulkWriteIntegrationTemplate extends MongoDbIntegrationTemplate {
     private static final String API_METHOD_NAME = "MongoCollection.bulkWrite()";
     private static final Logger LOGGER = (Logger) LogManager.getLogger(BulkWriteIntegrationTemplate.class);
 
+    /**
+     * Configures the integration parameters for the bulk write operation.
+     * This method sets up and updates property descriptors for the configuration
+     * based on the provided integration and connected system configurations.
+     *
+     * @param integrationConfiguration     the configuration specific to the integration
+     * @param connectedSystemConfiguration the configuration of the connected system
+     * @param propertyPath                 the path of the property in the current configuration
+     * @param executionContext             the execution context of the integration
+     * @return the fully configured SimpleConfiguration instance with updated property descriptors
+     */
     @Override
     protected SimpleConfiguration getConfiguration(SimpleConfiguration integrationConfiguration, SimpleConfiguration connectedSystemConfiguration, PropertyPath propertyPath, ExecutionContext executionContext) {
         //set up configurations
@@ -67,6 +96,20 @@ public class BulkWriteIntegrationTemplate extends MongoDbIntegrationTemplate {
         return integrationConfiguration.setProperties(propertyDescriptors.toArray(new PropertyDescriptor[0]));
     }
 
+    /**
+     * Executes the MongoDB Bulk Write Integration and returns an {@link IntegrationResponse}.
+     * This method performs validation on the input configuration, constructs a {@link BulkWriteOperation},
+     * executes the operation, and returns the results back to the integration framework.
+     *
+     * @param integrationConfiguration the configuration provided for the specific integration execution.
+     *                                  This includes necessary parameters such as database name, collection name,
+     *                                  and bulk write operations.
+     * @param connectedSystemConfiguration the connected system configuration passed to the integration,
+     *                                      which provides details such as the MongoDB connection string.
+     * @param executionContext provides contextual information about the execution environment.
+     * @return an {@link IntegrationResponse} containing the result of the integration execution.
+     *         In case of an error, it returns an error-type response with diagnostic information.
+     */
     @Override
     protected IntegrationResponse execute(SimpleConfiguration integrationConfiguration, SimpleConfiguration connectedSystemConfiguration, ExecutionContext executionContext) {
         //get the values
@@ -80,12 +123,12 @@ public class BulkWriteIntegrationTemplate extends MongoDbIntegrationTemplate {
             if (StringUtils.isEmpty(collectionName)) throw new Exception("Invalid value for collection. Collection cannot be null or empty.");
             if (StringUtils.isEmpty(bulkWriteJson)) throw new Exception("Invalid value for Bulk Write Operations JSON. At least one operation must be provided.");
         } catch (Exception e) {
-            LOGGER.error("Invalid configuration. "+e.getLocalizedMessage(), e);
+            LOGGER.error("Invalid configuration. ".concat(e.getLocalizedMessage()), e);
             return csUtil.buildApiExceptionError(e);
         }
 
         this.setupExecute(API_METHOD_NAME, integrationConfiguration, connectedSystemConfiguration, executionContext);
-        BulkWriteOperation bulkWriteOperation = null;
+        BulkWriteOperation bulkWriteOperation;
         try {
             bulkWriteOperation = new BulkWriteOperation(
                     integrationConfiguration.getValue(DATABASE),
@@ -136,5 +179,4 @@ public class BulkWriteIntegrationTemplate extends MongoDbIntegrationTemplate {
 
         return csUtil.buildSuccess();
     }
-
 }

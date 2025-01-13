@@ -22,9 +22,39 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Provides a set of utility methods for converting Appian {@link TypedValue} instances into MongoDB-compatible
+ * JSON and {@link Document} objects. This class includes helper functions for building
+ * MongoDB query expressions, validating JSON, and handling special Appian data types such as
+ * {@link com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Binary},
+ * {@link com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.ObjectId}, and
+ * {@link com.appiancorp.solutionsconsulting.plugin.mongodb.datatypes.Point}.
+ *
+ * <p>Many of these methods leverage the Appian {@link TypeService} to properly interpret
+ * and transform CDT or Dictionary structures into JSON-like formats suitable for MongoDB.
+ * Additionally, it handles date/time and boolean nuances specific to Appian typed values.</p>
+ *
+ * <p>Usage typically involves calling static methods like:
+ * <ul>
+ *   <li>{@link #typedValueToDocument(TypeService, TypedValue)} to convert a typed value into a {@link Document}</li>
+ *   <li>{@link #buildBasicOperator(TypeService, String, TypedValue)} to build a MongoDB operator expression</li>
+ *   <li>{@link #isValidJson(String)} to verify JSON validity</li>
+ * </ul>
+ * </p>
+ *
+ * @author Rob Munroe
+ * @since 1.0
+ */
 public class MongoDbJsonHelper {
-
-
+    /**
+     * Converts an Appian {@link TypedValue} (representing a Dictionary/CDT) into a MongoDB {@link Document}.
+     *
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param typedValue   the typed value containing a Dictionary or CDT
+     * @return a {@link Document} that can be inserted into MongoDB
+     * @throws JAXBException   if an error occurs during XML-to-Java binding
+     * @throws ParseException  if an error occurs while parsing date/time values
+     */
     public static Document typedValueToDocument(TypeService typeService, TypedValue typedValue) throws JAXBException, ParseException {
         AppianTypeFactory typeFactory = AppianTypeFactory.newInstance(typeService);
 
@@ -99,11 +129,15 @@ public class MongoDbJsonHelper {
     }
 
     /**
-     * Handler for accepting either a Dictionary (which will be toJson()'d) or a JSON string
+     * Determines whether the incoming typed value is a Dictionary/CDT or a JSON string.
+     * If it's a Dictionary/CDT, converts it to JSON via {@link #typedValueToDocument(TypeService, TypedValue)}.
+     * Otherwise, it assumes the value is already JSON and returns it as-is.
      *
-     * @param typeService
-     * @param typedValue
-     * @return
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param typedValue   the typed value which might contain a Dictionary/CDT or a JSON string
+     * @return a JSON string representing the typed value
+     * @throws JAXBException   if an error occurs during XML-to-Java binding
+     * @throws ParseException  if an error occurs while parsing date/time values
      */
     public static String getJsonValueFromDictOrString(TypeService typeService, TypedValue typedValue) throws JAXBException, ParseException {
         if (AppianTypeHelper.isListDictOrCdt(typeService, typedValue)) {
@@ -115,19 +149,26 @@ public class MongoDbJsonHelper {
 
 
     /**
-     * Returns the value ready for insertion as the value of a JSON filter
+     * Converts an {@code Object} into a JSON-ready string. Depending on the type, it may wrap
+     * values in quotes (for example, Strings) or format them for MongoDB queries (e.g., dates).
      *
-     * @param valObject The value of the underlying TypedValue (e.g. myTypedValue.getValue())
-     * @return value ready for insertion as the value of a JSON filter
+     * @param valObject  the object to be converted to a JSON-friendly string
+     * @return a string version of the {@code valObject}, safe for JSON usage
      */
     public static String getJsonValueFromObject(Object valObject) {
         return getJsonValueFromObject(valObject, false);
     }
 
 
+    /**
+     * Converts an {@code Object} into a JSON-ready string. Depending on the type, it may wrap
+     * values in quotes (for example, Strings) or format them for MongoDB queries (e.g., dates).
+     *
+     * @param valObject  the object to be converted to a JSON-friendly string
+     * @return a string version of the {@code valObject}, safe for JSON usage
+     */
     public static String getJsonValueFromObject(Object valObject, Boolean noQuotes) {
         String valString;
-        Long typeNum;
 
         // If we get here with a TypedValue, pull the value out into valObject
         if (valObject instanceof TypedValue) {
@@ -171,15 +212,26 @@ public class MongoDbJsonHelper {
 
 
     /**
-     * Returns the value ready for insertion as the value of a JSON filter
+     * Extracts the underlying value from an Appian {@link TypedValue} and converts it
+     * into a JSON-ready string.
      *
-     * @param value The TypedValue
-     * @return value ready for insertion as the value of a JSON filter
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param value        the typed value to be converted into JSON
+     * @return a string that can be used in a JSON expression
      */
     public static String getJsonValueFromTypedValue(TypeService typeService, TypedValue value) {
         return getJsonValueFromTypedValue(typeService, value, false);
     }
 
+    /**
+     * Similar to {@link #getJsonValueFromTypedValue(TypeService, TypedValue)}, but offers the option to
+     * suppress surrounding quotes for strings.
+     *
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param value        the typed value to be converted into JSON
+     * @param noQuotes     if {@code true}, strings are returned without surrounding quotes
+     * @return a string that can be used in a JSON expression
+     */
     public static String getJsonValueFromTypedValue(TypeService typeService, TypedValue value, Boolean noQuotes) {
         if (typeService.getDatatypeProperties(value.getInstanceType()).getName().equals("Boolean")) {
             // Special case for handling booleans. Appian returns them as a Long, 1 if true.
@@ -197,6 +249,13 @@ public class MongoDbJsonHelper {
     }
 
 
+    /**
+     * Converts an array of {@link TypedValue} objects into a list of JSON-friendly strings.
+     *
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param array        an array of typed values to be converted
+     * @return a list of string representations that can be used in a JSON expression
+     */
     public static List<String> getJsonValuesFromArray(TypeService typeService, TypedValue[] array) {
         List<String> jsonValues = new ArrayList<>();
 
@@ -212,19 +271,61 @@ public class MongoDbJsonHelper {
         return jsonValues;
     }
 
+
+    /**
+     * Builds a basic MongoDB operator expression using a given operator (e.g. "$eq") and value,
+     * optionally omitting quotes for strings.
+     *
+     * @param operator  the MongoDB operator (e.g., "$eq", "$gt")
+     * @param value     the value to associate with the operator
+     * @param noQuotes  if {@code true}, strings are returned without surrounding quotes
+     * @return a JSON string representing the operator usage, e.g. {@code { "$eq": "someValue" }}
+     */
     public static String buildBasicOperator(String operator, Object value, Boolean noQuotes) {
         return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value, noQuotes) + " }";
     }
 
+
+    /**
+     * Builds a basic MongoDB operator expression using a given operator (e.g. "$eq") and value.
+     *
+     * @param operator  the MongoDB operator (e.g., "$eq", "$gt")
+     * @param value     the value to associate with the operator
+     * @return a JSON string representing the operator usage, e.g. {@code { "$eq": "someValue" }}
+     */
     public static String buildBasicOperator(String operator, Object value) {
         return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromObject(value) + " }";
     }
 
 
+    /**
+     * Builds a basic MongoDB operator expression for a typed value using a given operator.
+     * This may also handle nested Dictionary/CDT conversions.
+     *
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param operator     the MongoDB operator (e.g., "$eq", "$gt")
+     * @param value        the typed value to associate with the operator
+     * @return a JSON string representing the operator usage, e.g. {@code { "$eq": "someValue" }}
+     * @throws JAXBException   if an error occurs during XML-to-Java binding
+     * @throws ParseException  if an error occurs while parsing date/time values
+     */
     public static String buildBasicOperator(TypeService typeService, String operator, TypedValue value) throws JAXBException, ParseException {
         return buildBasicOperator(typeService, operator, value, false);
     }
 
+
+    /**
+     * Builds a basic MongoDB operator expression for a typed value using a given operator,
+     * optionally omitting quotes for strings. This may also handle nested Dictionary/CDT conversions.
+     *
+     * @param typeService  the Appian TypeService used to interpret typed values
+     * @param operator     the MongoDB operator (e.g., "$eq", "$gt")
+     * @param value        the typed value to associate with the operator
+     * @param noQuotes     if {@code true}, strings are returned without surrounding quotes
+     * @return a JSON string representing the operator usage, e.g. {@code { "$eq": "someValue" }}
+     * @throws JAXBException   if an error occurs during XML-to-Java binding
+     * @throws ParseException  if an error occurs while parsing date/time values
+     */
     public static String buildBasicOperator(TypeService typeService, String operator, TypedValue value, Boolean noQuotes) throws JAXBException, ParseException {
         if (AppianTypeHelper.isListDictOrCdt(typeService, value))
             return "{ \"" + operator + "\": " + MongoDbJsonHelper.getJsonValueFromDictOrString(typeService, value) + " }";
@@ -233,6 +334,15 @@ public class MongoDbJsonHelper {
     }
 
 
+    /**
+     * Builds a MongoDB operator expression for an array of JSON values, optionally
+     * enclosing each array element in braces.
+     *
+     * @param operator             the MongoDB operator (e.g. "$and", "$or")
+     * @param jsonValues           the list of JSON values to be combined
+     * @param encloseEachInBraces  if {@code true}, wraps each element in curly braces
+     * @return a JSON string, e.g. {@code { "$and": [ { ... }, { ... } ] }}
+     */
     public static String buildArrayOperator(String operator, List<String> jsonValues, Boolean encloseEachInBraces) {
         if (encloseEachInBraces)
             for (int i = 0; i < jsonValues.size(); i++) {
@@ -244,6 +354,12 @@ public class MongoDbJsonHelper {
     }
 
 
+    /**
+     * Converts an array of {@link Point} objects into a single JSON array string.
+     *
+     * @param array  the array of {@link Point} objects
+     * @return a JSON array string representing the points, e.g. {@code [ { "type": "Point", ... }, ... ]}
+     */
     public static String geoPointArrayToString(Point[] array) {
         List<String> pointStrings = new ArrayList<>();
         for (Point point : array) {
@@ -253,6 +369,13 @@ public class MongoDbJsonHelper {
     }
 
 
+    /**
+     * Checks whether the given JSON string is valid by attempting to parse it into a
+     * BSON document.
+     *
+     * @param json  the JSON string to validate
+     * @return true if the JSON is valid BSON, false otherwise
+     */
     public static boolean isValidJson(String json) {
         try {
             BsonDocument bsonDocument = BsonDocument.parse(json);
